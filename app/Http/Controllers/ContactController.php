@@ -71,7 +71,7 @@ class ContactController extends Controller
         if (empty($type) || ! in_array($type, $types)) {
             return redirect()->back();
         }
-
+// git commit
         if (request()->ajax()) {
             if ($type == 'supplier') {
                 return $this->indexSupplier();
