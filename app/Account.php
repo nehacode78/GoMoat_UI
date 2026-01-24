@@ -32,7 +32,7 @@ class Account extends Model
             $locations = BusinessLocation::where('business_id', $business_id)
                             ->whereIn('id', $permitted_locations)
                             ->get();
-
+//bsdsdsds jsdjd
             foreach ($locations as $location) {
                 if (! empty($location->default_payment_accounts)) {
                     $default_payment_accounts = json_decode($location->default_payment_accounts, true);
