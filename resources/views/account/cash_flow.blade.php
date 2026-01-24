@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', __('lang_v1.cash_flow'))
-
+// new changes
 @section('content')
 
 <!-- Content Header (Page header) -->
