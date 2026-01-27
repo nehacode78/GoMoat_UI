@@ -20,6 +20,14 @@
 <html class="tw-bg-white tw-scroll-smooth" lang="{{ app()->getLocale() }}"
     dir="{{ in_array(session()->get('user.language', config('app.locale')), config('constants.langs_rtl')) ? 'rtl' : 'ltr' }}">
 <head>
+
+
+     <script>
+          if (localStorage.getItem("upos_sidebar_collapse") === "true") {
+              document.documentElement.classList.add("sidebar-collapse");
+          }
+      </script>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -151,6 +159,18 @@
 
     </style>
 
+<style>
+  .header-white-bg {
+      background: #ffffff !important;
+  }
+
+  .header-white-bg {
+      transition: none !important;
+  }
+
+</style>
+
+
 
     @include('layouts.partials.css')
     
@@ -242,9 +262,11 @@
        -->
 
 
-   <button type="button"
-     class="sidebar-edge-toggle groww-toggle side-bar-collapse"
-     aria-label="Toggle Sidebar">
+ <button type="button"
+   class="sidebar-edge-toggle groww-toggle side-bar-collapse"
+   aria-label="Toggle Sidebar"
+   style="visibility:hidden">
+
 
 
        <!-- ARROW ICON (OPEN STATE) -->
@@ -304,6 +326,19 @@
         
         {{-- Module JS --}}
         @include('layouts.module-assets')
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.body.classList.remove('preload');
+
+                const toggle = document.querySelector('.sidebar-edge-toggle');
+                if (toggle) {
+                    toggle.style.visibility = 'visible';
+                }
+            });
+        </script>
+
         <div class="modal fade view_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
 
         @if (!empty($__additional_views) && is_array($__additional_views))
@@ -408,7 +443,8 @@
        justify-content: center;
 
        box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-       transition: all 0.25s ease;
+      transition: transform 0.25s ease, left 0.25s ease;
+
    }
 
    /* Sidebar collapsed */
@@ -422,6 +458,15 @@
       width: 16px;
       height: 16px;
     }
+
+/* 🔒 Prevent SVG from ever scaling */
+.sidebar-edge-toggle svg,
+.sidebar-edge-toggle svg path {
+    vector-effect: non-scaling-stroke !important;
+    transform-box: fill-box !important;
+    transform-origin: center !important;
+}
+
 
     /* Hover effect */
     .sidebar-edge-toggle:hover {
@@ -534,14 +579,16 @@
         justify-content: center;
         box-shadow: 0 6px 16px rgba(0,0,0,0.18);
         border: 1px solid #e5e7eb;
-        transition: all 0.3s ease;
+    transition: transform 0.25s ease, left 0.25s ease;
+
         cursor: pointer;
     }
 
     .sidebar-edge-toggle svg {
         width: 16px;
         height: 16px;
-        transition: transform 0.3s ease;
+       transition: transform 0.25s ease, left 0.25s ease;
+
     }
 
     .sidebar-edge-toggle:hover {
@@ -665,50 +712,60 @@ body.sidebar-collapse #main-content {
 
 /* ================= SIDEBAR BRAND — MATCH HEADER HEIGHT ================= */
 
-.sidebar-brand {
-    display: flex;
-    align-items: center;          /* TRUE vertical center */
-    justify-content: center;
-    gap: 10px;
+/* ================= SIDEBAR BRAND — MATCH HEADER HEIGHT (FINAL) ================= */
 
-    width: 100%;
-    height: 30px;                 /* SAME AS HEADER */
-    padding: 0 16px;              /* horizontal only */
+/* ================= SIDEBAR BRAND — COMPACT (FINAL) ================= */
+
+.sidebar-brand {
+    height: 56px;              /* REDUCED HEIGHT */
+    min-height: 56px;
+
+    display: flex;
+    align-items: center;       /* vertical center */
+    justify-content: center;
+
+    gap: 8px;
+    padding: 0 14px;
 
     background-color: #19267a;
     color: #ffffff;
 
     border-bottom: 1px solid rgba(255,255,255,0.25);
-    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.3);
 
     box-sizing: border-box;
-    text-decoration: none;
-    padding-bottom: 28px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-/* .sidebar-brand svg { */
-/*     width: 25px; */
-/*     height: 25px; */
-/*      padding-bottom:15px; */
-/* } */
+/* Logo — LOCKED SIZE */
+.sidebar-logo-icon,
+.sidebar-brand img {
+    width: 24px !important;
+    height: 24px !important;
+    max-width: 24px !important;
+    max-height: 24px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 
-.sidebar-brand .side-bar-heading {
-    margin: 0;
-    font-size: 18px;
+/* Brand text */
+.sidebar-logo-text {
+    font-size: 14.5px;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    line-height: 1;              /* prevents text drop */
-    padding-bottom:20px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-body.sidebar-collapse .sidebar-brand .side-bar-heading {
-    display: none;
-}
-
+/* Collapse → icon only */
 body.sidebar-collapse .sidebar-brand {
     justify-content: center;
 }
 
+body.sidebar-collapse .sidebar-logo-text {
+    display: none !important;
+}
 
 
 
@@ -900,9 +957,6 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
 }
 
 
-
-
-
 /* ================= SIDEBAR BRAND — COLLAPSED CLEAN ================= */
 
 /* Hide ALL text nodes when collapsed */
@@ -921,12 +975,93 @@ body.sidebar-collapse .sidebar-brand img {
     margin: auto;
 }
 
+    </style>
 
 
 
+<style>
+
+    /* ===== SIDEBAR BRAND ===== */
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        height: 64px;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-top: -40px;
+
+    }
+
+    /* ICON */
+/*     .sidebar-logo-icon { */
+/*         width: 28px; */
+/*         height: 28px; */
+/*         flex-shrink: 0; */
+/*     } */
+
+/* ===== FIX: Prevent sidebar logo resize on page load ===== */
+
+.sidebar-brand img,
+.sidebar-logo-icon {
+    width: 28px !important;
+    height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    object-fit: contain;
+}
 
 
 
+/* Prevent logo reflow before sidebar-collapse is applied */
+body.sidebar-mini .sidebar-brand img {
+    transform: scale(1) !important;
+}
+
+
+    /* TEXT */
+    .sidebar-logo-text {
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Green dot */
+    .sidebar-logo-text .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+    }
+
+    </style>
+
+
+<style>
+    /* ================= HEADER BUTTONS — NO FLASH ================= */
+
+    .header-white-bg .header-btn {
+        background: transparent !important;
+        color: #000000 !important;
+        border: none !important;
+        box-shadow: none !important;
+        transition: none !important;
+    }
+
+    .header-white-bg .header-btn svg {
+        color: #000000 !important;
+        stroke: #000000 !important;
+    }
+
+    /* Hover (optional subtle effect) */
+    .header-white-bg .header-btn:hover {
+        background: rgba(0,0,0,0.04);
+    }
 
     </style>
 
