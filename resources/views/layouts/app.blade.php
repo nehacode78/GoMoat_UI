@@ -494,7 +494,7 @@
       height: 16px;
     }
 
-/* 🔒 Prevent SVG from ever scaling */
+/*  Prevent SVG from ever scaling */
 .sidebar-edge-toggle svg,
 .sidebar-edge-toggle svg path {
     vector-effect: non-scaling-stroke !important;
