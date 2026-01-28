@@ -1,19 +1,9 @@
 <!-- Left side column. contains the logo and sidebar -->
 <!--<aside class="side-bar tw-relative tw-hidden tw-h-full tw-bg-white tw-w-64 xl:tw-w-64 lg:tw-flex lg:tw-flex-col tw-shrink-0">-->
 
-<aside
-  class="main-sidebar side-bar
-         tw-fixed tw-top-0 tw-left-0
-         tw-h-screen tw-w-64
-         tw-bg-white
-         lg:tw-flex lg:tw-flex-col
-         tw-z-40
-         tw-shrink-0
-         tw-overflow-hidden">
-
+<aside class="main-sidebar side-bar tw-fixed tw-top-0 tw-left-0 tw-h-screen tw-w-64 tw-bg-white lg:tw-flex lg:tw-flex-col tw-z-40 tw-shrink-0">
 
     <!--  Business Header -->
-
 
          <!--
          <a href="{{ route('home') }}"
@@ -45,7 +35,6 @@
                        alt="Logo Icon" />
          -->
 
-
          {{-- FULL LOGO / NAME --}}
          <span class="sidebar-logo-text">
              {{ Session::get('business.name') }}
@@ -53,11 +42,6 @@
          </span>
 
      </a>
-
-
-
-
-
 
 
     <!--  Scrollable Menu -->

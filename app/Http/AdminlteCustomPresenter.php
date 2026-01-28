@@ -15,7 +15,7 @@ class AdminlteCustomPresenter extends Presenter
 //     }
 public function getOpenTagWrapper()
 {
-    return '<div class="tw-flex-1 tw-p-3 tw-space-y-3 tw-overflow-y-auto"
+    return '<div class="tw-flex-1 tw-p-3 tw-space-y-3"
              style="max-height: calc(100vh - 3.75rem);" id="side-bar">' . PHP_EOL;
 }
 

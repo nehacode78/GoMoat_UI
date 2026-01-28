@@ -77,9 +77,6 @@
 
 
 
-
-
-
 <style>
     .tw-dw-btn.btn-brand {
         background-color: #19267a !important;
@@ -93,6 +90,11 @@
 
 
     <style>
+
+        .thetop {
+            overflow: hidden !important;
+        }
+
     /* Sidebar background */
     .thetop > aside.side-bar {
         background-color: #19267a !important;
@@ -111,13 +113,16 @@
         background-color: #ffffff1a !important;
     }
 
- /* Sidebar menu text uppercase */
-    .side-bar a,
-    .side-bar span,
-    .side-bar p,
-    .side-bar li {
-        text-transform: uppercase;
-    }
+ /* MAIN sidebar menu → UPPERCASE only */
+ .side-bar > .sidebar-scroll > ul > li > a > span {
+     text-transform: uppercase;
+     letter-spacing: 0.04em;
+ }
+ /* Submenu text → normal case */
+ .side-bar .chiled a span,
+ .side-bar .panel-collapse a span {
+     text-transform: none !important;
+ }
 
     </style>
 
@@ -171,12 +176,45 @@
 </style>
 
 
+<style>
+  /* ===== CRITICAL SIDEBAR BRAND — PREVENT LOAD SHIFT ===== */
+
+  .sidebar-brand {
+      height: 56px;
+      min-height: 56px;
+      max-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 14px;
+      background-color: #19267a;
+      box-sizing: border-box;
+      overflow: hidden;
+      white-space: nowrap;
+  }
+
+  .sidebar-brand img {
+      width: 24px;
+      height: 24px;
+      max-width: 24px;
+      max-height: 24px;
+      object-fit: contain;
+      flex-shrink: 0;
+  }
+
+  .sidebar-logo-text {
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+  }
+</style>
 
     @include('layouts.partials.css')
-    
-
     @include('layouts.partials.extracss')
-
     @yield('css')
 
 </head>
@@ -192,7 +230,7 @@
       @endif
   @endif">
 
-    <div class="tw-flex thetop tw-h-screen">
+    <div class="tw-flex thetop">
 
         <script type="text/javascript">
             if (localStorage.getItem("upos_sidebar_collapse") == 'true') {
@@ -243,7 +281,6 @@
 
 
        <!--
-
        <button type="button"
                                          class="side-bar-collapse  sidebar-edge-toggle tw-hidden lg:tw-inline-flex tw-items-center tw-justify-center tw-text-sm tw-font-medium tw-text-white tw-transition-all tw-duration-200 tw-bg-@if(!empty(session('business.theme_color'))){{session('business.theme_color')}}@else{{'primary'}}@endif-800 hover:tw-bg-@if(!empty(session('business.theme_color'))){{session('business.theme_color')}}@else{{'primary'}}@endif-700 tw-p-1.5 tw-rounded-lg tw-ring-1 hover:tw-text-white tw-ring-white/10">
                                          <span class="tw-sr-only">
@@ -288,7 +325,7 @@
       </div>
 
       {{-- SCROLLABLE CONTENT --}}
-      <div class="tw-flex-1 tw-overflow-y-auto" id="scrollable-container">
+      <div class="tw-flex-1" id="scrollable-container">
           @yield('content')
       </div>
 
@@ -416,8 +453,6 @@
 
     /* ================= GROWw-STYLE SIDEBAR EDGE TOGGLE ================= */
 
-   /* ================= TOGGLE — HALF OUTSIDE SIDEBAR, CENTERED ON DIVIDER ================= */
-
    .sidebar-edge-toggle {
        position: fixed;
 
@@ -521,7 +556,6 @@
    }
 
 
-
    /* But keep icons */
    body.sidebar-collapse .sidebar-scroll svg {
        opacity: 1;
@@ -609,11 +643,23 @@
 /* ================= ICON-ONLY SIDEBAR (FINAL) ================= */
 
 /* Sidebar width */
+/* .side-bar { */
+/*     width: 256px; */
+/*     min-width: 64px; */
+/*     transition: width 0.3s ease; */
+/* } */
+
 .side-bar {
     width: 256px;
-    min-width: 64px;
-    transition: width 0.3s ease;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
 }
+
+body.sidebar-collapse .side-bar {
+    transform: translateX(-192px); /* 256 - 64 */
+}
+
+
 
 /* Collapsed width */
 body.sidebar-collapse .side-bar {
@@ -690,13 +736,29 @@ body.sidebar-collapse .chiled {
 }
 
 
+.sidebar-scroll {
+    height: calc(100vh - 56px); /* subtract brand height */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
 /* ================= CONTENT OFFSET FOR FIXED SIDEBAR ================= */
 
 /* Default (sidebar open) */
 #main-content {
     margin-left: 256px;
     transition: margin-left 0.3s ease;
+     height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+
 }
+
+
+
+
 
 /* Collapsed sidebar */
 body.sidebar-collapse #main-content {
@@ -704,15 +766,6 @@ body.sidebar-collapse #main-content {
 }
 
 
-
-
-
-
-/* ================= SIDEBAR BRAND CENTER FIX ================= */
-
-/* ================= SIDEBAR BRAND — MATCH HEADER HEIGHT ================= */
-
-/* ================= SIDEBAR BRAND — MATCH HEADER HEIGHT (FINAL) ================= */
 
 /* ================= SIDEBAR BRAND — COMPACT (FINAL) ================= */
 
@@ -879,21 +932,22 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
 }
 
 
-
-
-
 </style>
 
 
 
+<style>
+    /* Lock sidebar height permanently */
+    .main-sidebar,
+    .side-bar {
+        height: 100vh;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+    </style>
+
 
 <style>
-/* ================= HEADER RIGHT TABS — CLEAN STYLE ================= */
-
-
-
-
-/* ================= HEADER CLEAN TABS (FINAL) ================= */
 
 /* ================= HEADER RIGHT TABS — CLEAN (NO BOX) ================= */
 

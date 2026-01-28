@@ -65,6 +65,8 @@ body {
 .layout-top-nav .main-footer {
   margin-left: 0;
 }
+
+
 @media (max-width: 767px) {
   .content-wrapper,
   .main-footer {
