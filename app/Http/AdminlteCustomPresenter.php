@@ -171,7 +171,7 @@ public function getMenuWithDropDownWrapper($item)
 
         if (count($item->getChilds()) > 0) {
             
-            $children .= '<div class=" chiled tw-relative tw-mt-2 tw-mb-4 tw-pl-11" style="display:' . $displayStyle . '">
+            $children .= '<div class=" chiled  tw-relative tw-mt-2 tw-mb-4 tw-pl-11" style="display:' . $displayStyle . '">
             <div class="tw-absolute tw-inset-y-0 tw-w-px tw-h-full  tw-left-5"></div>
             <div class="tw-space-y-3.5">';
 

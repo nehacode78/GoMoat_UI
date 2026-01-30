@@ -287,7 +287,7 @@
                                               </svg>
                                           </div>
 
-                                          <div>
+                                          <div class="tw-flex-1 tw-min-w-0">
                                               <p class="tw-text-sm tw-font-medium tw-text-gray-500">
                                                   {{ __('home.purchase_due') }}
                                               </p>
@@ -1066,12 +1066,7 @@
 .first-highlight-green {
     border: 1.5px solid #bbf7d0;           /* light green border */
     border-radius: 14px;
-    background: linear-gradient(
-        to bottom,
-        #ecfdf5 0%,      /* very light green */
-        #f7fdf9 35%,
-        #ffffff 100%
-    );
+    background-image: radial-gradient(163.28% 472.7% at -2.77% -69.32%, #acd0a2, #a9e4a2);
     box-shadow: 0 8px 24px rgba(34, 197, 94, 0.10); /* green glow */
 }
 

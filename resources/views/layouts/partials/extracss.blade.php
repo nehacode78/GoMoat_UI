@@ -895,3 +895,33 @@
 
     </style>
 
+
+<style>
+    /* ================= DASHBOARD CARD: TEXT LEFT, ICON RIGHT ================= */
+
+    /* Target only dashboard cards */
+    .dashboard-highlight .tw-flex,
+    .first-highlight-green .tw-flex {
+        flex-direction: row-reverse;
+    }
+
+    /* Space between text & icon */
+    .dashboard-highlight .tw-flex,
+    .first-highlight-green .tw-flex {
+        gap: 16px;
+    }
+
+    /* Align text nicely on left */
+    .dashboard-highlight .tw-flex > div:last-child,
+    .first-highlight-green .tw-flex > div:last-child {
+        text-align: left;
+    }
+
+    /* Keep icon perfectly centered */
+    .dashboard-highlight .tw-flex > div:first-child,
+    .first-highlight-green .tw-flex > div:first-child {
+        flex-shrink: 0;
+    }
+
+    </style>
+

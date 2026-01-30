@@ -432,6 +432,7 @@
     #scrollable-container{
         position:relative;
     }
+
 </style>
 
 <style>
@@ -453,73 +454,124 @@
 
     /* ================= GROWw-STYLE SIDEBAR EDGE TOGGLE ================= */
 
-   .sidebar-edge-toggle {
-       position: fixed;
+/*    .sidebar-edge-toggle { */
+/*        position: fixed; */
 
-       /* Sidebar open width */
-       left: 256px;
+/*         *//* Sidebar open width */
+/*        left: 256px; */
 
-       /* Center vertically on divider line */
-       top: 30px; /* same as .sidebar-brand height */
-
-       transform: translate(-50%, -50%);
-
-       z-index: 99999;
-
-       width: 34px;
-       height: 34px;
-       border-radius: 9999px;
-
-       background: #ffffff;
-       border: 1px solid #e5e7eb;
-
-       display: flex;
-       align-items: center;
-       justify-content: center;
-
-       box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-      transition: transform 0.25s ease, left 0.25s ease;
-
-   }
-
-   /* Sidebar collapsed */
-   body.sidebar-collapse .sidebar-edge-toggle {
-       left: 64px;
-   }
+/*         *//* Center vertically on divider line */
+/*        top: 30px;  *//* same as .sidebar-brand height */
 
 
-    /* Icon size */
-    .sidebar-edge-toggle svg {
-      width: 16px;
-      height: 16px;
-    }
+
+/*        z-index: 99999; */
+
+/*        width: 34px; */
+/*        height: 34px; */
+/*        border-radius: 9999px; */
+
+/*        background: #ffffff; */
+/*        border: 1px solid #e5e7eb; */
+
+/*        display: flex; */
+/*        align-items: center; */
+/*        justify-content: center; */
+
+/*        box-shadow: 0 6px 16px rgba(0,0,0,0.18); */
+/*       transition: transform 0.25s ease, left 0.25s ease; */
+/*    } */
+
+/*     *//* Sidebar collapsed */
+/*    body.sidebar-collapse .sidebar-edge-toggle { */
+/*        left: 64px; */
+/*    } */
+
+
+/*      *//* Icon size */
+/*     .sidebar-edge-toggle svg { */
+/*       width: 16px; */
+/*       height: 16px; */
+/*     } */
 
 /*  Prevent SVG from ever scaling */
-.sidebar-edge-toggle svg,
-.sidebar-edge-toggle svg path {
-    vector-effect: non-scaling-stroke !important;
-    transform-box: fill-box !important;
-    transform-origin: center !important;
+/* .sidebar-edge-toggle svg, */
+/* .sidebar-edge-toggle svg path { */
+/*     vector-effect: non-scaling-stroke !important; */
+/*     transform-box: fill-box !important; */
+/*     transform-origin: center !important; */
+/* } */
+
+/*      *//* Hover effect */
+/*     .sidebar-edge-toggle:hover { */
+/*       box-shadow: 0 8px 22px rgba(0,0,0,0.25); */
+/*       transform: translateX(-50%) scale(1.05); */
+/*     } */
+
+/*      *//* ================= COLLAPSED STATE ================= */
+
+/*     body.sidebar-collapse .sidebar-edge-toggle { */
+/*       left: 64px;                  *//* collapsed sidebar width */
+/*       transform: translateX(-50%); */
+/*     } */
+
+/*      *//* Flip arrow when collapsed */
+/*     body.sidebar-collapse .sidebar-edge-toggle svg { */
+/*       transform: rotate(180deg); */
+/*     } */
+
+/* ================= FIXED SIDEBAR TOGGLE (NO JUMP) ================= */
+
+.sidebar-edge-toggle {
+    position: fixed;
+
+    /* 🔒 LOCK vertical position */
+    top: 84px;
+
+    /* Horizontal positioning only */
+    left: 256px;
+    transform: translateX(-50%);
+
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    color: #19267a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    cursor: pointer;
+
+    /* ONLY LEFT animation */
+    transition: left 0.25s ease;
+}
+
+/* Collapsed */
+body.sidebar-collapse .sidebar-edge-toggle {
+    left: 64px;
 }
 
 
-    /* Hover effect */
-    .sidebar-edge-toggle:hover {
-      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
-      transform: translateX(-50%) scale(1.05);
-    }
+/* Arrow animation */
+.sidebar-edge-toggle svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.25s ease;
+}
 
-    /* ================= COLLAPSED STATE ================= */
+body:not(.sidebar-collapse) .sidebar-edge-toggle svg {
+    transform: rotate(180deg);
+}
 
-    body.sidebar-collapse .sidebar-edge-toggle {
-      left: 64px;                 /* collapsed sidebar width */
-      transform: translateX(-50%);
-    }
+body.sidebar-collapse .sidebar-edge-toggle svg {
+    transform: rotate(0deg);
+}
 
-    /* Flip arrow when collapsed */
-    body.sidebar-collapse .sidebar-edge-toggle svg {
-      transform: rotate(180deg);
-    }
 
     </style>
 
@@ -656,8 +708,9 @@
 }
 
 body.sidebar-collapse .side-bar {
-    transform: translateX(-192px); /* 256 - 64 */
+    transform: translateX(-192px);
 }
+
 
 
 
@@ -751,13 +804,10 @@ body.sidebar-collapse .chiled {
     margin-left: 256px;
     transition: margin-left 0.3s ease;
      height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
 
 }
-
-
-
 
 
 /* Collapsed sidebar */
@@ -1117,6 +1167,43 @@ body.sidebar-mini .sidebar-brand img {
         background: rgba(0,0,0,0.04);
     }
 
+    </style>
+
+<style>
+    /* ================= FIX: Notification Template tab style ================= */
+    /* Target ONLY Notification Template item */
+    .side-bar a[href*="notification"],
+    .side-bar li:has(a[href*="notification"]) > a {
+        background: transparent !important;
+        border-radius: 0 !important;
+        padding-left: inherit !important;
+        padding-right: inherit !important;
+    }
+
+    /* Make text style SAME as other tabs */
+    .side-bar a[href*="notification"] span{
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.04em !important;
+        font-size: 12px !important;
+    }
+
+    /* Remove pill / badge look if any */
+    .side-bar a[href*="notification"] .badge,
+    .side-bar a[href*="notification"] .label {
+        display: none !important;
+    }
+
+
+.form-shift{
+margin-left: 80px;
+}
+.form-shift1{
+margin-left: 40px;
+}
+.left-shift{
+margin-left:50px;
+}
     </style>
 
 

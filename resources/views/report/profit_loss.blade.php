@@ -28,7 +28,7 @@
             </div>
         
             <div class="col-md-4 col-xs-12">
-                <div class="form-group">
+                <div class="form-group form-shift">
                     <div class="input-group">
                         <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white tw-dw-btn-sm" id="profit_loss_date_filter">
                             <span>
