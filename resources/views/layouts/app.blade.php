@@ -303,10 +303,7 @@
    class="sidebar-edge-toggle groww-toggle side-bar-collapse"
    aria-label="Toggle Sidebar"
    style="visibility:hidden">
-
-
-
-       <!-- ARROW ICON (OPEN STATE) -->
+       <!-- ARROW ICON(OPEN STATE) -->
        <svg class="toggle-arrow" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2"
@@ -314,10 +311,7 @@
            <path d="M15 18l-6-6 6-6"/>
        </svg>
 
-
-
    </button>
-
 
       {{-- VUE --}}
       <div id="app">
@@ -336,11 +330,8 @@
 
   </main>
 
-
         @include('home.todays_profit_modal')
         <!-- /.content-wrapper -->
-
-
 
         <audio id="success-audio">
             <source src="{{ asset('/audio/success.ogg?v=' . $asset_v) }}" type="audio/ogg">
@@ -524,29 +515,22 @@
 
 .sidebar-edge-toggle {
     position: fixed;
-
-    /* 🔒 LOCK vertical position */
+    /* LOCK vertical position */
     top: 84px;
-
     /* Horizontal positioning only */
     left: 256px;
     transform: translateX(-50%);
-
     width: 34px;
     height: 34px;
     border-radius: 9999px;
-
     background: #ffffff;
     border: 1px solid #e5e7eb;
     color: #19267a;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     box-shadow: 0 6px 16px rgba(0,0,0,0.18);
     cursor: pointer;
-
     /* ONLY LEFT animation */
     transition: left 0.25s ease;
 }
@@ -765,6 +749,7 @@ body.sidebar-collapse .chiled {
     display: flex !important;
 }
 
+
 /* Hide text only */
 .sidebar-mini.sidebar-collapse .sidebar-scroll span,
 .sidebar-mini.sidebar-collapse .side-bar-heading {
@@ -797,7 +782,6 @@ body.sidebar-collapse .chiled {
 
 
 
-/* ================= CONTENT OFFSET FOR FIXED SIDEBAR ================= */
 
 /* Default (sidebar open) */
 #main-content {
@@ -816,25 +800,18 @@ body.sidebar-collapse #main-content {
 }
 
 
-
 /* ================= SIDEBAR BRAND — COMPACT (FINAL) ================= */
-
 .sidebar-brand {
     height: 56px;              /* REDUCED HEIGHT */
     min-height: 56px;
-
     display: flex;
     align-items: center;       /* vertical center */
     justify-content: center;
-
     gap: 8px;
     padding: 0 14px;
-
     background-color: #19267a;
     color: #ffffff;
-
     border-bottom: 1px solid rgba(255,255,255,0.25);
-
     box-sizing: border-box;
     overflow: hidden;
     white-space: nowrap;
@@ -875,22 +852,17 @@ body.sidebar-collapse .sidebar-logo-text {
 
 
 /* ================= GROWW-STYLE SIDEBAR TOGGLE ================= */
-
 .groww-toggle {
     width: 34px;
     height: 34px;
     border-radius: 9999px;
-
     background: #ffffff;
     border: 1px solid #e5e7eb;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     box-shadow: 0 6px 16px rgba(0,0,0,0.18);
     cursor: pointer;
-
     transition: all 0.25s ease;
 }
 
@@ -932,11 +904,6 @@ body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
     transform: rotate(180deg);
 }
 
-
-
-
-
-
 /* ================= GROWW TOGGLE — ARROW ALWAYS VISIBLE ================= */
 
 .groww-toggle {
@@ -945,7 +912,6 @@ body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
     border-radius: 9999px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -960,14 +926,10 @@ body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
 .groww-toggle .toggle-arrow {
     width: 16px;
     height: 16px;
-
     color: #19267a;
-
     opacity: 1 !important;
     visibility: visible !important;
-
     display: block;
-
     transition: transform 0.3s ease;
 }
 
@@ -985,7 +947,6 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
 </style>
 
 
-
 <style>
     /* Lock sidebar height permanently */
     .main-sidebar,
@@ -995,7 +956,6 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
         overflow: hidden;
     }
     </style>
-
 
 <style>
 
@@ -1016,7 +976,7 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
 .header-white-bg summary {
     background: transparent !important;
     color: #000000 !important;
-    border: none !important;          /* 🔥 removed box */
+    border: none !important;          /*removed box */
     box-shadow: none !important;
 }
 
@@ -1204,6 +1164,9 @@ margin-left: 40px;
 .left-shift{
 margin-left:50px;
 }
+
+
+
     </style>
 
 
