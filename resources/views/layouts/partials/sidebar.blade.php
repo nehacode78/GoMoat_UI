@@ -29,11 +29,6 @@
              alt="Logo"
          />
 
-         <!--
-          <img src="{{ asset('img/erp.jpg') }}"
-                       class="sidebar-logo-icon"
-                       alt="Logo Icon" />
-         -->
 
          {{-- FULL LOGO / NAME --}}
          <span class="sidebar-logo-text">

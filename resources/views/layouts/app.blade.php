@@ -12,6 +12,7 @@
     @endphp
 @endif
 
+
 @php
     $whitelist = ['127.0.0.1', '::1'];
 @endphp
@@ -20,7 +21,6 @@
 <html class="tw-bg-white tw-scroll-smooth" lang="{{ app()->getLocale() }}"
     dir="{{ in_array(session()->get('user.language', config('app.locale')), config('constants.langs_rtl')) ? 'rtl' : 'ltr' }}">
 <head>
-
 
      <script>
           if (localStorage.getItem("upos_sidebar_collapse") === "true") {
@@ -32,16 +32,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         name="viewport">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>@yield('title') - {{ Session::get('business.name') }}</title>
 
-
     <style>
     /* ================= GLOBAL HEADER (HOME-LIKE) ================= */
 
-    /* ================= GLOBAL HEADER (HOME-LIKE) ================= */
 
     .global-white-header .tw-bg-gradient-to-r {
         background-color: #ffffff !important;
@@ -77,7 +76,7 @@
 
 
 
-<style>
+ <style>
     .tw-dw-btn.btn-brand {
         background-color: #19267a !important;
     }
@@ -155,6 +154,7 @@
     .side-bar .panel-collapse ul.nav.navbar-nav li.active > a::before {
         background-color: #0ea5e9;
     }
+
 
     /* Change TEXT color only (icon untouched) */
     .side-bar .panel-collapse ul.nav.navbar-nav li.active > a span {
