@@ -74,8 +74,6 @@
     </style>
 
 
-
-
  <style>
     .tw-dw-btn.btn-brand {
         background-color: #19267a !important;
@@ -511,52 +509,6 @@
 /*       transform: rotate(180deg); */
 /*     } */
 
-/* ================= FIXED SIDEBAR TOGGLE (NO JUMP) ================= */
-
-.sidebar-edge-toggle {
-    position: fixed;
-    /* LOCK vertical position */
-    top: 84px;
-    /* Horizontal positioning only */
-    left: 256px;
-    transform: translateX(-50%);
-    width: 34px;
-    height: 34px;
-    border-radius: 9999px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    color: #19267a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-    cursor: pointer;
-    /* ONLY LEFT animation */
-    transition: left 0.25s ease;
-}
-
-/* Collapsed */
-body.sidebar-collapse .sidebar-edge-toggle {
-    left: 64px;
-}
-
-
-/* Arrow animation */
-.sidebar-edge-toggle svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.25s ease;
-}
-
-body:not(.sidebar-collapse) .sidebar-edge-toggle svg {
-    transform: rotate(180deg);
-}
-
-body.sidebar-collapse .sidebar-edge-toggle svg {
-    transform: rotate(0deg);
-}
-
-
     </style>
 
 
@@ -649,8 +601,7 @@ body.sidebar-collapse .sidebar-edge-toggle svg {
         justify-content: center;
         box-shadow: 0 6px 16px rgba(0,0,0,0.18);
         border: 1px solid #e5e7eb;
-    transition: transform 0.25s ease, left 0.25s ease;
-
+        transition: transform 0.25s ease, left 0.25s ease;
         cursor: pointer;
     }
 
@@ -658,7 +609,6 @@ body.sidebar-collapse .sidebar-edge-toggle svg {
         width: 16px;
         height: 16px;
        transition: transform 0.25s ease, left 0.25s ease;
-
     }
 
     .sidebar-edge-toggle:hover {
@@ -673,7 +623,6 @@ body.sidebar-collapse .sidebar-edge-toggle svg {
     body.sidebar-collapse .sidebar-edge-toggle svg {
         transform: rotate(180deg);
     }
-
 
 
 /* ================= ICON-ONLY SIDEBAR (FINAL) ================= */
@@ -1041,10 +990,7 @@ body.sidebar-collapse .sidebar-brand img {
 
     </style>
 
-
-
 <style>
-
     /* ===== SIDEBAR BRAND ===== */
     .sidebar-brand {
         display: flex;
@@ -1055,7 +1001,6 @@ body.sidebar-collapse .sidebar-brand img {
         overflow: hidden;
         white-space: nowrap;
         margin-top: -40px;
-
     }
 
     /* ICON */
@@ -1067,6 +1012,7 @@ body.sidebar-collapse .sidebar-brand img {
 
 /* ===== FIX: Prevent sidebar logo resize on page load ===== */
 
+
 .sidebar-brand img,
 .sidebar-logo-icon {
     width: 28px !important;
@@ -1076,13 +1022,10 @@ body.sidebar-collapse .sidebar-brand img {
     object-fit: contain;
 }
 
-
-
 /* Prevent logo reflow before sidebar-collapse is applied */
 body.sidebar-mini .sidebar-brand img {
     transform: scale(1) !important;
 }
-
 
     /* TEXT */
     .sidebar-logo-text {
@@ -1095,6 +1038,7 @@ body.sidebar-mini .sidebar-brand img {
         transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
+
     /* Green dot */
     .sidebar-logo-text .status-dot {
         width: 8px;
@@ -1102,7 +1046,6 @@ body.sidebar-mini .sidebar-brand img {
         background: #22c55e;
         border-radius: 50%;
     }
-
     </style>
 
 

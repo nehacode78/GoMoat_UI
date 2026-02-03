@@ -35,7 +35,7 @@
 						{!! Form::select('expense_category_id', $expense_categories, null, ['class' => 'form-control select2', 'placeholder' => __('messages.please_select')]); !!}
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<div class="form-group">
 			            {!! Form::label('expense_sub_category_id', __('product.sub_category') . ':') !!}
 			              {!! Form::select('expense_sub_category_id', [],  null, ['placeholder' => __('messages.please_select'), 'class' => 'form-control select2']); !!}
