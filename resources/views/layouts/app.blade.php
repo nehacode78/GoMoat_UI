@@ -41,7 +41,6 @@
     <style>
     /* ================= GLOBAL HEADER (HOME-LIKE) ================= */
 
-
     .global-white-header .tw-bg-gradient-to-r {
         background-color: #ffffff !important;
         background-image: none !important;
@@ -70,7 +69,6 @@
     .global-white-header .tw-bg-gradient-to-r .tw-bg-white svg {
         color: #0f172a !important;
     }
-
     </style>
 
 
@@ -210,6 +208,16 @@
       gap: 6px;
   }
 </style>
+
+    <style>
+        :root {
+            --sidebar-width: 256px; /* OPEN */
+        }
+
+        body.sidebar-collapse {
+            --sidebar-width: 64px; /* COLLAPSED */
+        }
+    </style>
 
     @include('layouts.partials.css')
     @include('layouts.partials.extracss')
@@ -365,6 +373,8 @@
             });
         </script>
 
+
+
         <div class="modal fade view_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
 
         @if (!empty($__additional_views) && is_array($__additional_views))
@@ -418,9 +428,15 @@
         z-index: 20;
     }
 
-    #scrollable-container{
-        position:relative;
-    }
+/*     #scrollable-container{ */
+/*         position:relative; */
+/*     } */
+
+#scrollable-container {
+    position: relative;
+    overflow-y: auto;
+    height: calc(100vh - 85px - 36px); /* viewport - header - footer */
+}
 
 </style>
 
@@ -438,90 +454,15 @@
 
     </style>
 
-
-<style>
-
-    /* ================= GROWw-STYLE SIDEBAR EDGE TOGGLE ================= */
-
-/*    .sidebar-edge-toggle { */
-/*        position: fixed; */
-
-/*         *//* Sidebar open width */
-/*        left: 256px; */
-
-/*         *//* Center vertically on divider line */
-/*        top: 30px;  *//* same as .sidebar-brand height */
-
-
-
-/*        z-index: 99999; */
-
-/*        width: 34px; */
-/*        height: 34px; */
-/*        border-radius: 9999px; */
-
-/*        background: #ffffff; */
-/*        border: 1px solid #e5e7eb; */
-
-/*        display: flex; */
-/*        align-items: center; */
-/*        justify-content: center; */
-
-/*        box-shadow: 0 6px 16px rgba(0,0,0,0.18); */
-/*       transition: transform 0.25s ease, left 0.25s ease; */
-/*    } */
-
-/*     *//* Sidebar collapsed */
-/*    body.sidebar-collapse .sidebar-edge-toggle { */
-/*        left: 64px; */
-/*    } */
-
-
-/*      *//* Icon size */
-/*     .sidebar-edge-toggle svg { */
-/*       width: 16px; */
-/*       height: 16px; */
-/*     } */
-
-/*  Prevent SVG from ever scaling */
-/* .sidebar-edge-toggle svg, */
-/* .sidebar-edge-toggle svg path { */
-/*     vector-effect: non-scaling-stroke !important; */
-/*     transform-box: fill-box !important; */
-/*     transform-origin: center !important; */
-/* } */
-
-/*      *//* Hover effect */
-/*     .sidebar-edge-toggle:hover { */
-/*       box-shadow: 0 8px 22px rgba(0,0,0,0.25); */
-/*       transform: translateX(-50%) scale(1.05); */
-/*     } */
-
-/*      *//* ================= COLLAPSED STATE ================= */
-
-/*     body.sidebar-collapse .sidebar-edge-toggle { */
-/*       left: 64px;                  *//* collapsed sidebar width */
-/*       transform: translateX(-50%); */
-/*     } */
-
-/*      *//* Flip arrow when collapsed */
-/*     body.sidebar-collapse .sidebar-edge-toggle svg { */
-/*       transform: rotate(180deg); */
-/*     } */
-
-    </style>
-
-
 <style>
     /* ================= SIDEBAR BASE STYLES ================= */
-    .side-bar {
-        transition: width 0.3s ease;
-    }
 
-    /* ================= COLLAPSED STATE ================= */
-    body.sidebar-collapse .side-bar {
-        width: 64px !important;
-    }
+   body.sidebar-collapse .side-bar {
+       width: 64px;
+       min-width: 64px;
+   }
+
+
 
    /* Hide ONLY text, not icons */
    body.sidebar-collapse .sidebar-scroll span {
@@ -530,10 +471,6 @@
        width: 0;
    }
 
-   /* Sidebar must NEVER disappear */
-   .side-bar {
-       min-width: 64px;
-   }
 
    /* ================= KEEP ICONS VISIBLE WHEN COLLAPSED ================= */
    body.sidebar-collapse .side-bar svg {
@@ -543,12 +480,6 @@
        height: auto !important;
    }
 
-
-   /* But keep icons */
-   body.sidebar-collapse .sidebar-scroll svg {
-       opacity: 1;
-       visibility: visible;
-   }
 
 
     body.sidebar-collapse .side-bar > a {
@@ -584,26 +515,235 @@
         padding-right: 0.5rem !important;
     }
 
-    /* ================= TOGGLE BUTTON ================= */
-    .sidebar-edge-toggle {
-        position: fixed;
-        top: 120px;
-        left: 256px;
-        transform: translateX(-50%);
-        z-index: 99999;
-        width: 34px;
-        height: 34px;
-        border-radius: 9999px;
-        background: #ffffff;
-        color: #19267a;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-        border: 1px solid #e5e7eb;
-        transition: transform 0.25s ease, left 0.25s ease;
-        cursor: pointer;
-    }
+
+body.sidebar-collapse .sidebar-edge-toggle svg {
+    transform: rotate(180deg);
+}
+
+
+
+/* ================= SYNCHRONIZED SIDEBAR & TOGGLE ANIMATION ================= */
+
+/* Sidebar and toggle animate together */
+.side-bar,
+.sidebar-edge-toggle {
+    transition: transform 0.3s ease;
+}
+
+/* Default state - sidebar open */
+.side-bar {
+    transform: translateX(0);
+}
+
+
+
+/* Collapsed state - sidebar hidden */
+body.sidebar-collapse .side-bar {
+    transform: translateX(-192px);  /* move sidebar left */
+}
+
+body.sidebar-collapse .sidebar-edge-toggle {
+    left: 56px;  /* collapsed position */
+}
+
+/* Arrow rotation */
+body.sidebar-collapse .sidebar-edge-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* Main content adjustment */
+
+#main-content {
+    margin-left: 256px;
+    transition: margin-left 0.3s ease;
+}
+
+#main-content {
+    margin-left: 256px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: margin-left 0.3s ease;
+    width: calc(100% - 256px);  /* Explicit width */
+}
+
+
+body.sidebar-collapse #main-content {
+    margin-left: 64px;
+    width: calc(100% - 64px);  /* Adjust width when collapsed */
+}
+
+.side-bar {
+    width: 256px;
+    min-width: 256px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+    z-index: 1000;
+    background-color: #19267a !important;
+}
+
+.sidebar-edge-toggle {
+    position: fixed;
+    left: 244px;
+    top: 67px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+/*     transition: left 0.3s ease; */
+}
+
+.sidebar-edge-toggle {
+    transform: translateX(0);
+    transition: left 0.3s ease, transform 0.3s ease;
+}
+
+
+/* Toggle moves when sidebar collapses */
+body.sidebar-collapse .sidebar-edge-toggle {
+    left: 56px;  /* 64px collapsed width - 8px offset */
+}
+
+/* Toggle arrow rotation */
+.sidebar-edge-toggle svg,
+.groww-toggle .toggle-arrow {
+    width: 16px;
+    height: 16px;
+    color: #19267a;
+    transition: transform 0.3s ease;
+}
+
+/* Arrow points LEFT when sidebar is OPEN */
+body:not(.sidebar-collapse) .sidebar-edge-toggle svg,
+body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+/* Arrow points RIGHT when sidebar is CLOSED */
+body.sidebar-collapse .sidebar-edge-toggle svg,
+body.sidebar-collapse .groww-toggle .toggle-arrow {
+    transform: rotate(0deg);
+}
+
+/* Main content adjustment */
+#main-content {
+    margin-left: 256px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapse #main-content {
+    margin-left: 64px;
+}
+
+/* Header adjustment */
+.header-white-bg {
+    margin-left: 256px;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapse .header-white-bg {
+    margin-left: 64px;
+}
+
+/* COLLAPSED STATE - Hide text, keep icons */
+body.sidebar-collapse .sidebar-scroll span,
+body.sidebar-collapse .side-bar-heading,
+body.sidebar-collapse .sidebar-logo-text {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    white-space: nowrap;
+}
+
+/* Keep icons visible when collapsed */
+body.sidebar-collapse .sidebar-scroll svg,
+body.sidebar-collapse .side-bar svg {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Center icons when collapsed */
+body.sidebar-collapse .sidebar-scroll a {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Hide arrows & submenus when collapsed */
+body.sidebar-collapse .chiled,
+body.sidebar-collapse .fa-angle-down,
+body.sidebar-collapse .fa-chevron-down {
+    display: none !important;
+}
+
+/* Sidebar brand centered when collapsed */
+.sidebar-brand {
+    height: 56px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 14px;
+    background-color: #19267a;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    overflow: hidden;
+    transition: justify-content 0.3s ease;
+}
+
+body.sidebar-collapse .sidebar-brand {
+    justify-content: center;
+}
+
+/* Logo fixed size */
+.sidebar-brand img,
+.sidebar-logo-icon {
+    width: 28px !important;
+    height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Sidebar scroll area */
+.sidebar-scroll {
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.app-footer-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 256px;
+    width: calc(100% - 256px);
+    height: 36px;
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 999;
+}
+
+body.sidebar-collapse .app-footer-fixed {
+    left: 64px;
+    width: calc(100% - 64px);
+}
 
     .sidebar-edge-toggle svg {
         width: 16px;
@@ -613,38 +753,12 @@
 
     .sidebar-edge-toggle:hover {
         box-shadow: 0 8px 22px rgba(0,0,0,0.25);
-        transform: translateX(-50%) scale(1.05);
+/*         transform: translateX(-20%) scale(1.05); */
     }
 
     body.sidebar-collapse .sidebar-edge-toggle {
-        left: 64px;
+/*         left: 64px; */
     }
-
-    body.sidebar-collapse .sidebar-edge-toggle svg {
-        transform: rotate(180deg);
-    }
-
-
-/* ================= ICON-ONLY SIDEBAR (FINAL) ================= */
-
-/* Sidebar width */
-/* .side-bar { */
-/*     width: 256px; */
-/*     min-width: 64px; */
-/*     transition: width 0.3s ease; */
-/* } */
-
-.side-bar {
-    width: 256px;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-}
-
-body.sidebar-collapse .side-bar {
-    transform: translateX(-192px);
-}
-
-
 
 
 /* Collapsed width */
@@ -652,21 +766,17 @@ body.sidebar-collapse .side-bar {
     width: 64px !important;
 }
 
-/* Hide text ONLY */
 body.sidebar-collapse .sidebar-scroll span,
 body.sidebar-collapse .side-bar-heading {
     opacity: 0;
     visibility: hidden;
-    width: 0;
+    white-space: nowrap;
 }
 
-/* Icons ALWAYS visible */
 body.sidebar-collapse .sidebar-scroll svg {
     opacity: 1 !important;
-    visibility: visible !important;
-    width: 22px;
-    height: 22px;
 }
+
 
 /* Center icons */
 body.sidebar-collapse .sidebar-scroll a {
@@ -686,12 +796,7 @@ body.sidebar-collapse .chiled {
 
 /* ================= ADMINLTE ICON-ONLY FIX ================= */
 
-/* Prevent AdminLTE from hiding sidebar */
-.sidebar-mini.sidebar-collapse .main-sidebar {
-    width: 64px !important;
-    min-width: 64px !important;
-    overflow: visible !important;
-}
+
 
 /* Keep sidebar visible */
 .main-sidebar {
@@ -734,18 +839,31 @@ body.sidebar-collapse .chiled {
 
 /* Default (sidebar open) */
 #main-content {
-    margin-left: 256px;
-    transition: margin-left 0.3s ease;
+/*     margin-left: 256px; */
+
      height: 100vh;
       overflow-y: auto;
       overflow-x: hidden;
+}
 
+/* #main-content { */
+/*     transform: translateX(0); */
+/*     transition: transform 0.3s ease; */
+/* } */
+
+#main-content {
+    margin-left: 256px;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapse #main-content {
+    margin-left: 64px;
 }
 
 
 /* Collapsed sidebar */
 body.sidebar-collapse #main-content {
-    margin-left: 64px;
+/*     margin-left: 64px; */
 }
 
 
@@ -802,8 +920,8 @@ body.sidebar-collapse .sidebar-logo-text {
 
 /* ================= GROWW-STYLE SIDEBAR TOGGLE ================= */
 .groww-toggle {
-    width: 34px;
-    height: 34px;
+    width: 31px;
+    height: 30px;
     border-radius: 9999px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
@@ -856,18 +974,16 @@ body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
 /* ================= GROWW TOGGLE — ARROW ALWAYS VISIBLE ================= */
 
 .groww-toggle {
-    width: 34px;
-    height: 34px;
+    width: 31px;
+    height: 30px;
     border-radius: 9999px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
-
     box-shadow: 0 6px 16px rgba(0,0,0,0.18);
     cursor: pointer;
-
     transition: all 0.25s ease;
 }
 
@@ -886,6 +1002,7 @@ body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
 body:not(.sidebar-collapse) .groww-toggle .toggle-arrow {
     transform: rotate(180deg);
 }
+
 
 /* Sidebar CLOSED → arrow points RIGHT */
 body.sidebar-collapse .groww-toggle .toggle-arrow {
@@ -908,11 +1025,15 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
 
 <style>
 
-/* ================= HEADER RIGHT TABS — CLEAN (NO BOX) ================= */
 
 .header-white-bg {
     background: #ffffff !important;
+    position: relative;
+    margin-left: 0 !important;  /* Remove margin */
+    width: 100%;  /* Full width */
+    transition: none !important;
 }
+
 
 /* Remove gradient */
 .header-white-bg[class*="tw-bg-gradient"] {
@@ -1000,15 +1121,8 @@ body.sidebar-collapse .sidebar-brand img {
         height: 64px;
         overflow: hidden;
         white-space: nowrap;
-        margin-top: -40px;
+        margin-top: -34px;
     }
-
-    /* ICON */
-/*     .sidebar-logo-icon { */
-/*         width: 28px; */
-/*         height: 28px; */
-/*         flex-shrink: 0; */
-/*     } */
 
 /* ===== FIX: Prevent sidebar logo resize on page load ===== */
 
@@ -1107,10 +1221,6 @@ margin-left: 40px;
 .left-shift{
 margin-left:50px;
 }
-
-
-
     </style>
-
 
 </html>

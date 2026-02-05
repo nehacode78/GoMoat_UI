@@ -23,7 +23,6 @@
                             </svg>
                         </button>
 
-
                     </div>
 
                  {{-- WELCOME TEXT --}}

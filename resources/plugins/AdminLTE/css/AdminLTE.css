@@ -447,6 +447,21 @@ a:focus {
     right: 40px;
   }
 }
+
+
+/* 🔥 Kill AdminLTE sidebar layout */
+.main-sidebar {
+  transform: none !important;
+  width: 0 !important;
+  display: none !important;
+}
+
+.content-wrapper,
+.main-footer,
+.main-header .navbar {
+  margin-left: 0 !important;
+}
+
 /*
  * Component: Sidebar
  * ------------------
