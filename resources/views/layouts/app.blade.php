@@ -22,11 +22,41 @@
     dir="{{ in_array(session()->get('user.language', config('app.locale')), config('constants.langs_rtl')) ? 'rtl' : 'ltr' }}">
 <head>
 
+     <!--
+
      <script>
-          if (localStorage.getItem("upos_sidebar_collapse") === "true") {
-              document.documentElement.classList.add("sidebar-collapse");
-          }
-      </script>
+               if (localStorage.getItem("upos_sidebar_collapse") === "true") {
+                   document.documentElement.classList.add("sidebar-collapse");
+               }
+           </script>
+     -->
+
+ <script>
+ (function() {
+     const c = localStorage.getItem("upos_sidebar_collapse") === "true";
+     if (c) document.documentElement.classList.add("sidebar-collapse");
+     document.documentElement.classList.add("preload");
+ })();
+ </script>
+
+ <script>
+ (function() {
+     const criticalCSS = document.createElement('style');
+     criticalCSS.textContent = `
+         .sidebar-brand {
+             margin-top: -34px !important;
+             height: 56px !important;
+         }
+         .sidebar-brand img {
+             width: 28px !important;
+             height: 28px !important;
+         }
+     `;
+     document.head.insertBefore(criticalCSS, document.head.firstChild);
+ })();
+ </script>
+
+
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta charset="utf-8">
@@ -35,8 +65,30 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>@yield('title') - {{ Session::get('business.name') }}</title>
+
+    <style>
+    body.preload *{animation-duration:0s!important;transition-duration:0s!important}
+    .sidebar-brand{height:56px!important;margin-top:-34px!important;min-height:56px!important}
+    .sidebar-brand img{width:28px!important;height:28px!important;max-width:28px!important;object-fit:contain!important}
+    .side-bar{width:256px!important}
+    body.sidebar-collapse .side-bar{width:64px!important}
+    #main-content{margin-left:256px!important}
+    body.sidebar-collapse #main-content{margin-left:64px!important}
+    </style>
+
+<style>
+    /* Toggle button - VISIBLE AND POSITIONED FROM START */
+    .sidebar-edge-toggle{
+        position: fixed !important;
+        left: 244px !important;
+        top: 67px !important;
+        /* ... other styles ... */
+        opacity: 1 !important;           // ← VISIBLE
+        visibility: visible !important;  // ← VISIBLE
+    }
+    </style>
 
     <style>
     /* ================= GLOBAL HEADER (HOME-LIKE) ================= */
@@ -308,7 +360,7 @@
  <button type="button"
    class="sidebar-edge-toggle groww-toggle side-bar-collapse"
    aria-label="Toggle Sidebar"
-   style="visibility:hidden">
+   style="">
        <!-- ARROW ICON(OPEN STATE) -->
        <svg class="toggle-arrow" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24" fill="none"
@@ -343,6 +395,7 @@
             <source src="{{ asset('/audio/success.ogg?v=' . $asset_v) }}" type="audio/ogg">
             <source src="{{ asset('/audio/success.mp3?v=' . $asset_v) }}" type="audio/mpeg">
         </audio>
+
         <audio id="error-audio">
             <source src="{{ asset('/audio/error.ogg?v=' . $asset_v) }}" type="audio/ogg">
             <source src="{{ asset('/audio/error.mp3?v=' . $asset_v) }}" type="audio/mpeg">
@@ -357,22 +410,34 @@
         @endif
 
         @include('layouts.partials.javascripts')
-        
+
         {{-- Module JS --}}
         @include('layouts.module-assets')
 
 
+        <!--
+
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.body.classList.remove('preload');
+                    document.addEventListener('DOMContentLoaded', function () {
+                        document.body.classList.remove('preload');
 
-                const toggle = document.querySelector('.sidebar-edge-toggle');
-                if (toggle) {
-                    toggle.style.visibility = 'visible';
-                }
-            });
-        </script>
+                        const toggle = document.querySelector('.sidebar-edge-toggle');
+                        if (toggle) {
+                            toggle.style.visibility = 'visible';
+                        }
+                    });
+                </script>
+        -->
 
+    <script>
+   window.addEventListener('load', function () {
+       requestAnimationFrame(() => {
+           document.documentElement.classList.remove("preload");
+           document.body.classList.remove("preload");
+       });
+   });
+
+    </script>
 
 
         <div class="modal fade view_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
@@ -396,7 +461,7 @@
             height: auto !important;
 
         }
-        
+
         /* Hide side menu */
         .side-bar,
         .thetop > aside {
@@ -542,10 +607,6 @@ body.sidebar-collapse .side-bar {
     transform: translateX(-192px);  /* move sidebar left */
 }
 
-body.sidebar-collapse .sidebar-edge-toggle {
-    left: 56px;  /* collapsed position */
-}
-
 /* Arrow rotation */
 body.sidebar-collapse .sidebar-edge-toggle svg {
     transform: rotate(180deg);
@@ -587,10 +648,11 @@ body.sidebar-collapse #main-content {
     background-color: #19267a !important;
 }
 
+
 .sidebar-edge-toggle {
-    position: fixed;
-    left: 244px;
-    top: 67px;
+/*     position: fixed; */
+/*     left: 244px; */
+/*     top: 67px; */
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -602,13 +664,12 @@ body.sidebar-collapse #main-content {
     z-index: 1001;
     cursor: pointer;
     box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-/*     transition: left 0.3s ease; */
+     transform: translateX(0);
+     transition: left 0.3s ease, transform 0.3s ease;
+
 }
 
-.sidebar-edge-toggle {
-    transform: translateX(0);
-    transition: left 0.3s ease, transform 0.3s ease;
-}
+
 
 
 /* Toggle moves when sidebar collapses */
@@ -636,6 +697,21 @@ body.sidebar-collapse .sidebar-edge-toggle svg,
 body.sidebar-collapse .groww-toggle .toggle-arrow {
     transform: rotate(0deg);
 }
+
+/* ================= FIX: Toggle must follow sidebar strip ================= */
+
+/* OPEN sidebar → toggle at full sidebar edge */
+body:not(.sidebar-collapse) .sidebar-edge-toggle {
+    left: 256px !important;   /* sidebar open width */
+    transform: translateX(-50%);
+}
+
+/* COLLAPSED sidebar → toggle on visible strip */
+body.sidebar-collapse .sidebar-edge-toggle {
+    left: 64px !important;    /* sidebar strip width */
+    transform: translateX(-50%);
+}
+
 
 /* Main content adjustment */
 #main-content {
@@ -756,10 +832,6 @@ body.sidebar-collapse .app-footer-fixed {
 /*         transform: translateX(-20%) scale(1.05); */
     }
 
-    body.sidebar-collapse .sidebar-edge-toggle {
-/*         left: 64px; */
-    }
-
 
 /* Collapsed width */
 body.sidebar-collapse .side-bar {
@@ -827,14 +899,11 @@ body.sidebar-collapse .chiled {
     padding-right: 0 !important;
 }
 
-
 .sidebar-scroll {
     height: calc(100vh - 56px); /* subtract brand height */
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-
 
 
 /* Default (sidebar open) */
@@ -913,9 +982,6 @@ body.sidebar-collapse .sidebar-brand {
 body.sidebar-collapse .sidebar-logo-text {
     display: none !important;
 }
-
-
-
 
 
 /* ================= GROWW-STYLE SIDEBAR TOGGLE ================= */
@@ -1112,16 +1178,28 @@ body.sidebar-collapse .sidebar-brand img {
     </style>
 
 <style>
+    /* Disable animations during preload */
+    .preload .side-bar,
+    .preload .sidebar-edge-toggle,
+    .preload #main-content,
+    .preload .header-white-bg {
+        transition: none !important;
+    }
+
+    </style>
+
+<style>
     /* ===== SIDEBAR BRAND ===== */
     .sidebar-brand {
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 14px 16px;
+        padding-top:8px;
         height: 64px;
         overflow: hidden;
         white-space: nowrap;
-        margin-top: -34px;
+/*         margin-top: -34px; */
     }
 
 /* ===== FIX: Prevent sidebar logo resize on page load ===== */
@@ -1222,5 +1300,108 @@ margin-left: 40px;
 margin-left:50px;
 }
     </style>
+
+
+<style>
+
+    /* ================= MODERN INPUT DESIGN (CSS ONLY) ================= */
+
+    /* Wrapper spacing */
+    .form-group {
+        position: relative;
+    }
+
+    /* Base input style */
+    .form-control {
+        height: 48px;
+        padding-left: 44px;               /* space for icon */
+        padding-right: 14px;
+        border-radius: 12px;
+        border: 1.5px solid #e5e7eb;
+        background-color: #ffffff;
+        box-shadow: none;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    /* Textarea support */
+    textarea.form-control {
+        height: auto;
+        padding-top: 12px;
+    }
+
+    /* Focus state */
+    .form-control:focus {
+        border-color: #6366f1;            /* soft indigo */
+        box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+
+    /* Label style */
+    .form-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+
+    /* Required star */
+    .form-group label span,
+    .form-group label sup {
+        color: #ef4444;
+    }
+
+    /* ================= LEFT ICON SUPPORT ================= */
+
+    /* If icon exists before input */
+    .form-group i,
+    .form-group svg {
+        position: absolute;
+        left: 5px;
+        top: 16px;
+        width: 18px;
+        height: 18px;
+        color: #9ca3af;
+        pointer-events: none;
+    }
+
+    /* When input is focused → icon color */
+    .form-control:focus ~ i,
+    .form-control:focus ~ svg {
+        color: #6366f1;
+    }
+
+    /* ================= SELECT2 MATCH ================= */
+
+    .select2-container--default .select2-selection--single {
+        height: 48px;
+        border-radius: 12px;
+        border: 1.5px solid #e5e7eb;
+        padding-left: 38px;
+        display: flex;
+        align-items: center;
+    }
+
+    .select2-container--default .select2-selection--single:focus {
+        border-color: #6366f1;
+    }
+
+    .select2-selection__arrow {
+        top: 10px !important;
+    }
+
+    /* ================= ERROR STATE ================= */
+    .has-error .form-control {
+        border-color: #ef4444;
+    }
+
+    .has-error .help-block {
+        color: #ef4444;
+        font-size: 12px;
+    }
+
+    </style>
+
+
+
 
 </html>

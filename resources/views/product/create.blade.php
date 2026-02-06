@@ -29,7 +29,6 @@
                 'placeholder' => __('product.product_name')]); !!}
             </div>
         </div>
-
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('sku', __('product.sku') . ':') !!} @show_tooltip(__('tooltip.sku'))

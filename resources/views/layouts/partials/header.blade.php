@@ -28,14 +28,12 @@
                  {{-- WELCOME TEXT --}}
                   <div class="tw-flex-1 tw-ml-4 lg:tw-ml-6">
 
-
                                                <h1
                                                    class="tw-mt-3 tw-text-2xl md\:tw-text-4xl welcome-text tw-tracking-tight tw-text-primary-800  tw-font-semibold
                                                            tw-mb-10 md:tw-mb-0">
                                                    {{ __('home.welcome_message', ['name' => Session::get('user.first_name')]) }}
                                                </h1>
                                            </div>
-
 
                     {{-- Showing active package for SaaS Superadmin --}}
                     @if(Module::has('Superadmin'))
@@ -126,26 +124,30 @@
 
                         {{-- data-toggle="popover" remove this for on hover show --}}
 
+                        <!--
+
                         <button id="btnCalculator" title="@lang('lang_v1.calculator')" data-content='@include('layouts.partials.calculator')'
-                            type="button" data-trigger="click" data-html="true" data-placement="bottom"
-                            class="tw-hidden md:tw-inline-flex tw-items-center tw-justify-center tw-text-sm tw-font-medium  tw-transition-all tw-duration-200  tw-p-1.5 tw-rounded-lg  hover:tw-text-white">
-                            <span class="tw-sr-only" aria-hidden="true">
-                                Calculator
-                            </span>
-                            <svg aria-hidden="true" class="tw-size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-                                <path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
-                                <path d="M8 14l0 .01" />
-                                <path d="M12 14l0 .01" />
-                                <path d="M16 14l0 .01" />
-                                <path d="M8 17l0 .01" />
-                                <path d="M12 17l0 .01" />
-                                <path d="M16 17l0 .01" />
-                            </svg>
-                        </button>
+                                                    type="button" data-trigger="click" data-html="true" data-placement="bottom"
+                                                    class="tw-hidden md:tw-inline-flex tw-items-center tw-justify-center tw-text-sm tw-font-medium  tw-transition-all tw-duration-200  tw-p-1.5 tw-rounded-lg  hover:tw-text-white">
+                                                    <span class="tw-sr-only" aria-hidden="true">
+                                                        Calculator
+                                                    </span>
+                                                    <svg aria-hidden="true" class="tw-size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                                        <path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+                                                        <path d="M8 14l0 .01" />
+                                                        <path d="M12 14l0 .01" />
+                                                        <path d="M16 14l0 .01" />
+                                                        <path d="M8 17l0 .01" />
+                                                        <path d="M12 17l0 .01" />
+                                                        <path d="M16 17l0 .01" />
+                                                    </svg>
+                                                </button>
+                        -->
+
 
                         @if (in_array('pos_sale', $enabled_modules))
                             @can('sell.create')

@@ -176,7 +176,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('show_tooltip', function ($message) {
             return "<?php
                 if(session('business.enable_tooltip')){
-                    echo '<i class=\"fa fa-info-circle text-info hover-q no-print \" aria-hidden=\"true\" 
+                    echo '<i class=\"fa fa-info-circle text-info hover-q no-print \" aria-hidden=\"true\"
                     data-container=\"body\" data-toggle=\"popover\" data-placement=\"auto bottom\" 
                     data-content=\"' . $message . '\" data-html=\"true\" data-trigger=\"hover\"></i>';
                 }
