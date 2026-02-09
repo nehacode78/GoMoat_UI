@@ -1192,6 +1192,39 @@ body.sidebar-collapse .sidebar-brand img {
         transition: none !important;
     }
 
+
+/* ===== FIX TOGGLE LAG (PRELOAD LOCK) ===== */
+.preload .sidebar-edge-toggle {
+    position: fixed !important;
+    top: 67px !important;
+
+    /* DEFAULT = sidebar open */
+    left: 256px !important;
+
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transition: none !important;
+}
+
+html.sidebar-collapse.preload .sidebar-edge-toggle {
+    left: 64px !important;
+}
+
+
+/* ===== FIX HORIZONTAL LINE LAG ===== */
+.header-white-bg::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin-top: 12px;
+}
+
+
+
+
     </style>
 
 
@@ -1407,6 +1440,7 @@ margin-left:50px;
         border-color: #6366f1;
     }
 
+
     .select2-selection__arrow {
         top: 10px !important;
     }
@@ -1420,8 +1454,6 @@ margin-left:50px;
     }
 
     </style>
-
-
 
 
 </html>

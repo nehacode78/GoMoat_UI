@@ -30,7 +30,7 @@
             </div>
         @endslot
         <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="expense_category_table">
+            <table class="table table-bordered  table-striped" id="expense_category_table">
                 <thead>
                     <tr>
                         <th>@lang( 'expense.category_name' )</th>
@@ -50,3 +50,4 @@
 <!-- /.content -->
 
 @endsection
+

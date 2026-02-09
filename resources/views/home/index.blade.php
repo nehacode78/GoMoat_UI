@@ -512,7 +512,7 @@
                                   <div class="tw--mx-4 tw--my-2 tw-overflow-x-auto sm:tw--mx-5">
                                       <div class="tw-inline-block tw-min-w-full tw-py-2 tw-align-middle sm:tw-px-5">
 
-                                      tw-inline-block tw-min-w-full tw-py-2 tw-align-middle sm:tw-px-5
+
                                           <table class="table table-bordered table-striped" id="sales_payment_dues_table"
                                               style="width: 100%;">
                                               <thead>
@@ -1046,6 +1046,11 @@
   </div>
 
   @section('css')
+
+  <style>
+
+
+  </style>
 
   <style>
   /* ===== Dashboard Highlight Section ===== */
@@ -1583,3 +1588,26 @@
     </script>
     
 @endsection
+
+@section('css')
+<style>
+    /* Add Payment button */
+    .btn-add-payment,
+    #sales_payment_dues_table .btn,
+    #purchase_payment_dues_table .btn {
+        border-radius: 9999px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #ecfeff;
+        color: #0f766e;
+        border: 1px solid #5eead4;
+    }
+
+    /* Hover */
+    .btn-add-payment:hover {
+        background: #ccfbf1;
+    }
+</style>
+@endsection
+

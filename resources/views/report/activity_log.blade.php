@@ -108,7 +108,7 @@
                 { data: 'created_by', name: 'created_by'},
                 { data: 'note', name: 'note'}
             ]
-        });  
+        });
 
         $(document).on('change', '#al_users_filter, #subject_type', function(){
             activity_log_table.ajax.reload();

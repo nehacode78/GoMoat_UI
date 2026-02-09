@@ -29,7 +29,7 @@
         @endcan
         @can('user.view')
             <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="users_table">
+                <table class="table table-bordered table-striped " id="users_table">
                     <thead>
                         <tr>
                             <th>@lang( 'business.username' )</th>
