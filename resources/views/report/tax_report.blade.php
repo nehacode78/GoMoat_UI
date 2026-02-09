@@ -18,7 +18,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('tax_report_location_id',  __('purchase.business_location') . ':') !!}
-                        {!! Form::select('tax_report_location_id', $business_locations, null, ['class' => 'form-control select2', 'style' => 'width:100%']); !!}
+                        {!! Form::select('tax_report_location_id', $business_locations, null, ['class' => 'form-control1 select2', 'style' => 'width:100%']); !!}
                     </div>
                 </div>
                 <div class="col-md-3">

@@ -271,6 +271,12 @@
         }
     </style>
 
+
+
+
+
+
+
     @include('layouts.partials.css')
     @include('layouts.partials.extracss')
     @yield('css')
@@ -1188,6 +1194,18 @@ body.sidebar-collapse .sidebar-brand img {
 
     </style>
 
+
+<style>
+/* Prevent old input flash */
+.preload input,
+.preload textarea,
+.preload select,
+.preload .form-control {
+    visibility: hidden;
+}
+</style>
+
+
 <style>
     /* ===== SIDEBAR BRAND ===== */
     .sidebar-brand {
@@ -1314,7 +1332,7 @@ margin-left:50px;
     /* Base input style */
     .form-control {
         height: 48px;
-        padding-left: 44px;               /* space for icon */
+        padding-left: 19px;               /* space for icon */
         padding-right: 14px;
         border-radius: 12px;
         border: 1.5px solid #e5e7eb;
@@ -1344,6 +1362,10 @@ margin-left:50px;
         margin-bottom: 6px;
     }
 
+   .has-error .form-control {
+        border-color: #ef4444;
+    }
+
     /* Required star */
     .form-group label span,
     .form-group label sup {
@@ -1355,7 +1377,7 @@ margin-left:50px;
     /* If icon exists before input */
     .form-group i,
     .form-group svg {
-        position: absolute;
+/*         position: absolute; */
         left: 5px;
         top: 16px;
         width: 18px;
@@ -1390,9 +1412,7 @@ margin-left:50px;
     }
 
     /* ================= ERROR STATE ================= */
-    .has-error .form-control {
-        border-color: #ef4444;
-    }
+
 
     .has-error .help-block {
         color: #ef4444;
