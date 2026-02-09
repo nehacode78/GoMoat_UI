@@ -362,9 +362,9 @@
 
        -->
 
-
+<!-- groww-toggle-->
  <button type="button"
-   class="sidebar-edge-toggle groww-toggle side-bar-collapse"
+   class="sidebar-edge-toggle side-bar-collapse"
    aria-label="Toggle Sidebar"
    style="">
        <!-- ARROW ICON(OPEN STATE) -->
@@ -1454,6 +1454,8 @@ margin-left:50px;
     }
 
     </style>
+
+
 
 
 </html>
