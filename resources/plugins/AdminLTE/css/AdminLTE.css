@@ -1353,7 +1353,8 @@ a:focus {
 }
 /* Input group */
 .input-group .input-group-addon {
-  border-radius: 0;
+  /*border-radius: 0;*/
+  border-radius: 6px;
   border-color: #d2d6de;
   background-color: #fff;
 }

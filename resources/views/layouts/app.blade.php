@@ -225,6 +225,17 @@
 
 
 <style>
+/* Prevent old input flash */
+.preload input,
+.preload textarea,
+.preload select,
+.preload .form-control {
+    visibility: hidden;
+}
+</style>
+
+
+<style>
   /* ===== CRITICAL SIDEBAR BRAND — PREVENT LOAD SHIFT ===== */
 
   .sidebar-brand {
@@ -270,11 +281,6 @@
             --sidebar-width: 64px; /* COLLAPSED */
         }
     </style>
-
-
-
-
-
 
 
     @include('layouts.partials.css')
@@ -1222,21 +1228,7 @@ html.sidebar-collapse.preload .sidebar-edge-toggle {
     margin-top: 12px;
 }
 
-
-
-
     </style>
-
-
-<style>
-/* Prevent old input flash */
-.preload input,
-.preload textarea,
-.preload select,
-.preload .form-control {
-    visibility: hidden;
-}
-</style>
 
 
 <style>
