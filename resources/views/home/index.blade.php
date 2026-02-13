@@ -2235,9 +2235,6 @@ padding: 25px;
 
 /* Amount */
 .profit-value {
-/*     font-weight: 600; */
-/*     font-size: 14px; */
-/*     color: #111827; */
     margin-left: 80px;
 }
 
