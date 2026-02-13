@@ -127,6 +127,7 @@
  <style>
     .tw-dw-btn.btn-brand {
         background-color: #19267a !important;
+
     }
     .tw-dw-btn.btn-brand:hover {
         background-color: #141d5a !important;
@@ -144,7 +145,7 @@
 
     /* Sidebar background */
     .thetop > aside.side-bar {
-        background-color: #19267a !important;
+        background-color: #F7F7F7 !important;
     }
 
     /* Sidebar text */
@@ -152,7 +153,7 @@
     .thetop > aside.side-bar a,
     .thetop > aside.side-bar span,
     .thetop > aside.side-bar i {
-        color: #ffffff !important;
+        color: rgb(105 117 134/var(--tw-text-opacity)) !important;
     }
 
     /* Hover */
@@ -247,7 +248,7 @@
       justify-content: center;
       gap: 8px;
       padding: 0 14px;
-      background-color: #19267a;
+      background-color: #F7F7F7;
       box-sizing: border-box;
       overflow: hidden;
       white-space: nowrap;
@@ -389,7 +390,7 @@
       </div>
 
       {{-- SCROLLABLE CONTENT --}}
-      <div class="tw-flex-1" id="scrollable-container">
+      <div class="tw-flex-1 whitish" id="scrollable-container">
           @yield('content')
       </div>
 
@@ -788,7 +789,7 @@ body.sidebar-collapse .fa-chevron-down {
     justify-content: flex-start;
     gap: 8px;
     padding: 0 14px;
-    background-color: #19267a;
+    background-color: #F7F7F7;
     border-bottom: 1px solid rgba(255,255,255,0.25);
     overflow: hidden;
     transition: justify-content 0.3s ease;
@@ -957,7 +958,7 @@ body.sidebar-collapse #main-content {
     justify-content: center;
     gap: 8px;
     padding: 0 14px;
-    background-color: #19267a;
+    background-color: #F7F7F7;
     color: #ffffff;
     border-bottom: 1px solid rgba(255,255,255,0.25);
     box-sizing: border-box;
@@ -1220,13 +1221,13 @@ html.sidebar-collapse.preload .sidebar-edge-toggle {
 
 
 /* ===== FIX HORIZONTAL LINE LAG ===== */
-.header-white-bg::after {
-    content: '';
-    display: block;
-    height: 1px;
-    background-color: #e5e7eb;
-    margin-top: 12px;
-}
+/* .header-white-bg::after { */
+/*     content: ''; */
+/*     display: block; */
+/*     height: 1px; */
+/*     background-color: #e5e7eb; */
+/*     margin-top: 12px; */
+/* } */
 
     </style>
 
@@ -1445,9 +1446,131 @@ margin-left:50px;
         font-size: 12px;
     }
 
+  .whitish{
+    background-color: #ffffff
+  }
+
+    </style>
+
+
+<style>
+    /* ===== TOP METRICS BAR (Image 1 Style) ===== */
+
+    .dashboard-metrics-bar {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr); /* 6 in one line */
+        gap: 0;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+/*         background: color/grey/200; */
+    }
+
+.text-info{
+ color: grey !important;
+}
+.hover-q{
+font-size: 13px !important;
+}
+
+    /* Remove card look */
+    .dashboard-metrics-bar > div {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+/*         padding: 14px 20px; */
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Add vertical divider */
+    .dashboard-metrics-bar > div:not(:last-child) {
+        border-right: 1px solid #f1f5f9;
+    }
+
+    /* Icon smaller & subtle */
+    .dashboard-metrics-bar svg {
+        width: 18px;
+        height: 18px;
+        color: #94a3b8;
+    }
+
+    /* Title text */
+    .dashboard-metrics-bar p:first-child {
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+        margin-bottom: 2px;
+    }
+
+    /* Value text */
+    .dashboard-metrics-bar p:last-child {
+        font-size: 16px;
+        font-weight: 600;
+        color: #111827;
+    }
+
+
+/* ================= TOP METRICS RESPONSIVE FIX ================= */
+
+.dashboard-metrics-bar {
+    display: grid;
+    gap: 1rem;
+
+    /* Desktop: 6 in one row */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* Large tablet */
+@media (max-width: 1400px) {
+    .dashboard-metrics-bar {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .dashboard-metrics-bar {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Small tablet */
+@media (max-width: 768px) {
+    .dashboard-metrics-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .dashboard-metrics-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+}
+
+
     </style>
 
 
 
 
+
+
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
