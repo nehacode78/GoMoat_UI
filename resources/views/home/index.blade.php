@@ -1988,8 +1988,6 @@
     text-decoration: underline;
 }
 
-
-
 /* Stats Layout */
 .financial-stats {
     display: flex;
@@ -2124,7 +2122,6 @@ padding: 25px;
     font-weight: 600;
 }
 
-
 </style>
 
 <style>
@@ -2163,12 +2160,6 @@ padding: 25px;
         border-bottom: none;
     }
 
-/*      *//* Title */
-/*     .profit-title { */
-/*         font-weight: 600; */
-/*         font-size: 14px; */
-/*         color: #1d4ed8; */
-/*     } */
 
     /* Sub text */
     .profit-sub {
@@ -2183,12 +2174,6 @@ padding: 25px;
         font-size: 14px;
         color: #111827;
     }
-
-
-
-
-
-
 
 
 /* ================= OPERATIONS TITLE ================= */
@@ -2301,9 +2286,7 @@ font-size:18px;
     </style>
 
 <style>
-
     /* ================= OPERATIONS GRAPH CARD ================= */
-
     .operations-card {
         background: #ffffff;
         border: 1px solid #e5e7eb;
