@@ -1219,16 +1219,6 @@ html.sidebar-collapse.preload .sidebar-edge-toggle {
     left: 64px !important;
 }
 
-
-/* ===== FIX HORIZONTAL LINE LAG ===== */
-/* .header-white-bg::after { */
-/*     content: ''; */
-/*     display: block; */
-/*     height: 1px; */
-/*     background-color: #e5e7eb; */
-/*     margin-top: 12px; */
-/* } */
-
     </style>
 
 
@@ -1243,11 +1233,9 @@ html.sidebar-collapse.preload .sidebar-edge-toggle {
         height: 64px;
         overflow: hidden;
         white-space: nowrap;
-/*         margin-top: -34px; */
     }
 
 /* ===== FIX: Prevent sidebar logo resize on page load ===== */
-
 
 .sidebar-brand img,
 .sidebar-logo-icon {
@@ -1354,7 +1342,6 @@ margin-left:50px;
     .form-group {
         position: relative;
     }
-
     /* Base input style */
     .form-control {
         height: 48px;
@@ -1552,14 +1539,7 @@ font-size: 13px !important;
 
 }
 
-
     </style>
-
-
-
-
-
-
 
 </html>
 
