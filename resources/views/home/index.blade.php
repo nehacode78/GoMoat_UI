@@ -1988,6 +1988,7 @@
     text-decoration: underline;
 }
 
+
 /* Stats Layout */
 .financial-stats {
     display: flex;
@@ -2122,6 +2123,7 @@ padding: 25px;
     font-weight: 600;
 }
 
+
 </style>
 
 <style>
@@ -2172,8 +2174,9 @@ padding: 25px;
     .profit-value {
         font-weight: 600;
         font-size: 14px;
-        color: #111827;
+        color: #333333;
     }
+
 
 
 /* ================= OPERATIONS TITLE ================= */
@@ -2286,7 +2289,9 @@ font-size:18px;
     </style>
 
 <style>
+
     /* ================= OPERATIONS GRAPH CARD ================= */
+
     .operations-card {
         background: #ffffff;
         border: 1px solid #e5e7eb;
