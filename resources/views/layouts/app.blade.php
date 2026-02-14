@@ -465,6 +465,27 @@
         </div>
 
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const toggle = document.getElementById("sidebarUserToggle");
+        const card = document.getElementById("sidebarUserCard");
+
+        if(toggle && card){
+            toggle.addEventListener("click", function (e) {
+                e.stopPropagation();
+                card.style.display = card.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", function () {
+                card.style.display = "none";
+            });
+        }
+    });
+    </script>
+
+
+
 
 </body>
 <style>
@@ -551,12 +572,19 @@
 
 
    /* ================= KEEP ICONS VISIBLE WHEN COLLAPSED ================= */
-   body.sidebar-collapse .side-bar svg {
-       opacity: 1 !important;
-       visibility: visible !important;
-       width: auto !important;
-       height: auto !important;
-   }
+/*    body.sidebar-collapse .side-bar svg { */
+/*        opacity: 1 !important; */
+/*        visibility: visible !important; */
+/*        width: auto !important; */
+/*        height: auto !important; */
+/*    } */
+
+body.sidebar-collapse .sidebar-scroll a svg {
+    opacity: 1;
+    visibility: visible;
+
+}
+
 
 
 
@@ -589,8 +617,8 @@
 
     /* Adjust padding when collapsed */
     body.sidebar-collapse .sidebar-scroll {
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
     }
 
 
@@ -652,9 +680,11 @@ body.sidebar-collapse #main-content {
     min-width: 256px;
     height: 100vh;
     position: fixed;
+
+    overflow: visible !important;
     top: 0;
     left: 0;
-    overflow: hidden;
+/*     overflow: hidden; */
     transition: transform 0.3s ease;
     transform: translateX(0);
     z-index: 1000;
@@ -858,9 +888,9 @@ body.sidebar-collapse .side-bar-heading {
     white-space: nowrap;
 }
 
-body.sidebar-collapse .sidebar-scroll svg {
-    opacity: 1 !important;
-}
+/* body.sidebar-collapse .sidebar-scroll svg { */
+/*     opacity: 1 !important; */
+/* } */
 
 
 /* Center icons */
@@ -1478,26 +1508,25 @@ font-size: 13px !important;
 
     /* Icon smaller & subtle */
     .dashboard-metrics-bar svg {
-        width: 18px;
-        height: 18px;
-        color: #94a3b8;
+        width: 20px;
+        height: 22px;
+        color: #A8B0C5;
     }
 
     /* Title text */
     .dashboard-metrics-bar p:first-child {
         font-size: 13px;
         font-weight: 500;
-        color: #6b7280;
+        color: #333333;
         margin-bottom: 2px;
     }
 
     /* Value text */
     .dashboard-metrics-bar p:last-child {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 600;
-        color: #111827;
+        color: #333333;
     }
-
 
 /* ================= TOP METRICS RESPONSIVE FIX ================= */
 

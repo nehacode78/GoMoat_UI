@@ -247,65 +247,68 @@
 
 
 
-                        <!--
 
-                        <details class="tw-dw-dropdown tw-relative tw-inline-block tw-text-left">
+                    <!--
 
-
-                                                <summary data-toggle="popover"
-                                                                        class="tw-dw-m-1 tw-inline-flex tw-transition-all  header-btn  tw-cursor-pointer tw-duration-200 tw-py-1.5 tw-px-3 tw-rounded-lg tw-items-center tw-justify-center tw-text-sm tw-font-medium hover:tw-text-white tw-gap-1">
-                                                                        <span class="tw-hidden md:tw-block">{{ Auth::User()->first_name }} {{ Auth::User()->last_name }}</span>
-
-                                                                        <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="tw-size-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
+                     <details class="tw-dw-dropdown tw-relative tw-inline-block tw-text-left">
 
 
+                                                                    <summary data-toggle="popover"
+                                                                                            class="tw-dw-m-1 tw-inline-flex tw-transition-all  header-btn  tw-cursor-pointer tw-duration-200 tw-py-1.5 tw-px-3 tw-rounded-lg tw-items-center tw-justify-center tw-text-sm tw-font-medium hover:tw-text-white tw-gap-1">
+                                                                                            <span class="tw-hidden md:tw-block">{{ Auth::User()->first_name }} {{ Auth::User()->last_name }}</span>
 
-                                                                    </summary>
+                                                                                            <svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="tw-size-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
 
-                                                    <ul class="tw-p-2 tw-w-48 tw-absolute tw-right-0 tw-z-10 tw-mt-2 tw-origin-top-right tw-bg-white tw-rounded-lg tw-shadow-lg tw-ring-1 tw-ring-gray-200 focus:tw-outline-none"
-                                                        role="menu" tabindex="-1">
-                                                        <div class="tw-px-4 tw-pt-3 tw-pb-1" role="none">
-                                                            <p class="tw-text-sm" role="none">
-                                                                @lang('lang_v1.signed_in_as')
-                                                            </p>
-                                                            <p class="tw-text-sm tw-font-medium tw-text-gray-900 tw-truncate" role="none">
-                                                                {{ Auth::User()->first_name }} {{ Auth::User()->last_name }}
-                                                            </p>
-                                                        </div>
-                                                        <li>
-                                                            <a href="{{ action([\App\Http\Controllers\UserController::class, 'getProfile']) }}"
-                                                                class="tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-sm tw-font-medium tw-text-gray-600 tw-transition-all tw-duration-200 tw-rounded-lg hover:tw-text-gray-900 hover:tw-bg-gray-100"
-                                                                role="menuitem" tabindex="-1">
-                                                                <svg aria-hidden="true" class="tw-w-5 tw-h-5" xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                                    <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                                                                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                                                                </svg>
-                                                                @lang('lang_v1.profile')
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ action([\App\Http\Controllers\Auth\LoginController::class, 'logout']) }}"
-                                                                class="tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-sm tw-font-medium tw-text-gray-600 tw-transition-all tw-duration-200 tw-rounded-lg hover:tw-text-gray-900 hover:tw-bg-gray-100"
-                                                                role="menuitem" tabindex="-1">
-                                                                <svg aria-hidden="true" class="tw-w-5 tw-h-5" xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                    <path
-                                                                        d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                                                                    <path d="M9 12h12l-3 -3" />
-                                                                    <path d="M18 15l3 -3" />
-                                                                </svg>
-                                                                @lang('lang_v1.sign_out')
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </details>
-                        -->
+
+
+                                                                                        </summary>
+
+                                                                        <ul class="tw-p-2 tw-w-48 tw-absolute tw-right-0 tw-z-10 tw-mt-2 tw-origin-top-right tw-bg-white tw-rounded-lg tw-shadow-lg tw-ring-1 tw-ring-gray-200 focus:tw-outline-none"
+                                                                            role="menu" tabindex="-1">
+                                                                            <div class="tw-px-4 tw-pt-3 tw-pb-1" role="none">
+                                                                                <p class="tw-text-sm" role="none">
+                                                                                    @lang('lang_v1.signed_in_as')
+                                                                                </p>
+                                                                                <p class="tw-text-sm tw-font-medium tw-text-gray-900 tw-truncate" role="none">
+                                                                                    {{ Auth::User()->first_name }} {{ Auth::User()->last_name }}
+                                                                                </p>
+                                                                            </div>
+                                                                            <li>
+                                                                                <a href="{{ action([\App\Http\Controllers\UserController::class, 'getProfile']) }}"
+                                                                                    class="tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-sm tw-font-medium tw-text-gray-600 tw-transition-all tw-duration-200 tw-rounded-lg hover:tw-text-gray-900 hover:tw-bg-gray-100"
+                                                                                    role="menuitem" tabindex="-1">
+                                                                                    <svg aria-hidden="true" class="tw-w-5 tw-h-5" xmlns="http://www.w3.org/2000/svg"
+                                                                                        viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none"
+                                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                                                        <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                                                                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                                                                                    </svg>
+                                                                                    @lang('lang_v1.profile')
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="{{ action([\App\Http\Controllers\Auth\LoginController::class, 'logout']) }}"
+                                                                                    class="tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-sm tw-font-medium tw-text-gray-600 tw-transition-all tw-duration-200 tw-rounded-lg hover:tw-text-gray-900 hover:tw-bg-gray-100"
+                                                                                    role="menuitem" tabindex="-1">
+                                                                                    <svg aria-hidden="true" class="tw-w-5 tw-h-5" xmlns="http://www.w3.org/2000/svg"
+                                                                                        viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none"
+                                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                                        <path
+                                                                                            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                                                                        <path d="M9 12h12l-3 -3" />
+                                                                                        <path d="M18 15l3 -3" />
+                                                                                    </svg>
+                                                                                    @lang('lang_v1.sign_out')
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </details>
+                    -->
+
+
 
                     </div>
                 </div>

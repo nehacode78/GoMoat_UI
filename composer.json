@@ -104,7 +104,8 @@
         "optimize-autoloader": true,
         "allow-plugins": {
             "ocramius/package-versions": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "dev",
