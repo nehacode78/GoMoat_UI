@@ -76,7 +76,10 @@ class EssentialsServiceProvider extends ServiceProvider
             });
 
         $this->registerScheduleCommands();
-    
+
+
+
+
     }
 
     public function registerScheduleCommands()

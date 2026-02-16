@@ -883,7 +883,63 @@ class AdminSidebarMenu
                   </svg>', 'id' => 'tour_step3']
                 )->order(85);
             }
+
+
+
+        // HRM Dropdown
+        if (in_array('essentials', $enabled_modules) && auth()->user()->can('essentials.access')) {
+
+            $menu->dropdown(
+                'HRM',
+                function ($sub) {
+
+                    $sub->url(
+                        action([\Modules\Essentials\Http\Controllers\DashboardController::class, 'hrmDashboard']),
+                        'HRM Dashboard',
+                        ['active' => request()->segment(2) == 'dashboard']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Essentials\Http\Controllers\EssentialsLeaveTypeController::class, 'index']),
+                        'Leave Type',
+                        ['active' => request()->segment(2) == 'leave-type']
+                    );
+
+                    $sub->url(
+                        action([\App\Http\Controllers\TaxonomyController::class, 'index']).'?type=hrm_designation',
+                        'Designations'
+                    );
+
+                    $sub->url(
+                        action([\Modules\Essentials\Http\Controllers\SalesTargetController::class, 'index']),
+                        'Sales Target'
+                    );
+
+                    $sub->url(
+                        action([\Modules\Essentials\Http\Controllers\EssentialsSettingsController::class, 'edit']),
+                        'Settings'
+                    );
+
+                },
+                [
+                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="tw-size-5 tw-shrink-0" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                    </svg>'
+                ]
+            )->order(88);
+        }
+
+
+
+
+
         });
+
+
+
+
+
 
         //Add menus from modules
         $moduleUtil = new ModuleUtil;

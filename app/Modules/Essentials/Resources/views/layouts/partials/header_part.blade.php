@@ -17,7 +17,7 @@
 
 
     <button type="button"
-        class="@if (empty($clock_in)) hide @endif clock_out_btn tw-inline-flex tw-items-center tw-justify-center tw-text-sm tw-font-medium tw-text-white tw-transition-all tw-duration-200 tw-bg-primary-800 hover:tw-bg-primary-700 tw-p-1.5 tw-rounded-lg tw-ring-1 tw-ring-white/10 hover:tw-text-white"
+        class="@if (empty($clock_in)) hide @endif clock_out_btn tw-inline-flex tw-items-center tw-justify-center tw-text-sm tw-font-medium tw-text-white tw-transition-all tw-duration-200 hover:tw-bg-primary-700 tw-p-1.5 tw-rounded-lg tw-ring-1 tw-ring-white/10 hover:tw-text-white"
         data-type="clock_out" data-toggle="popover" data-placement="bottom" data-html="true"
         title="@lang('essentials::lang.clock_out') @if (!empty($clock_in)) <br>
 				<small>

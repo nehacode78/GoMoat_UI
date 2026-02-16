@@ -17,7 +17,6 @@
 
 <aside class="main-sidebar side-bar tw-fixed tw-top-0 tw-left-0 tw-h-screen tw-w-64 tw-bg-white lg:tw-flex lg:tw-flex-col tw-z-40">
 
-
      <a href="{{ route('home') }}" class="sidebar-brand">
 
          {{-- ICON (always exists) --}}
@@ -42,9 +41,6 @@
     <!--  Scrollable Menu -->
     <div class="tw-flex-1 tw-overflow-y-auto tw-overflow-x-hidden sidebar-scroll">
         {!! Menu::render('admin-sidebar-menu', 'adminltecustom') !!}
-
-
-
 
 
                 <div class="sidebar-user-full" id="sidebarUserCard">
@@ -73,14 +69,6 @@
                                     </a>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
 
 </div>
 
@@ -113,19 +101,17 @@
     overflow-y: auto;
 }
 
-/* Sticky bottom section */
 .sidebar-user-row {
+    margin-top: auto;
     padding: 14px 16px;
     display: flex;
     align-items: center;
     gap: 10px;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    background: inherit;
 }
 
-
-
+/* COLLAPSED STATE */
 body.sidebar-collapse .sidebar-user-row {
+    display: flex !important;
     justify-content: center;
 }
 
@@ -133,7 +119,6 @@ body.sidebar-collapse .sidebar-user-row .user-row-text,
 body.sidebar-collapse .sidebar-user-row i {
     display: none;
 }
-
 
 
 
@@ -159,14 +144,10 @@ body.sidebar-collapse .sidebar-user-row i {
 
 
     /* ================= COLLAPSED STATE ================= */
-
     body.sidebar-collapse .sidebar-user-full {
         display: none !important;
     }
 
-    body.sidebar-collapse .sidebar-user-row {
-        display: none !important;
-    }
 
     body.sidebar-collapse .sidebar-user-mini {
         display: flex !important;
@@ -193,17 +174,6 @@ body.sidebar-collapse .sidebar-user-full {
     display: none !important;
 }
 
-body.sidebar-collapse .sidebar-user-row {
-    display: none !important;
-}
-
-
-
-/* Sidebar OPEN */
-body:not(.sidebar-collapse) .sidebar-user-full {
-    display: block;
-}
-
 body:not(.sidebar-collapse) .sidebar-user-mini {
     display: none;
 }
@@ -222,15 +192,15 @@ body.sidebar-collapse .sidebar-user-mini {
     padding: 12px 0;
 }
 
+/* Hidden by default */
 .sidebar-user-full {
+    display: none;
     position: absolute;
-    bottom: 80px;
+    bottom: 70px;
     left: 16px;
-    width: 224px; /* 256 - padding */
+    width: 224px;
     z-index: 1000;
 }
-
-
 
 
 /* Card style */

@@ -27,11 +27,11 @@
                     <li @if(request()->segment(2) == 'payroll') class="active" @endif><a href="{{action([\Modules\Essentials\Http\Controllers\PayrollController::class, 'index'])}}">@lang('essentials::lang.payroll')</a></li>
 
                     <li @if(request()->segment(2) == 'holiday') class="active" @endif><a href="{{action([\Modules\Essentials\Http\Controllers\EssentialsHolidayController::class, 'index'])}}">@lang('essentials::lang.holiday')</a></li>
-                    
+
                     @can('essentials.crud_department')
                     <li @if(request()->get('type') == 'hrm_department') class="active" @endif><a href="{{action([\App\Http\Controllers\TaxonomyController::class, 'index']) . '?type=hrm_department'}}">@lang('essentials::lang.departments')</a></li>
                     @endcan
-                    
+
                     @can('essentials.crud_designation')
                     <li @if(request()->get('type') == 'hrm_designation') class="active" @endif><a href="{{action([\App\Http\Controllers\TaxonomyController::class, 'index']) . '?type=hrm_designation'}}">@lang('essentials::lang.designations')</a></li>
                     @endcan

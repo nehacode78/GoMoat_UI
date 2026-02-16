@@ -400,7 +400,6 @@
           : 'layouts.partials.footer')
 
   </main>
-
         @include('home.todays_profit_modal')
         <!-- /.content-wrapper -->
 

@@ -110,6 +110,7 @@ public function getOpenTagWrapper()
 
 
 public function getMenuWithDropDownWrapper($item)
+
 {
     $dropdownToggle = '<a href="#" title=""
    class="drop_down tw-flex tw-items-center tw-gap-3 tw-px-3 tw-py-3

@@ -50,9 +50,7 @@
 
                     <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-end tw-gap-6 header-clean-tabs">
 
-                        @if (Module::has('Essentials'))
-                            @includeIf('essentials::layouts.partials.header_part')
-                        @endif
+
                        <!--
 
                        <details class="tw-dw-dropdown tw-relative tw-inline-block tw-text-left">
@@ -239,6 +237,12 @@
                                                                                                         <line x1="3" y1="10" x2="21" y2="10"/>
                                                                                                     </svg>
                                                                                                 </button>
+
+
+
+                                                                                            @if (Module::has('Essentials'))
+                                                                                                                        @includeIf('essentials::layouts.partials.header_part')
+                                                                                                                    @endif
 
                         @include('layouts.partials.header-notifications')
 
