@@ -123,6 +123,7 @@
            </div>
 
        </div>
+   <hr class="lines">
 
 
 
@@ -141,6 +142,30 @@
                        <i class="fas fa-user-check tw-text-gray-600"></i>
                        <span class="tw-font-semibold">Today's Attendance</span>
                    </div>
+
+
+
+                <div class="tw-flex tw-justify-between tw-mb-4">
+                                      <div>
+                                          <div class="tw-text-sx tw-text-gray-400 tw-mb-2">EMPLOYEE</div>
+                                          <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">
+
+                                          </div>
+                                      </div>
+
+                                      <div>
+                                          <div class="tw-text-xs tw-text-gray-400 tw-mb-2">CLOCK IN</div>
+                                          <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">
+
+                                          </div>
+                                      </div>
+                                  <div>
+                                      <div class="tw-text-xs tw-text-gray-400 tw-mb-2">CLOCK OUT</div>
+                                      <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">
+
+                                      </div>
+                                  </div>
+                              </div>
 
                    @forelse($todays_attendances as $attendance)
                        <div class="tw-text-sm tw-flex tw-justify-between">
@@ -226,6 +251,9 @@
        margin-right: 26px;
            margin-left: 26px;
        }
+   .lines{
+       border-top: 1px solid #EBEBEB !important;
+   }
        </style>
 
 @stop
