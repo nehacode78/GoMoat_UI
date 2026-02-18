@@ -4,360 +4,230 @@
 @section('content')
     @include('essentials::layouts.nav_hrm')
     <!-- Main content -->
-    <section class="content">
-        <div class="row ">
-            <div class="col-md-4 col-sm-6 col-xs-12 col-custom">
-                @component('components.widget', [
-                    'class' => '',
-                    'title' => __('essentials::lang.my_leaves'),
-                    'icon' => '<i class="fas fa-sign-out-alt"></i>',
-                ])
-                    <table class="table no-margin">
-                        <thead>
-                            @forelse($users_leaves as $user_leave)
-                                <tr>
-                                    <td>
-                                        {{ @format_date($user_leave->start_date) }}
-                                        - {{ @format_date($user_leave->end_date) }}
-                                    </td>
-                                    <td>
-                                        {{ $user_leave->leave_type->leave_type }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2" class="text-center">
-                                        @lang('lang_v1.no_data')
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </thead>
-                    </table>
-                @endcomponent
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 col-custom">
-                @component('components.widget', [
-                    'class' => '',
-                    'title' => __('essentials::lang.my_sales_targets'),
-                    'icon' => '<i class="fas fa-bullseye"></i>',
-                ])
-                    <div class="">
-                        <table class="table no-margin">
-                            <thead>
-                                <tr>
-                                    <td>
-                                        <strong>@lang('essentials::lang.target_achieved_last_month'):
-                                        </strong>
-                                        <h4 class="text-success">@format_currency($target_achieved_last_month)</h4>
-                                    </td>
-                                    <td>
-                                        <strong>@lang('essentials::lang.target_achieved_this_month'):
-                                        </strong>
-                                        <h4 class="text-success">@format_currency($target_achieved_this_month)</h4>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @lang('essentials::lang.targets')
-                                    </th>
-                                    <th>
-                                        @lang('essentials::lang.commission_percent')
-                                    </th>
-                                </tr>
-                                @forelse($sales_targets as $target)
-                                    <tr>
-                                        <td>
-                                            @format_currency($target->target_start)
-                                            - @format_currency($target->target_end)
-                                        </td>
-                                        <td>
-                                            {{ number_format($target->commission_percent, 2) }}%
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="2" class="text-center">
-                                            @lang('lang_v1.no_data')
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </thead>
-                        </table>
-                    </div>
-                @endcomponent
-            </div>
-            @include('essentials::dashboard.birthdays')
-            @if (!$is_admin)
-                @include('essentials::dashboard.holidays')
-            @endif
-            <div class="col-md-4 col-sm-6 col-xs-12 text-center">
-                <a href="{{ action([\Modules\Essentials\Http\Controllers\PayrollController::class, 'getMyPayrolls']) }}"
-                    class="tw-dw-btn tw-dw-btn-success tw-text-white tw-dw-btn-lg">
-                    <i class="fas fa-coins"></i>
-                    @lang('essentials::lang.my_payrolls')
-                </a>
-            </div>
-        </div>
-        @if ($is_admin)
-            <hr>
-        @endif
-        <div class="row">
-            @can('user.view')
-                <div class="col-md-4 col-sm-6 col-xs-12 col-custom">
-                    @component('components.widget', [
-                        'class' => '',
-                        'title' => __('user.users'),
-                        'icon' => '<i class="fas fa-users"></i>',
-                    ])
-                        <table class="table no-margin">
-                            <tr>
-                                <th class="bg-light-gray" colspan="2">@lang('home.today')</th>
-                            </tr>
-                            @forelse($todays_leaves as $leave)
-                                <tr>
-                                    <td>
-                                        {{ @format_date($leave->start_date) }}
-                                        - {{ @format_date($leave->end_date) }}
-                                    </td>
-                                    <td>
-                                        {{ $leave->leave_type->leave_type }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2" class="text-center">
-                                        @lang('lang_v1.no_data')
-                                    </td>
-                                </tr>
-                            @endforelse
-                            <tr>
-                                <td colspan="2">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light-gray" colspan="2">@lang('lang_v1.upcoming')</th>
-                            </tr>
-                            @forelse($upcoming_leaves as $leave)
-                                <tr>
-                                    <td>
-                                        {{ @format_date($leave->start_date) }}
-                                        - {{ @format_date($leave->end_date) }}
-                                    </td>
-                                    <td>
-                                        {{ $leave->leave_type->leave_type }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2" class="text-center">
-                                        @lang('lang_v1.no_data')
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </table>
-                    @endcomponent
-                </div>
+   <section class="content content2 tw-bg-[#f6f8fb] tw-min-h-screen tw-px-6 tw-py-4">
 
-            @endcan
-            @can('essentials.approve_leave')
-                <div class="col-md-4 col-sm-6 col-xs-12 col-custom">
-                    @component('components.widget', [
-                        'class' => '',
-                        'title' => __('essentials::lang.leaves'),
-                        'icon' => '<i class="fas fa-user-times"></i>',
-                    ])
-                        <table class="table no-margin">
-                            <tr>
-                                <th class="bg-light-gray" colspan="2">@lang('home.today')</th>
-                            </tr>
-                            @forelse($todays_leaves as $leave)
-                                <tr>
-                                    <td>
-                                        {{ @format_date($leave->start_date) }}
-                                        - {{ @format_date($leave->end_date) }}
-                                    </td>
-                                    <td>
-                                        {{ $leave->leave_type->leave_type }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2" class="text-center">
-                                        @lang('lang_v1.no_data')
-                                    </td>
-                                </tr>
-                            @endforelse
-                            <tr>
-                                <td colspan="2">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-light-gray" colspan="2">@lang('lang_v1.upcoming')</th>
-                            </tr>
-                            @forelse($upcoming_leaves as $leave)
-                                <tr>
-                                    <td>
-                                        {{ @format_date($leave->start_date) }}
-                                        - {{ @format_date($leave->end_date) }}
-                                    </td>
-                                    <td>
-                                        {{ $leave->leave_type->leave_type }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2" class="text-center">
-                                        @lang('lang_v1.no_data')
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </table>
-                    @endcomponent
-                </div>
-            @endcan
-            @if ($is_admin)
-                @include('essentials::dashboard.holidays')
-            @endif
-        </div>
-        <div class="row row-custom">
-            @if ($is_admin)
-                <div class="col-md-4 col-sm-6 col-xs-12 col-custom">
-                    {{-- <div class="box box-solid">
-                        <div class="box-header with-border">
-                            <i class="fas fa-user-check"></i>
-                            <h3 class="box-title">@lang('essentials::lang.todays_attendance')</h3>
-                        </div>
-                        <div class="box-body p-10">
-                            <table class="table no-margin">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            @lang('essentials::lang.employee')
-                                        </th>
-                                        <th>
-                                            @lang('essentials::lang.clock_in')
-                                        </th>
-                                        <th>
-                                            @lang('essentials::lang.clock_out')
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($todays_attendances as $attendance)
-                                        <tr>
-                                            <td>{{ $attendance->employee->user_full_name }}</td>
-                                            <td>
-                                                {{ @format_datetime($attendance->clock_in_time) }}
+       {{-- Dynamic Title --}}
+                  @php
+                      $page = ucfirst(request()->segment(2) ?? 'dashboard');
+                  @endphp
 
-                                                @if (!empty($attendance->clock_in_note))
-                                                    <br><small>{{ $attendance->clock_in_note }}</small>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (!empty($attendance->clock_out_time))
-                                                    {{ @format_datetime($attendance->clock_out_time) }}
-                                                @endif
 
-                                                @if (!empty($attendance->clock_out_note))
-                                                    <br><small>{{ $attendance->clock_out_note }}</small>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="3" class="text-center">@lang('lang_v1.no_data')</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> --}}
-                    @component('components.widget', [
-                        'class' => '',
-                        'title' => __('essentials::lang.todays_attendance'),
-                        'icon' => '<i class="fas fa-user-check"></i>',
-                    ])
-                        <table class="table no-margin">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @lang('essentials::lang.employee')
-                                    </th>
-                                    <th>
-                                        @lang('essentials::lang.clock_in')
-                                    </th>
-                                    <th>
-                                        @lang('essentials::lang.clock_out')
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($todays_attendances as $attendance)
-                                    <tr>
-                                        <td>{{ $attendance->employee->user_full_name }}</td>
-                                        <td>
-                                            {{ @format_datetime($attendance->clock_in_time) }}
+                   {{-- ================= HEADER ================= --}}
+                       <div class="tw-flex tw-justify-end tw-items-center tw-gap-4 tw-mb-8">
 
-                                            @if (!empty($attendance->clock_in_note))
-                                                <br><small>{{ $attendance->clock_in_note }}</small>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($attendance->clock_out_time))
-                                                {{ @format_datetime($attendance->clock_out_time) }}
-                                            @endif
+                           {{-- Date --}}
+                           <div class="tw-text-md tw-text-gray-400" style="margin-top:-113px; margin-right: 20px;">
+                               {{ \Carbon\Carbon::now()->format('d M, Y') }}
+                           </div>
 
-                                            @if (!empty($attendance->clock_out_note))
-                                                <br><small>{{ $attendance->clock_out_note }}</small>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="3" class="text-center">@lang('lang_v1.no_data')</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    @endcomponent
-                </div>
+                           {{-- My Payroll Button --}}
+                           <a href="{{ action([\Modules\Essentials\Http\Controllers\PayrollController::class, 'getMyPayrolls']) }}"
+                              class="tw-bg-[#2B7ADA] hover:tw-bg-[#1f5bd8] tw-text-white tw-px-4 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-shadow-sm" style="margin-top:-113px; background-color: #2B7ADA; margin-right: 20px;">
+                               <i class="fas fa-coins tw-mr-2"></i>
+                               My Payrolls
+                           </a>
 
-                <div class="col-md-8 col-sm-12 col-xs-12">
-                    {{-- <div class="box box-solid">
-                        <div class="box-header with-border">
-                            <i class="fas fa-bullseye"></i>
-                            <h3 class="box-title">@lang('essentials::lang.sales_targets')</h3>
-                        </div>
-                        <div class="box-body">
-                            <table class="table" id="sales_targets_table" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>@lang('report.user')</th>
-                                        <th>@lang('essentials::lang.target_achieved_last_month')</th>
-                                        <th>@lang('essentials::lang.target_achieved_this_month')</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div> --}}
-                    @component('components.widget', [
-                        'class' => '',
-                        'title' => __('essentials::lang.sales_targets'),
-                        'icon' => '<i class="fas fa-bullseye"></i>',
-                    ])
-                        <table class="table" id="sales_targets_table" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>@lang('report.user')</th>
-                                    <th>@lang('essentials::lang.target_achieved_last_month')</th>
-                                    <th>@lang('essentials::lang.target_achieved_this_month')</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    @endcomponent
-                </div>
-            @endif
-        </div>
+                       </div>
 
-    </section>
+
+
+       {{-- ================= MY SCOPE ================= --}}
+       <div class="tw-text-xs tw-font-semibold tw-text-gray-500 tw-mb-4 tw-tracking-wide">
+           MY SCOPE
+       </div>
+
+       <div class="row tw-mb-6">
+
+           {{-- My Leaves --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-[#d9e2f3] tw-rounded-lg tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-user-clock tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">My Leaves</span>
+                   </div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">TODAY</div>
+                   <div class="tw-text-sm tw-mb-4">-</div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">UPCOMING</div>
+
+                   @forelse($users_leaves as $user_leave)
+                       <div class="tw-text-sm">
+                           {{ @format_date($user_leave->start_date) }}
+                           -
+                           {{ @format_date($user_leave->end_date) }}
+                       </div>
+                   @empty
+                       <div class="tw-text-sm tw-text-gray-400">-</div>
+                   @endforelse
+
+               </div>
+           </div>
+
+
+           {{-- My Sales Targets --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-[#d9e2f3] tw-rounded-lg tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-dollar-sign tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">My Sales Targets</span>
+                   </div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-2">ACHIEVED</div>
+
+                   <div class="tw-flex tw-justify-between tw-mb-4">
+                       <div>
+                           <div class="tw-text-xs tw-text-gray-500">Last month</div>
+                           <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">
+                               @format_currency($target_achieved_last_month)
+                           </div>
+                       </div>
+
+                       <div>
+                           <div class="tw-text-xs tw-text-gray-500">This month</div>
+                           <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">
+                               @format_currency($target_achieved_this_month)
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="tw-border-t tw-pt-3">
+                       <div class="tw-flex tw-justify-between tw-text-sm">
+                           <span>Targets</span>
+                           <span>Commission %</span>
+                       </div>
+                   </div>
+
+               </div>
+           </div>
+
+
+           {{-- Birthdays --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-[#d9e2f3] tw-rounded-lg tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-gift tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">Birthdays</span>
+                   </div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">TODAY</div>
+                   <div class="tw-text-sm tw-mb-4">-</div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">UPCOMING</div>
+                   <div class="tw-text-sm">-</div>
+
+               </div>
+           </div>
+
+       </div>
+
+
+
+       {{-- ================= COMPANY UPDATES ================= --}}
+       <div class="tw-text-xs tw-font-semibold tw-text-gray-500 tw-mb-4 tw-mt-6 tw-tracking-wide">
+           COMPANY UPDATES
+       </div>
+
+       <div class="row tw-mb-6">
+
+           {{-- Today's Attendance --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg  tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-user-check tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">Today's Attendance</span>
+                   </div>
+
+                   @forelse($todays_attendances as $attendance)
+                       <div class="tw-text-sm tw-flex tw-justify-between">
+                           <span>{{ $attendance->employee->user_full_name }}</span>
+                           <span>{{ @format_time($attendance->clock_in_time) }}</span>
+                       </div>
+                   @empty
+                       <div class="tw-text-sm tw-text-gray-400">No data</div>
+                   @endforelse
+
+               </div>
+           </div>
+
+
+           {{-- Company Leaves --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-user-times tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">Company Leaves</span>
+                   </div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">TODAY</div>
+                   <div class="tw-text-sm">-</div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mt-4 tw-mb-1">UPCOMING</div>
+                   <div class="tw-text-sm">-</div>
+
+               </div>
+           </div>
+
+
+           {{-- Holidays --}}
+           <div class="col-md-4">
+               <div class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg  tw-p-4" style="background-color:#F4F8FD80">
+
+                   <div class="tw-flex tw-items-center tw-gap-2 tw-mb-4">
+                       <i class="fas fa-umbrella-beach tw-text-gray-600"></i>
+                       <span class="tw-font-semibold">Holidays</span>
+                   </div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mb-1">TODAY</div>
+                   <div class="tw-text-sm">-</div>
+
+                   <div class="tw-text-xs tw-text-gray-400 tw-mt-4 tw-mb-1">UPCOMING</div>
+                   <div class="tw-text-sm">-</div>
+
+               </div>
+           </div>
+
+       </div>
+
+
+
+       {{-- ================= SALES TARGETS TABLE ================= --}}
+       <div class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-mt-6 tw-p-4" style="background-color:#F4F8FD80">
+
+           <div class="tw-flex tw-justify-between tw-items-center tw-mb-4">
+               <div class="tw-flex tw-items-center tw-gap-2">
+                   <i class="fas fa-bullseye tw-text-gray-600"></i>
+                   <span class="tw-font-semibold">Sales targets</span>
+               </div>
+
+               <a href="#" class="tw-text-blue-600 tw-underline tw-text-sm">View All Sales Targets</a>
+           </div>
+
+           <table class="table">
+               <thead>
+                   <tr>
+                       <th>User</th>
+                       <th>Target achieved last month</th>
+                       <th>Target achieved this month</th>
+                   </tr>
+               </thead>
+           </table>
+
+       </div>
+
+   </section>
+   <style>
+       .content2{
+       margin-right: 26px;
+           margin-left: 26px;
+       }
+       </style>
+
 @stop
 @section('javascript')
     <script type="text/javascript">

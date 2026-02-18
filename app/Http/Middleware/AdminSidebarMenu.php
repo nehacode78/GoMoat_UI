@@ -6,6 +6,7 @@ use App\Utils\ModuleUtil;
 use Closure;
 use Menu;
 use Modules\CustomDashboard\Entities\CustomDashboard;
+use App\Http\Controllers\TaxonomyController;
 
 class AdminSidebarMenu
 {
@@ -885,53 +886,74 @@ class AdminSidebarMenu
             }
 
 
+            //HRM management dropdown
+            if (auth()->user()->can('user.view') || auth()->user()->can('user.create') || auth()->user()->can('roles.view')) {
+                $menu->dropdown(
+                    __('hrm.hrm'),
+                    function ($sub) {
+                        if (auth()->user()->can('user.view')) {
 
-        // HRM Dropdown
-        if (in_array('essentials', $enabled_modules) && auth()->user()->can('essentials.access')) {
+                            $sub->url(
+                                action([\Modules\Essentials\Http\Controllers\DashboardController::class, 'hrmDashboard']),
+                                __('hrm.dashboard'),
+                                ['icon' => '', 'active' => request()->segment(1) == 'users']
+                            );
 
-            $menu->dropdown(
-                'HRM',
-                function ($sub) {
+                            $sub->url(
+                                action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'index']),
+                                __('hrm.leave'),
+                                ['icon' => '', 'active' => request()->segment(1) == 'users']
+                            );
 
-                    $sub->url(
-                        action([\Modules\Essentials\Http\Controllers\DashboardController::class, 'hrmDashboard']),
-                        'HRM Dashboard',
-                        ['active' => request()->segment(2) == 'dashboard']
-                    );
+                            $sub->url(
+                                 action([\Modules\Essentials\Http\Controllers\AttendanceController::class, 'index']),
+                                  __('hrm.attendance'),
+                                   ['icon' => '', 'active' => request()->segment(1) == 'users']
+                            );
 
-                    $sub->url(
-                        action([\Modules\Essentials\Http\Controllers\EssentialsLeaveTypeController::class, 'index']),
-                        'Leave Type',
-                        ['active' => request()->segment(2) == 'leave-type']
-                    );
+                            $sub->url(
+                                 action([\Modules\Essentials\Http\Controllers\PayrollController::class, 'index']),
+                                 __('hrm.payroll'),
+                                  ['icon' => '', 'active' => request()->segment(1) == 'users']
+                            );
 
-                    $sub->url(
-                        action([\App\Http\Controllers\TaxonomyController::class, 'index']).'?type=hrm_designation',
-                        'Designations'
-                    );
+                              $sub->url(
+                                     action([\Modules\Essentials\Http\Controllers\SalesTargetController::class, 'index']),
+                                     __('hrm.sales-target'),
+                                    ['icon' => '', 'active' => request()->segment(1) == 'users']
+                              );
+                               $sub->url(
+                                   action([TaxonomyController::class, 'index'], ['type' => 'hrm_department']),
+                                   'Departments',
+                                   ['icon' => '', 'active' => request()->get('type') == 'hrm_department']
+                               );
+                               $sub->url(
+                                   action([TaxonomyController::class, 'index'], ['type' => 'hrm_designation']),
+                                   'Designations',
+                                   ['icon' => '', 'active' => request()->get('type') == 'hrm_designation']
+                               );
 
-                    $sub->url(
-                        action([\Modules\Essentials\Http\Controllers\SalesTargetController::class, 'index']),
-                        'Sales Target'
-                    );
 
-                    $sub->url(
-                        action([\Modules\Essentials\Http\Controllers\EssentialsSettingsController::class, 'edit']),
-                        'Settings'
-                    );
+                               $sub->url(
+                                      action([\Modules\Essentials\Http\Controllers\EssentialsSettingsController::class, 'edit']),
+                                      __('hrm.settings'),
+                                       ['icon' => '', 'active' => request()->segment(1) == 'users']
+                               );
 
-                },
-                [
-                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="tw-size-5 tw-shrink-0" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+
+
+                        }
+                    },
+                    ['icon' => '<svg aria-hidden="true" class="tw-size-5 tw-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
                     <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                    </svg>'
-                ]
-            )->order(88);
-        }
-
-
-
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
+                  </svg>', ]
+                )->order(10);
+            }
 
 
         });

@@ -495,6 +495,8 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::put('update-sales-orders/{id}/status', [SalesOrderController::class, 'postEditSalesOrderStatus']);
     Route::get('reports/activity-log', [ReportController::class, 'activityLog']);
     Route::get('user-location/{latlng}', [HomeController::class, 'getUserLocation']);
+
+    // Route::get('/hrm', [HrmController::class, 'index']);
 });
 
 // Route::middleware(['EcomApi'])->prefix('api/ecom')->group(function () {
