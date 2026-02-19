@@ -36,6 +36,7 @@
            MY SCOPE
        </div>
 
+
        <div class="row tw-mb-6">
 
            {{-- My Leaves --}}
@@ -230,7 +231,7 @@
                    <span class="tw-font-semibold">Sales targets</span>
                </div>
 
-               <a href="#" class="tw-text-blue-600 tw-underline tw-text-sm">View All Sales Targets</a>
+               <a href="#" class="tw-text-blue-600 tw-text-sm" style="text-decoration: underline; color:#2B7ADA;" >View All Sales Targets</a>
            </div>
 
            <table class="table">

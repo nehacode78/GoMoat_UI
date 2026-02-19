@@ -111,7 +111,6 @@
     color: #000000 !important;
 }
 
-
     /* Header icons = WHITE */
     .global-white-header .tw-bg-gradient-to-r svg {
         color: #ffffff !important;

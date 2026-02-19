@@ -9,6 +9,7 @@
 	   		<small class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold">@lang('lang_v1.create')</small>
 	   </h1>
 	</section>
+
 	<!-- Main content -->
 	<section class="content">
 		@component('components.widget', ['class' => 'box-solid'])

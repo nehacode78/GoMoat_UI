@@ -3,10 +3,15 @@
 
 @section('content')
 @include('essentials::layouts.nav_hrm')
-<section class="content-header">
-    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('essentials::lang.leave')
-    </h1>
-</section>
+<!--
+    <section class="content-header">
+
+        <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('essentials::lang.leave')
+        </h1>
+    </section>
+
+    -->
+
 <!-- Main content -->
 <section class="content">
     <div class="row">
