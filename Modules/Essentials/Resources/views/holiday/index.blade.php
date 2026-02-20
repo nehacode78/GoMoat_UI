@@ -50,7 +50,7 @@ auth()->user()->can('essentials.add_holiday');
             @slot('tool')
             <div class="box-tools">
                 <button type="button"
-                    class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-modal"
+                    class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-modal" style="background-color: #2B7ADA !important;"
                     data-href="{{action([\Modules\Essentials\Http\Controllers\EssentialsHolidayController::class, 'create'])}}"
                     data-container="#add_holiday_modal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -59,7 +59,7 @@ auth()->user()->can('essentials.add_holiday');
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
-                    </svg> @lang( 'messages.add' )
+                    </svg> @lang( 'messages.add')
                 </button>
             </div>
             @endslot

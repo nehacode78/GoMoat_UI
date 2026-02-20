@@ -48,19 +48,21 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            @component('components.widget', ['class' => 'box-solid', 'title' => __( 'essentials::lang.all_leaves' )])
+                        @component('components.widget', ['class' => 'box-solid', 'title' => __( 'essentials::lang.all_leaves' )])
+
                 @slot('tool')
                     <div class="box-tools">
-                        <button type="button" class="tw-dw-btn btn-brand tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-modal"
-                            data-href="{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'create'])}}" data-container="#add_leave_modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 5l0 14" />
-                                <path d="M5 12l14 0" />
-                            </svg> @lang('messages.add')
-                        </button>
+                       <button type="button"
+                           class="tw-bg-[#2B7ADA] tw-rounded-full tw-text-white tw-border-none pull-right tw-dw-btn btn-brand hover:tw-bg-[#1f5bd8] tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-flex tw-items-center tw-gap-2 btn-modal" style="background-color: #2B7ADA !important;"
+                           data-href="{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'create'])}}"
+                           data-container="#add_leave_modal">
+
+                           <i class="fas fa-plus tw-text-xs"></i>
+                           Add Leave
+                       </button>
+
+
+
                     </div>
                 @endslot
                 <div class="table-responsive">
@@ -94,43 +96,93 @@
 @section('javascript')
     <script type="text/javascript">
         $(document).ready(function() {
-            leaves_table = $('#leave_table').DataTable({
-                processing: true,
-                serverSide: true,
-                fixedHeader:false,
-                ajax: {
-                    "url": "{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'index'])}}",
-                    "data" : function(d) {
-                        if ($('#user_id_filter').length) {
-                            d.user_id = $('#user_id_filter').val();
-                        }
-                        d.status = $('#status_filter').val();
-                        d.leave_type = $('#leave_type_filter').val();
-                        if($('#leave_filter_date_range').val()) {
-                            var start = $('#leave_filter_date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                            var end = $('#leave_filter_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                            d.start_date = start;
-                            d.end_date = end;
-                        }
-                    }
-                },
-                columnDefs: [
-                    {
-                        targets: 6,
-                        orderable: false,
-                        searchable: false,
-                    },
-                ],
-                columns: [
-                    { data: 'ref_no', name: 'ref_no' },
-                    { data: 'leave_type', name: 'lt.leave_type' },
-                    { data: 'user', name: 'user' },
-                    { data: 'start_date', name: 'start_date'},
-                    { data: 'reason', name: 'essentials_leaves.reason'},
-                    { data: 'status', name: 'essentials_leaves.status'},
-                    { data: 'action', name: 'action' },
-                ],
-            });
+           leaves_table = $('#leave_table').DataTable({
+               processing: true,
+               serverSide: true,
+               fixedHeader: false,
+               dom:
+                   "<'tw-flex tw-justify-between tw-items-center tw-mb-4'<'tw-flex tw-items-center'l><'tw-flex tw-items-center tw-gap-3'f<'filter-btn'>>>"
+                   + "tr"
+                   + "<'tw-flex tw-justify-between tw-items-center tw-mt-4'<'tw-text-sm'i><'tw-flex tw-items-center'p>>",
+
+               ajax: {
+                   "url": "{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'index'])}}",
+                   "data": function(d) {
+                       if ($('#user_id_filter').length) {
+                           d.user_id = $('#user_id_filter').val();
+                       }
+                       d.status = $('#status_filter').val();
+                       d.leave_type = $('#leave_type_filter').val();
+
+                       if($('#leave_filter_date_range').val()) {
+                           var start = $('#leave_filter_date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                           var end = $('#leave_filter_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                           d.start_date = start;
+                           d.end_date = end;
+                       }
+                   }
+               },
+
+               buttons: [
+                   { extend: 'csv', text: 'CSV', className: 'tw-text-blue-600 tw-text-sm' },
+                   { extend: 'excel', text: 'XLS', className: 'tw-text-blue-600 tw-text-sm' },
+                   { extend: 'pdf', text: 'PDF', className: 'tw-text-blue-600 tw-text-sm' }
+               ],
+
+               columnDefs: [
+                   {
+                       targets: 6,
+                       orderable: false,
+                       searchable: false,
+                   },
+               ],
+
+               columns: [
+                   { data: 'ref_no', name: 'ref_no' },
+                   { data: 'leave_type', name: 'lt.leave_type' },
+                   { data: 'user', name: 'user' },
+                   { data: 'start_date', name: 'start_date'},
+                   { data: 'reason', name: 'essentials_leaves.reason'},
+                   { data: 'status', name: 'essentials_leaves.status'},
+                   { data: 'action', name: 'action' },
+               ],
+           });
+
+
+          let exportHtml = `
+          <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom: 10px;">
+              <div class="tw-flex tw-items-center tw-gap-2">
+                  <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                      <i class="fas fa-file-csv tw-text-[11px]"></i>
+                  </div>
+                  <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                      <i class="fas fa-file-excel tw-text-[11px]"></i>
+                  </div>
+              </div>
+
+              <span>Export:</span>
+
+              <a href="#" class="tw-text-blue-600 hover:tw-underline">CSV</a>
+              <a href="#" class="tw-text-blue-600 hover:tw-underline">XLS</a>
+              <a href="#" class="tw-text-blue-600 hover:tw-underline">PDF</a>
+          </div>
+          `;
+
+
+           $('#leave_table').closest('.dataTables_wrapper').append(exportHtml);
+
+
+           $('.filter-btn').html(`
+               <button id="openFilterModal"
+                   class="tw-h-[38px] tw-border tw-border-gray-300 tw-bg-white hover:tw-bg-gray-50
+                   tw-rounded-md tw-px-4 tw-text-[13px] tw-font-medium tw-flex tw-items-center tw-gap-2">
+                   <i class="fas fa-filter tw-text-[12px] tw-text-gray-500"></i>
+                   Filter
+               </button>
+           `);
+
+
+
 
             $('#leave_filter_date_range').daterangepicker(
                 dateRangeSettings,
@@ -292,3 +344,109 @@
         });
     </script>
 @endsection
+
+
+
+
+<style>
+
+.content {
+    background: #f6f8fb !important;
+}
+
+table.dataTable thead th {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: .04em !important;
+    color: #6b7280 !important;
+    padding: 12px 14px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+table.dataTable tbody td {
+    font-size: 13px;
+    padding: 12px 14px;
+    color: #374151;
+}
+
+table.dataTable tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+}
+
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #2B7ADA !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px !important;
+    margin: 0 2px !important;
+}
+
+.dataTables_info {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+</style>
+
+<style>
+    .dataTables_wrapper {
+        padding-top: 10px;
+    }
+
+    .dataTables_length select {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 4px 8px;
+    }
+
+   .dataTables_filter {
+       position: relative;
+   }
+
+   .dataTables_filter input {
+       height: 38px !important;
+       width: 240px !important;
+       padding: 0 35px 0 12px !important;
+       border: 1px solid #d1d5db !important;
+       border-radius: 6px !important;
+       background-color: #fff !important;
+       font-size: 13px !important;
+   }
+
+   .dataTables_filter:after {
+       content: "\f002";
+       font-family: "Font Awesome 5 Free";
+       font-weight: 900;
+       position: absolute;
+       right: 10px;
+       top: 9px;
+       font-size: 12px;
+       color: #9ca3af;
+   }
+
+
+    .dataTables_paginate {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    </style>

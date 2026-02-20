@@ -79,6 +79,7 @@
                    <div class="tw-text-xs tw-text-gray-400 tw-mb-2">ACHIEVED</div>
 
                    <div class="tw-flex tw-justify-between tw-mb-4">
+
                        <div>
                            <div class="tw-text-xs tw-text-gray-500">Last month</div>
                            <div class="tw-text-green-600 tw-font-semibold" style="color:#41A256">

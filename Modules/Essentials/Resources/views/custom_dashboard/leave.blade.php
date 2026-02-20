@@ -1,6 +1,6 @@
 <div class="col-md-{{ round(($dashboard_detail->size / 100) * 12)  }}">
     <div
-        class="tw-mb-4 tw-transition-all lg:tw-col-span-2 tw-duration-200 tw-bg-white tw-shadow-sm tw-rounded-xl tw-ring-1 hover:tw-shadow-md  tw-ring-gray-200">
+        class="tw-mb-4 tw-transition-all lg:tw-col-span-2 tw-duration-200 tw-bg-white tw-shadow-sm tw-rounded-xl tw-ring-1 hover:tw-shadow-md  tw-ring-gray-200" >
         <div class="tw-p-2 sm:tw-p-3">
             <div class="box-header text-center">
                 <h3 class="tw-font-bold tw-text-base lg:tw-text-xl pull-left">{{ $dashboard_detail->heading  }}</h3>
