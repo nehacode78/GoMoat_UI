@@ -3,10 +3,14 @@
 
 @section('content')
 @include('essentials::layouts.nav_hrm')
-<section class="content-header">
-    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('essentials::lang.attendance')
-    </h1>
-</section>
+
+<!--
+    <section class="content-header">
+        <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('essentials::lang.attendance')
+        </h1>
+    </section>
+    -->
+
 <!-- Main content -->
 <section class="content">
     @if (session('notification') || !empty($notification))
@@ -26,8 +30,8 @@
     @if($is_employee_allowed)
         <div class="row">
             <div class="col-md-12 text-center">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="btn btn-app bg-blue clock_in_btn
                         @if(!empty($clock_in))
                             hide
@@ -38,13 +42,13 @@
                     <i class="fas fa-arrow-circle-down"></i> @lang('essentials::lang.clock_in')
                 </button>
             &nbsp;&nbsp;&nbsp;
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="btn btn-app bg-yellow clock_out_btn
                         @if(empty($clock_in))
                             hide
                         @endif
-                    "  
+                    "
                     data-type="clock_out"
                     >
                     <i class="fas fa-hourglass-half fa-spin"></i> @lang('essentials::lang.clock_out')

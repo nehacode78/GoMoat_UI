@@ -53,17 +53,18 @@
                 @slot('tool')
                     <div class="box-tools">
                        <button type="button"
-                           class="tw-bg-[#2B7ADA] tw-rounded-full tw-text-white tw-border-none pull-right tw-dw-btn btn-brand hover:tw-bg-[#1f5bd8] tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-flex tw-items-center tw-gap-2 btn-modal" style="background-color: #2B7ADA !important;"
+                           class="tw-bg-[#2B7ADA] tw-rounded-xl tw-text-white tw-border-none pull-right tw-dw-btn btn-brand hover:tw-bg-[#1f5bd8] tw-text-sm tw-font-medium tw-flex tw-items-center tw-gap-2 btn-modal" style="background-color: #2B7ADA !important;"
                            data-href="{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'create'])}}"
                            data-container="#add_leave_modal">
 
                            <i class="fas fa-plus tw-text-xs"></i>
                            Add Leave
                        </button>
-
-
-
                     </div>
+
+
+
+
                 @endslot
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="leave_table">
@@ -172,10 +173,11 @@
            $('#leave_table').closest('.dataTables_wrapper').append(exportHtml);
 
 
+
            $('.filter-btn').html(`
                <button id="openFilterModal"
-                   class="tw-h-[38px] tw-border tw-border-gray-300 tw-bg-white hover:tw-bg-gray-50
-                   tw-rounded-md tw-px-4 tw-text-[13px] tw-font-medium tw-flex tw-items-center tw-gap-2">
+                   class="tw-h-[44px] tw-border tw-border-gray-300 tw-bg-white hover:tw-bg-gray-50
+                   tw-rounded-md tw-px-3 tw-text-[13px] tw-font-medium tw-flex tw-items-center tw-gap-2">
                    <i class="fas fa-filter tw-text-[12px] tw-text-gray-500"></i>
                    Filter
                </button>
@@ -238,7 +240,6 @@
                 get_leave_summary();
             @endif
         });
-
         $(document).on('click', 'a.change_status', function(e) {
             e.preventDefault();
             // $('#change_status_modal').find('select#status_dropdown').val($(this).data('orig-value')).change();
@@ -449,4 +450,56 @@ table.dataTable tbody tr {
         gap: 4px;
     }
 
+
+
+
+
+/* Remove default datatable styling */
+.dataTables_filter label {
+    position: relative;
+    margin: 0;
+    width: 220px;
+}
+
+.dataTables_filter input {
+    width: 100% !important;
+    height: 34px !important;
+    border: none !important;
+    border-bottom: 1px solid #d1d5db !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0 24px 4px 0 !important;
+    font-size: 13px !important;
+    color: #374151 !important;
+    box-shadow: none !important;
+}
+
+/* Remove focus glow */
+.dataTables_filter input:focus {
+    outline: none !important;
+    border-bottom: 1px solid #9ca3af !important;
+}
+
+/* Placeholder style */
+.dataTables_filter input::placeholder {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+/* Search icon */
+.dataTables_filter label::after {
+/*     content: "\f002"; */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
     </style>
+
+
+

@@ -9,7 +9,7 @@
 @endphp
 
 <div class="tw-flex tw-items-center tw-justify-between tw-mx-[16px] tw-mt-6"
-     style="margin-left:40px; margin-bottom:24px; padding-top:9px;">
+     style="margin-left:40px; margin-bottom:24px; padding-top:9px; margin-right:18px;">
 
     <!-- Left Side (Breadcrumb) -->
     <div class="tw-text-xl tw-font-semibold">
@@ -19,9 +19,13 @@
     </div>
 
     <!-- Right Side (Date) -->
-    <div class="tw-text-sm tw-px-3 tw-text-gray-400">
-        {{ \Carbon\Carbon::now()->format('d M, Y') }}
-    </div>
+
+  @if(request()->segment(2) !== null && request()->segment(2) !== 'dashboard')
+      <div class="tw-text-sm tw-px-3 tw-text-gray-400">
+          {{ \Carbon\Carbon::now()->format('d M, Y') }}
+      </div>
+  @endif
+
 
 </div>
 
