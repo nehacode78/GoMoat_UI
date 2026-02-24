@@ -53,9 +53,12 @@
                 @slot('tool')
                     <div class="box-tools">
                        <button type="button"
-                           class="tw-bg-[#2B7ADA] tw-rounded-xl tw-text-white tw-border-none pull-right tw-dw-btn btn-brand hover:tw-bg-[#1f5bd8] tw-text-sm tw-font-medium tw-flex tw-items-center tw-gap-2 btn-modal" style="background-color: #2B7ADA !important;"
+                           class="tw-bg-[#2B7ADA] tw-rounded-xl tw-text-white tw-border-none
+                            pull-right tw-dw-btn tw-px-4 tw-py-2 btn-brand hover:tw-bg-[#1f5bd8] tw-text-sm
+                            tw-font-medium tw-flex tw-items-center tw-gap-2 btn-modal" style="background-color: #2B7ADA !important;"
                            data-href="{{action([\Modules\Essentials\Http\Controllers\EssentialsLeaveController::class, 'create'])}}"
                            data-container="#add_leave_modal">
+
 
                            <i class="fas fa-plus tw-text-xs"></i>
                            Add Leave

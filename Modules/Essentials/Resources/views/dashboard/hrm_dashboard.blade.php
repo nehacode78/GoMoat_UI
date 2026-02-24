@@ -31,6 +31,8 @@
 
 
 
+
+
        {{-- ================= MY SCOPE ================= --}}
        <div class="tw-text-xs tw-font-semibold tw-text-gray-500 tw-mb-4 tw-tracking-wide">
            MY SCOPE

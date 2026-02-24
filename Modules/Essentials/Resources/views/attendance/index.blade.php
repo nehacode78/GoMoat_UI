@@ -27,118 +27,129 @@
             </div>  
         </div>     
     @endif
-    @if($is_employee_allowed)
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <button
-                    type="button"
-                    class="btn btn-app bg-blue clock_in_btn
-                        @if(!empty($clock_in))
-                            hide
-                        @endif
-                    "
-                    data-type="clock_in"
-                    >
-                    <i class="fas fa-arrow-circle-down"></i> @lang('essentials::lang.clock_in')
-                </button>
-            &nbsp;&nbsp;&nbsp;
-                <button
-                    type="button"
-                    class="btn btn-app bg-yellow clock_out_btn
-                        @if(empty($clock_in))
-                            hide
-                        @endif
-                    "
-                    data-type="clock_out"
-                    >
-                    <i class="fas fa-hourglass-half fa-spin"></i> @lang('essentials::lang.clock_out')
-                </button>
-                @if(!empty($clock_in))
-                    <br>
-                    <small class="text-muted">@lang('essentials::lang.clocked_in_at'): {{@format_datetime($clock_in->clock_in_time)}}</small>
-                @endif
-            </div>
-        </div>
-    @endif
+
+
+{{-- Tabs Section --}}
+<div class="attendance-green-tabs no-print">
+    <div class="green-tabs-wrapper" style="margin-left: 24px; margin-right: 24px;">
+        <ul class="green-tabs-list" style="margin-top: -20px;">
+
+            <li>
+                <a href="#attendance_tab"
+                   data-toggle="tab"
+                   class="green-tab-link active">
+                    ATTENDANCE
+                </a>
+            </li>
+
+            @can('essentials.crud_all_attendance')
+            <li>
+                <a href="#shifts_tab"
+                   data-toggle="tab"
+                   class="green-tab-link">
+                    SHIFTS
+                </a>
+            </li>
+
+            <li>
+                <a href="#import_attendance_tab"
+                   data-toggle="tab"
+                   class="green-tab-link">
+                    IMPORT
+                </a>
+            </li>
+            @endcan
+
+        </ul>
+    </div>
+</div>
+
+
+
     <div class="row">
         <div class="col-md-12">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+
+
+                <div class="tab-content tw-px-4 table-bordered" style="margin-top:20px; background-color:#F7F7F7;">
                     @can('essentials.crud_all_attendance')
-                        <li class="active">
-                            <a href="#shifts_tab" data-toggle="tab" aria-expanded="true">
-                                <i class="fas fa-user-clock" aria-hidden="true"></i>
-                                @lang('essentials::lang.shifts')
-                                @show_tooltip(__('essentials::lang.shift_datatable_tooltip'))
-                            </a>
-                        </li>
-                    @endcan
-                    <li @if(!auth()->user()->can('essentials.crud_all_attendance')) class="active" @endif>
-                        <a href="#attendance_tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-check-square" aria-hidden="true"></i> @lang( 'essentials::lang.all_attendance' )</a>
-                    </li>
-                    @can('essentials.crud_all_attendance')
-                    <li>
-                        <a href="#attendance_by_shift_tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-user-check" aria-hidden="true"></i> @lang('essentials::lang.attendance_by_shift')</a>
-                    </li>
-                    <li>
-                        <a href="#attendance_by_date_tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-calendar" aria-hidden="true"></i> @lang('essentials::lang.attendance_by_date')</a>
-                    </li>
-                    <li>
-                        <a href="#import_attendance_tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-download" aria-hidden="true"></i> @lang('essentials::lang.import_attendance')</a>
-                    </li>
-                    @endcan
-                </ul>
-                <div class="tab-content">
-                    @can('essentials.crud_all_attendance')
-                        <div class="tab-pane active" id="shifts_tab">
-                            <button type="button" class="tw-dw-btn btn-brand tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right"
-                                data-toggle="modal" data-target="#shift_modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 5l0 14" />
-                                    <path d="M5 12l14 0" />
-                                </svg> @lang('messages.add')
-                            </button>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="shift_table">
-                                    <thead>
-                                        <tr>
-                                            <th>@lang( 'lang_v1.name' )</th>
-                                            <th>@lang( 'essentials::lang.shift_type' )</th>
-                                            <th>@lang( 'restaurant.start_time' )</th>
-                                            <th>@lang( 'restaurant.end_time' )</th>
-                                            <th>@lang( 'essentials::lang.holiday' )</th>
-                                            <th>@lang( 'messages.action' )</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                        <div class="tab-pane" id="shifts_tab" style="margin-top:20px;">
+
+
+                               <!-- Header -->
+                               <div class="shift-card-header">
+
+                                   <!-- Left -->
+                                   <div class="shift-title">
+                                       <i class="fas fa-clock"></i>
+                                       <span>Shifts</span>
+                                   </div>
+
+                                   <!-- Right -->
+                                   <button type="button"
+                                       class="shift-add-btn btn-modal"
+                                       data-toggle="modal"
+                                       data-target="#shift_modal">
+                                       <i class="fas fa-plus"></i>
+                                       Add shift
+                                   </button>
+
+                               </div>
+
+                               <!-- Table -->
+                               <div class="table-responsive">
+                                   <table class="table table-striped" id="shift_table" style="width:100%;">
+                                       <thead>
+                                           <tr>
+                                               <th>@lang('lang_v1.name')</th>
+                                               <th>@lang('essentials::lang.shift_type')</th>
+                                               <th>@lang('restaurant.start_time')</th>
+                                               <th>@lang('restaurant.end_time')</th>
+                                               <th>@lang('essentials::lang.holiday')</th>
+                                               <th>@lang('messages.action')</th>
+                                           </tr>
+                                       </thead>
+                                   </table>
+                               </div>
+
+
                         </div>
                     @endcan
-                    <div class="tab-pane @if(!auth()->user()->can('essentials.crud_all_attendance')) active @endif" id="attendance_tab">
-                        <div class="row">
+                  <div class="tab-pane active" id="attendance_tab">
+                      <div class="row" style="    margin-top: 20px;">
+
+
                             @can('essentials.crud_all_attendance')
                                 <div class="col-md-3">
+                                    <!--
                                     <div class="form-group">
-                                        {!! Form::label('employee_id', __('essentials::lang.employee') . ':') !!}
-                                        {!! Form::select('employee_id', $employees, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('lang_v1.all')]); !!}
-                                    </div>
+                                                                            {!! Form::label('employee_id', __('essentials::lang.employee') . ':') !!}
+                                                                            {!! Form::select('employee_id', $employees, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('lang_v1.all')]); !!}
+                                                                        </div>
+
+                                    -->
+
+                                <div class="attendance-title">
+                                            <i class="fas fa-calendar-check"></i>
+                                            <span>Attendance</span>
+                                        </div>
+
                                 </div>
                             @endcan
                             <div class="col-md-3">
+                                <!--
                                 <div class="form-group">
-                                    {!! Form::label('date_range', __('report.date_range') . ':') !!}
-                                    {!! Form::text('date_range', null, ['placeholder' => __('lang_v1.select_a_date_range'), 'class' => 'form-control', 'readonly']); !!}
-                                </div>
+                                                                    {!! Form::label('date_range', __('report.date_range') . ':') !!}
+                                                                    {!! Form::text('date_range', null, ['placeholder' => __('lang_v1.select_a_date_range'), 'class' => 'form-control', 'readonly']); !!}
+                                                                </div>
+
+                                -->
+
                             </div>
                             @can('essentials.crud_all_attendance')
                             <div class="col-md-6 spacer">
-                            <button type="button" class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-modal"
+                            <button type="button" class="tw-dw-btn bg-blue
+                             tw-from-indigo-600 tw-px-4 tw-py-2  tw-to-blue-500 tw-font-bold tw-text-white
+                             tw-border-none tw-rounded-md pull-right btn-modal"
                                 data-href="{{action([\Modules\Essentials\Http\Controllers\AttendanceController::class, 'create'])}}" data-container="#attendance_modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -159,7 +170,7 @@
                         </div>
                         <br><br>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="attendance_table" style="width: 100%;">
+                            <table class="table table-striped" id="attendance_table" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>@lang( 'lang_v1.date' )</th>
@@ -177,7 +188,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                     <div class="tab-pane" id="attendance_by_shift_tab">
                         @include('essentials::attendance.attendance_by_shift')
                     </div>
@@ -190,6 +201,7 @@
                         </div>
                     @endcan
                 </div>
+
             </div>
         </div>
     </div>
@@ -217,13 +229,20 @@
             attendance_table = $('#attendance_table').DataTable({
                 processing: true,
                 serverSide: true,
-                fixedHeader:false,
+                fixedHeader: false,
+
+                dom:
+                    "<'tw-flex tw-justify-between tw-items-center tw-mb-4'<'tw-flex tw-items-center'l><'tw-flex tw-items-center tw-gap-3'f<'filter-btn'>>>"
+                    + "tr"
+                    + "<'tw-flex tw-justify-between tw-items-center tw-mt-4'<'tw-text-sm'i><'tw-flex tw-items-center'p>>",
+
                 ajax: {
                     "url": "{{action([\Modules\Essentials\Http\Controllers\AttendanceController::class, 'index'])}}",
-                    "data" : function(d) {
+                    "data": function(d) {
                         if ($('#employee_id').length) {
                             d.employee_id = $('#employee_id').val();
                         }
+
                         if($('#date_range').val()) {
                             var start = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
                             var end = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
@@ -232,19 +251,48 @@
                         }
                     }
                 },
+
+                buttons: [
+                    { extend: 'csv', text: 'CSV', className: 'tw-text-blue-600 tw-text-sm' },
+                    { extend: 'excel', text: 'XLS', className: 'tw-text-blue-600 tw-text-sm' },
+                    { extend: 'pdf', text: 'PDF', className: 'tw-text-blue-600 tw-text-sm' }
+                ],
+
                 columns: [
                     { data: 'date', name: 'clock_in_time' },
                     { data: 'user', name: 'user' },
-                    { data: 'clock_in', name: 'clock_in', orderable: false, searchable: false},
-                    { data: 'clock_out', name: 'clock_out', orderable: false, searchable: false},
-                    { data: 'work_duration', name: 'work_duration', orderable: false, searchable: false},
-                    { data: 'ip_address', name: 'ip_address'},
+                    { data: 'clock_in', orderable: false, searchable: false},
+                    { data: 'clock_out', orderable: false, searchable: false},
+                    { data: 'work_duration', orderable: false, searchable: false},
+                    { data: 'ip_address'},
                     { data: 'shift_name', name: 'es.name'},
                     @can('essentials.crud_all_attendance')
-                        { data: 'action', name: 'action', orderable: false, searchable: false},
+                        { data: 'action', orderable: false, searchable: false},
                     @endcan
                 ],
             });
+
+            let attendanceExportHtml = `
+            <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom: 10px;">
+                <div class="tw-flex tw-items-center tw-gap-2">
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                        <i class="fas fa-file-csv tw-text-[11px]"></i>
+                    </div>
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                        <i class="fas fa-file-excel tw-text-[11px]"></i>
+                    </div>
+                </div>
+
+                <span>Export:</span>
+
+                <a href="#" class="tw-text-blue-600 hover:tw-underline">CSV</a>
+                <a href="#" class="tw-text-blue-600 hover:tw-underline">XLS</a>
+                <a href="#" class="tw-text-blue-600 hover:tw-underline">PDF</a>
+            </div>
+            `;
+
+            $('#attendance_table').closest('.dataTables_wrapper').append(attendanceExportHtml);
+
 
             $('#date_range').daterangepicker(
                 dateRangeSettings,
@@ -296,25 +344,70 @@
             shift_table = $('#shift_table').DataTable({
                 processing: true,
                 serverSide: true,
-                fixedHeader:false,
+                fixedHeader: false,
+
+                dom:
+                    "<'tw-flex tw-justify-between tw-items-center tw-mb-4'<'tw-flex tw-items-center'l><'tw-flex tw-items-center tw-gap-3'f<'filter-btn'>>>"
+                    + "tr"
+                    + "<'tw-flex tw-justify-between tw-items-center tw-mt-4'<'tw-text-sm'i><'tw-flex tw-items-center'p>>",
+
                 ajax: {
                     "url": "{{action([\Modules\Essentials\Http\Controllers\ShiftController::class, 'index'])}}",
                 },
-                columnDefs: [
-                    {
-                        targets: 4,
-                        orderable: false,
-                        searchable: false,
-                    },
+
+                buttons: [
+                    { extend: 'csv', text: 'CSV', className: 'tw-text-blue-600 tw-text-sm' },
+                    { extend: 'excel', text: 'XLS', className: 'tw-text-blue-600 tw-text-sm' },
+                    { extend: 'pdf', text: 'PDF', className: 'tw-text-blue-600 tw-text-sm' }
                 ],
+
                 columns: [
                     { data: 'name', name: 'name' },
                     { data: 'type', name: 'type' },
-                    { data: 'start_time', name: 'start_time'},
+                    { data: 'start_time', name: 'start_time' },
                     { data: 'end_time', name: 'end_time' },
-                    { data: 'holidays', name: 'holidays'},
-                    { data: 'action', name: 'action' },
+                    { data: 'holidays', name: 'holidays' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
+            });
+
+
+            let shiftExportHtml = `
+            <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom: 10px;">
+                <div class="tw-flex tw-items-center tw-gap-2">
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                        <i class="fas fa-file-csv tw-text-[11px]"></i>
+                    </div>
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                        <i class="fas fa-file-excel tw-text-[11px]"></i>
+                    </div>
+                </div>
+
+                <span>Export:</span>
+
+                <a href="#" class="tw-text-blue-600 hover:tw-underline shift-export-csv">CSV</a>
+                <a href="#" class="tw-text-blue-600 hover:tw-underline shift-export-xls">XLS</a>
+                <a href="#" class="tw-text-blue-600 hover:tw-underline shift-export-pdf">PDF</a>
+            </div>
+            `;
+
+            $('#shift_table').closest('.dataTables_wrapper').append(shiftExportHtml);
+
+
+            // Trigger shift exports
+            $(document).on('click', '.shift-export-csv', function(e) {
+                e.preventDefault();
+                shift_table.button('.buttons-csv').trigger();
+            });
+
+            $(document).on('click', '.shift-export-xls', function(e) {
+                e.preventDefault();
+                shift_table.button('.buttons-excel').trigger();
+            });
+
+            $(document).on('click', '.shift-export-pdf', function(e) {
+                e.preventDefault();
+                shift_table.button('.buttons-pdf').trigger();
             });
 
             $('#shift_modal, #edit_shift_modal').on('shown.bs.modal', function(e) {
@@ -497,6 +590,8 @@
             });
         });
 
+
+
         function get_attendance_summary() {
             $('#user_attendance_summary').addClass('hide');
             var user_id = $('#employee_id').length ? $('#employee_id').val() : '';
@@ -519,6 +614,12 @@
             $('#clock_out_time').data("DateTimePicker").options({minDate: $(this).data("DateTimePicker").date()});
             $('#clock_out_time').data("DateTimePicker").clear();
         }
+    });
+
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $('.green-tab-link').removeClass('active');
+        $(e.target).addClass('active');
     });
 
     $(document).on('submit', 'form#add_shift_form', function(e) {
@@ -637,3 +738,260 @@
 
 </script>
 @endsection
+
+@section('css')
+<style>
+
+.green-tab-link {
+    position: relative;
+    padding: 14px 0;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.green-tab-link:hover {
+    color: #15803d;
+}
+
+.green-tab-link.active {
+    color: #166534;
+}
+
+.green-tab-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #166534;
+    border-radius: 2px;
+}
+
+
+
+
+
+<style>
+
+/* Move tabs slightly upward */
+.attendance-green-tabs {
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 10px;   /* ↓ Reduced from 28px */
+    margin-bottom: 18px;
+}
+
+/* Thin bottom border */
+.green-tabs-wrapper {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Horizontal spacing between tabs */
+.green-tabs-list {
+    display: flex;
+    gap: 56px; /* more like Figma */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Tab text styling */
+.green-tab-link {
+    position: relative;
+    display: inline-block;
+    padding: 12px 0 14px 0; /* tighter top padding */
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.green-tab-link:hover {
+    color: #15803d;
+}
+
+/* Active tab text */
+.green-tab-link.active {
+    color: #166534;
+}
+
+/* Active underline */
+.green-tab-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #166534;
+    border-radius: 2px;
+}
+
+
+
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: none;
+    border-bottom: 1px solid #d1d5db;
+    outline: none;
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-bottom: 1px solid #166534;
+}
+
+
+
+/* Remove default datatable styling */
+.dataTables_filter label {
+    position: relative;
+    margin: 0;
+    width: 220px;
+}
+
+.dataTables_filter input {
+    width: 100% !important;
+    height: 34px !important;
+    border: none !important;
+    border-bottom: 1px solid #d1d5db !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0 24px 4px 0 !important;
+    font-size: 13px !important;
+    color: #374151 !important;
+    box-shadow: none !important;
+}
+
+/* Remove focus glow */
+.dataTables_filter input:focus {
+    outline: none !important;
+    border-bottom: 1px solid #9ca3af !important;
+}
+
+/* Placeholder style */
+.dataTables_filter input::placeholder {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+/* Search icon */
+.dataTables_filter label::after {
+    content: "\f002";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* ===== Card Container ===== */
+.attendance-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* ===== Header Flex Alignment ===== */
+.attendance-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+/* ===== Title Styling ===== */
+.attendance-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1f2937;
+    margin-top: 26px;
+}
+
+/* ===== Button Styling ===== */
+.add-attendance-btn {
+    background: #2B7ADA;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.add-attendance-btn:hover {
+    background: #1f5bd8;
+}
+
+/* ===== SHIFT CARD ===== */
+.shift-card {
+    background: #ffffff;
+/*     border-radius: 10px; */
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+/*     box-shadow: 0 1px 2px rgba(0,0,0,0.04); */
+}
+
+/* ===== HEADER ALIGNMENT ===== */
+.shift-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+/* ===== TITLE ===== */
+.shift-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+/* ===== BUTTON ===== */
+.shift-add-btn {
+    background: #2B7ADA;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s ease;
+}
+
+.shift-add-btn:hover {
+    background: #1f5bd8;
+}
+</style>
+@endsection
+
+
+
