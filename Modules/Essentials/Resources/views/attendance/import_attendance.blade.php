@@ -193,7 +193,7 @@
 
     /* Download Button */
     .download-template-btn {
-        border: 1px solid #3b82f6;
+        border: 1px solid #2B7ADA;
         color: #2B7ADA;
         padding: 6px 14px;
         border-radius: 6px;
@@ -232,7 +232,7 @@
 
     /* Submit Button */
     .import-submit-btn {
-        background: #2B7ADA;
+        background: #D6D6D6;
         color: #fff;
         padding: 8px 18px;
         border-radius: 6px;

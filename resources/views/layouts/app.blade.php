@@ -22,6 +22,8 @@
     dir="{{ in_array(session()->get('user.language', config('app.locale')), config('constants.langs_rtl')) ? 'rtl' : 'ltr' }}">
 <head>
 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
      <!--
 
      <script>
@@ -1455,7 +1457,6 @@ margin-left:50px;
 
     /* ================= ERROR STATE ================= */
 
-
     .has-error .help-block {
         color: #ef4444;
         font-size: 12px;
@@ -1506,14 +1507,15 @@ font-size: 13px !important;
 
     /* Icon smaller & subtle */
     .dashboard-metrics-bar svg {
-        width: 20px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         color: #A8B0C5;
     }
 
     /* Title text */
     .dashboard-metrics-bar p:first-child {
-        font-size: 13px;
+       font-family:Roboto;
+        font-size: 12px;
         font-weight: 500;
         color: #333333;
         margin-bottom: 2px;
@@ -1521,8 +1523,9 @@ font-size: 13px !important;
 
     /* Value text */
     .dashboard-metrics-bar p:last-child {
+    font-family: Roboto;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
         color: #333333;
     }
 
@@ -1564,6 +1567,28 @@ font-size: 13px !important;
     }
 }
 
+/* ================= GLOBAL FONT OVERRIDE ================= */
+
+/* html, */
+/* body, */
+/* * { */
+/*     font-family: 'Roboto', sans-serif !important; */
+/* } */
+
+/* Also force on common components */
+input,
+textarea,
+select,
+button,
+table,
+th,
+td,
+span,
+a,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif !important;
 }
 
     </style>

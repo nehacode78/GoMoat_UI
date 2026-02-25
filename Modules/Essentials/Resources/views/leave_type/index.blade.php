@@ -217,4 +217,21 @@
 }
 
 
+/* Also force on common components */
+input,
+textarea,
+select,
+button,
+table,
+th,
+td,
+span,
+a,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+
     </style>

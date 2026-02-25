@@ -43,10 +43,10 @@
               type="button"
               class="tw-ml-4
                      tw-bg-[#2B7ADA] hover:tw-bg-[#1f5bd8]
-                     tw-text-white tw-rounded-md bg-blue
+                     tw-text-white tw-rounded-md
                      tw-px-4 tw-py-2 tw-text-sm tw-font-medium
                      clock_in_btn
-                     {{ !empty($clock_in) ? 'hide' : '' }}"
+                     {{ !empty($clock_in) ? 'hide' : '' }}" style="background-color: #2B7ADA !important;"
               data-type="clock_in">
 
               <i class="fas fa-arrow-circle-down tw-mr-1"></i>

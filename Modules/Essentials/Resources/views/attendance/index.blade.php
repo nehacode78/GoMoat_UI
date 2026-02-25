@@ -147,9 +147,9 @@
                             </div>
                             @can('essentials.crud_all_attendance')
                             <div class="col-md-6 spacer">
-                            <button type="button" class="tw-dw-btn bg-blue
+                            <button type="button" class="tw-dw-btn
                              tw-from-indigo-600 tw-px-4 tw-py-2  tw-to-blue-500 tw-font-bold tw-text-white
-                             tw-border-none tw-rounded-md pull-right btn-modal"
+                             tw-border-none tw-rounded-md pull-right btn-modal" style="background-color: #2B7ADA !important;"
                                 data-href="{{action([\Modules\Essentials\Http\Controllers\AttendanceController::class, 'create'])}}" data-container="#attendance_modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -989,6 +989,25 @@
 
 .shift-add-btn:hover {
     background: #1f5bd8;
+}
+
+
+
+
+/* Also force on common components */
+input,
+textarea,
+select,
+button,
+table,
+th,
+td,
+span,
+a,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif !important;
 }
 </style>
 @endsection
