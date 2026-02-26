@@ -1,10 +1,18 @@
-@if(request()->segment(1) == 'hrm')
+@if(
+    request()->segment(1) == 'hrm' ||
+    in_array(request()->get('type'), ['hrm_department', 'hrm_designation'])
+)
 
 @php
-    $currentPage = ucfirst(str_replace('-', ' ', request()->segment(2)));
-
-    if(empty(request()->segment(2))){
-        $currentPage = 'Dashboard';
+    if(request()->get('type') == 'hrm_department'){
+        $currentPage = 'Departments';
+    } elseif(request()->get('type') == 'hrm_designation'){
+        $currentPage = 'Designations';
+    } else {
+        $segment = request()->segment(2);
+        $currentPage = $segment
+            ? ucwords(str_replace('-', ' ', $segment))
+            : 'Dashboard';
     }
 @endphp
 
@@ -23,11 +31,15 @@
   <div class="tw-flex tw-items-center tw-gap-6">
 
       {{-- Date --}}
-      @if(request()->segment(2) !== null && request()->segment(2) !== 'dashboard')
-          <div class="tw-text-sm tw-text-gray-400">
-              {{ \Carbon\Carbon::now()->format('d M, Y') }}
-          </div>
-      @endif
+    @if(
+        (request()->segment(1) == 'hrm' && request()->segment(2) !== 'dashboard')
+        ||
+        in_array(request()->get('type'), ['hrm_department', 'hrm_designation'])
+    )
+        <div class="tw-text-sm tw-text-gray-400">
+            {{ \Carbon\Carbon::now()->format('d M, Y') }}
+        </div>
+    @endif
 
       {{-- Show Clock In ONLY on attendance page --}}
       @if(request()->segment(2) == 'attendance')

@@ -991,9 +991,6 @@
     background: #1f5bd8;
 }
 
-
-
-
 /* Also force on common components */
 input,
 textarea,

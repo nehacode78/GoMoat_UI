@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @php
     $heading = !empty($module_category_data['heading']) ? $module_category_data['heading'] : __('category.categories');
@@ -9,24 +10,37 @@
     @if (!empty($navbar))
         @include($navbar)
     @endif
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black" >{{ $heading }}
-            <small class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold" >
-                {{ $module_category_data['sub_heading'] ?? __('category.manage_your_categories') }}
-            </small>
-            @if (isset($module_category_data['heading_tooltip']))
-                @show_tooltip($module_category_data['heading_tooltip'])
-            @endif
-        </h1>
-        <!-- <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-        </ol> -->
-    </section>
+
+
+
+
+    <!--
+
+
+        <section class="content-header">
+            <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black" >{{ $heading }}
+                <small class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold" >
+                    {{ $module_category_data['sub_heading'] ?? __('category.manage_your_categories') }}
+                </small>
+                @if (isset($module_category_data['heading_tooltip']))
+                    @show_tooltip($module_category_data['heading_tooltip'])
+                @endif
+            </h1>
+
+        </section>
+
+    -->
+
+
+
+
+
+
 
     <!-- Main content -->
     <section class="content">
+
+
         @php
             $cat_code_enabled =
                 isset($module_category_data['enable_taxonomy_code']) && !$module_category_data['enable_taxonomy_code']
@@ -44,12 +58,12 @@
             @if ($can_add)
                 @slot('tool')
                     <div class="box-tools">
-                        {{-- <button type="button" class="btn btn-block btn-primary btn-modal" 
-                    data-href="{{action([\App\Http\Controllers\TaxonomyController::class, 'create'])}}?type={{request()->get('type')}}" 
+                        {{-- <button type="button" class="btn btn-block btn-primary btn-modal"
+                    data-href="{{action([\App\Http\Controllers\TaxonomyController::class, 'create'])}}?type={{request()->get('type')}}"
                     data-container=".category_modal">
                     <i class="fa fa-plus"></i> @lang( 'messages.add' )</button> --}}
                         <a class="tw-dw-btn btn-brand tw-font-bold tw-text-white tw-border-none tw-rounded-full btn-modal"
-                            data-href="{{action([\App\Http\Controllers\TaxonomyController::class, 'create'])}}?type={{request()->get('type')}}" 
+                            data-href="{{action([\App\Http\Controllers\TaxonomyController::class, 'create'])}}?type={{request()->get('type')}}"
                             data-container=".category_modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -61,6 +75,9 @@
                         </a>
                     </div>
                 @endslot
+
+
+
             @endif
 
             <div class="table-responsive">
@@ -94,3 +111,6 @@
 @section('javascript')
     @includeIf('taxonomy.taxonomies_js')
 @endsection
+
+
+

@@ -34,9 +34,6 @@
 
 
 
-
-
-
 <div class="{{ $class ?? '' }} tw-mb-6 tw-px-3 tw-mt-4 tw-bg-white tw-rounded-xl tw-border tw-border-gray-200 tw-shadow-sm" style="background-color:#F7F7F7;"
     @if (!empty($id)) id="{{ $id }}" @endif>
 
@@ -62,3 +59,11 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+

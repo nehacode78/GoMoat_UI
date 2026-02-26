@@ -1,0 +1,497 @@
+
+                                  /*-----GO_MOAT UI STYLESHEET-----*/
+
+
+                    /*----- 1. DASHBOARD-----*/
+
+/* ==financial health wrapper== */
+
+.financial-health-wrapper {
+    padding: 25px 0;
+}
+.move-up {
+    margin-top: -60px;   /* adjust value if needed */
+}
+
+/* Section Title */
+.financial-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #6b7280;
+    margin-bottom: 18px;
+}
+
+/* Card */
+.financial-card {
+    background: #F4F8FD80;
+    border: 1px solid #c7d2fe;
+    padding: 30px 26px;
+    border-radius: 4px;
+}
+
+/* Header */
+.financial-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+/* Icon */
+.financial-icon {
+    font-size: 16px;
+    color: #6b7280;
+    margin-right: 8px;
+}
+
+/* Heading */
+.financial-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Link */
+.financial-link {
+    font-size: 12px;
+    color: #2B7ADA;
+    /*     text-decoration: none; */
+    text-decoration: underline;
+}
+
+/* Stats Layout */
+.financial-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Individual stat */
+.stat-block {
+    text-align: left;
+}
+
+/* Value */
+.stat-value {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1f2937;
+}
+
+/* Label */
+.stat-label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Colors */
+.text-blue {
+    color: #1e40af;
+}
+
+.text-red {
+    color: #dc2626;
+}
+
+
+/* Background wrapper */
+.risk-profit-wrapper {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+/* Section titles */
+.section-header {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+/* Risk Boxes */
+.risk-box {
+    background: #FEFCF5;
+    padding: 25px;
+    border-radius: 4px;
+    min-height: 210px;
+}
+
+.risk-boxs{
+    background: #F5FAF7;
+    padding: 25px;
+    border-radius: 4px;
+    min-height: 210px;
+}
+
+.risk-inventory {
+    border: 1px solid #facc15;
+}
+
+.risk-shipments {
+    border: 1px solid #86efac;
+}
+
+.risk-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.risk-title {
+    font-weight: 600;
+    font-size:18px;
+    color:#C49631;
+}
+.risk-titles {
+    font-weight: 600;
+    font-size:18px;
+    color:#276134;
+}
+
+.risk-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size:18px;
+}
+
+.risk-count {
+    font-size: 22px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* Profit Box */
+.profit-box {
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    padding: 20px;
+    min-height: 340px;
+}
+
+.profit-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 18px;
+}
+
+.profit-label {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.profit-sub {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.profit-value {
+    font-weight: 600;
+}
+
+
+/* == new profit ui == */
+
+.profit-box-new {
+    background: #F4F8FD80;
+    border: 2px solid #dbeafe;
+    border-radius: 6px;
+    padding: 25px 30px;
+}
+
+/* Two equal columns */
+.profit-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+}
+
+/* Each side */
+.profit-side {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Each item */
+.profit-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+/* Remove border from last item */
+.profit-side .profit-item:last-child {
+    border-bottom: none;
+}
+
+
+/* Sub text */
+.profit-sub {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+/* Amount */
+.profit-value {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333333;
+}
+
+
+/* == operations== */
+
+.operations-title-wrapper {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+.operations-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #6b7280;
+}
+
+
+/* Each item */
+.profit-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 14px;
+}
+
+/* Top row (title + value same line) */
+.profit-top {
+    display: flex;
+    align-items: center;
+}
+
+/* Title */
+.profit-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #1A4983;
+}
+
+/* Subtitle */
+.profit-sub {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* Amount */
+.profit-value {
+    margin-left: 80px;
+}
+
+
+.salesorder{
+    font-size:18px;
+}
+
+@media (min-width: 1200px) {
+    .col-lg-4 {
+        width: 31.333333% !important;
+    }
+}
+
+.textcolor{
+    color:#852E37;
+}
+
+
+/* === operations graph card == */
+
+.operations-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 20px 25px;
+}
+
+/* Header */
+.operations-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Left title */
+.operations-title-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.sales-text {
+    font-weight: 600;
+    color: #111827;
+}
+
+.divider {
+    color: #9ca3af;
+}
+
+.period-text {
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.small-arrow {
+    font-size: 10px;
+    color: #6b7280;
+    margin-left: 4px;
+}
+
+/* Menu icon right */
+.chart-menu {
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+/* Chart spacing */
+.operations-chart-body {
+    margin-top: 10px;
+}
+
+.shifty{
+    width: 1rem !important;
+}
+.tw-gap{
+    gap:1.25rem;
+}
+
+                               /*----  FONT FAMILY -----*/
+input,
+textarea,
+select,
+button,
+table,
+th,
+td,
+span,
+a,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+   font-family: 'Roboto', sans-serif !important;
+}
+
+
+                           /*----- 2. HRM-MODULES----*/
+
+   /*== SEARCHBAR==*/
+
+ /* Remove default datatable styling */
+.dataTables_filter label {
+    position: relative;
+    margin: 0;
+    width: 220px;
+}
+
+.dataTables_filter input {
+    width: 100% !important;
+    height: 34px !important;
+    border: none !important;
+    border-bottom: 1px solid #d1d5db !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0 24px 4px 0 !important;
+    font-size: 13px !important;
+    color: #374151 !important;
+    box-shadow: none !important;
+}
+
+/* Remove focus glow */
+.dataTables_filter input:focus {
+    outline: none !important;
+    border-bottom: 1px solid #9ca3af !important;
+}
+
+/* Placeholder style */
+.dataTables_filter input::placeholder {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+/* Search icon */
+.dataTables_filter label::after {
+    content: "\f002";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+  /*== GREEN TOGGLE ==*/
+
+ /* Move tabs slightly upward */
+ .attendance-green-tabs {
+     margin-left: 24px;
+     margin-right: 24px;
+     margin-top: 10px;   /* ↓ Reduced from 28px */
+     margin-bottom: 18px;
+ }
+
+ /* Thin bottom border */
+ .green-tabs-wrapper {
+     border-bottom: 1px solid #e5e7eb;
+ }
+
+ /* Horizontal spacing between tabs */
+ .green-tabs-list {
+     display: flex;
+     gap: 56px; /* more like Figma */
+     list-style: none;
+     padding: 0;
+     margin: 0;
+ }
+
+ /* Tab text styling */
+ .green-tab-link {
+     position: relative;
+     display: inline-block;
+     padding: 12px 0 14px 0; /* tighter top padding */
+     font-size: 13px;
+     font-weight: 600;
+     letter-spacing: 1.4px;
+     text-transform: uppercase;
+     color: #94a3b8;
+     text-decoration: none;
+     transition: all 0.2s ease;
+ }
+
+ /* Hover */
+ .green-tab-link:hover {
+     color: #15803d;
+ }
+
+ /* Active tab text */
+ .green-tab-link.active {
+     color: #166534;
+ }
+
+ /* Active underline */
+ .green-tab-link.active::after {
+     content: '';
+     position: absolute;
+     bottom: -1px;
+     left: 0;
+     height: 3px;
+     width: 100%;
+     background-color: #166534;
+     border-radius: 2px;
+ }

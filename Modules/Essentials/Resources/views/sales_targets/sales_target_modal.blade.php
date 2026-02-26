@@ -64,9 +64,12 @@
 	    {!! Form::close() !!}
 	    <table class="hidden" id="sales_target_row_hidden">
 	    	<tr>
+
+
 				<td>
 					{!! Form::text('sales_amount_start[]', 0, ['class' => 'form-control input-sm input_number', 'required']); !!}
 				</td>
+
 				<td>
 					{!! Form::text('sales_amount_end[]', 0, ['class' => 'form-control input-sm input_number', 'required']); !!}
 				</td>
@@ -80,3 +83,5 @@
 	    </table>
   	</div>
 </div>
+
+
