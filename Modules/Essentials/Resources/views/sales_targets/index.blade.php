@@ -46,23 +46,67 @@
 @section('javascript')
     <script type="text/javascript">
         $(document).ready(function() {
-           sales_target_table = $('#sales_target_table').DataTable({
-               processing: true,
-               serverSide: true,
-               fixedHeader:false,
-               dom:
-                   "<'tw-flex tw-items-center tw-justify-between tw-mb-3 tw-mt-4 sales-target-header' >" + // custom header
-                   "<'row position'<'col-sm-6'l><'col-sm-6'f>>" +
-                   "rt" +
-                   "<'row'<'col-sm-5'i><'col-sm-7'>>",
-                ajax: {
-                    "url": "{{action([\Modules\Essentials\Http\Controllers\SalesTargetController::class, 'index'])}}"
-                },
-                columns: [
-                    { data: 'full_name', name: 'full_name' },
-                    { data: 'action', name: 'action' },
-                ],
-            });
+          sales_target_table = $('#sales_target_table').DataTable({
+              processing: true,
+              serverSide: true,
+              fixedHeader:false,
+              dom:
+                  "<'tw-flex tw-items-center tw-justify-between tw-mb-3 tw-mt-4 sales-target-header'>" +
+                  "<'row position'<'col-sm-6'l><'col-sm-6'f>>" +
+                  "rt" +
+                  "<'row'<'col-sm-5'i><'col-sm-7'>>",
+
+              buttons: [
+                  { extend: 'csv', className: 'buttons-csv' },
+                  { extend: 'excel', className: 'buttons-excel' },
+                  { extend: 'pdf', className: 'buttons-pdf' }
+              ],
+
+              ajax: {
+                  url: "{{action([\Modules\Essentials\Http\Controllers\SalesTargetController::class, 'index'])}}"
+              },
+              columns: [
+                  { data: 'full_name', name: 'full_name' },
+                  { data: 'action', name: 'action' },
+              ],
+          });
+
+          let salesExportHtml = `
+          <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom: 10px;">
+              <div class="tw-flex tw-items-center tw-gap-2">
+                  <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                      <i class="fas fa-file-csv tw-text-[11px]"></i>
+                  </div>
+                  <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                      <i class="fas fa-file-excel tw-text-[11px]"></i>
+                  </div>
+              </div>
+
+              <span>Export:</span>
+
+              <a href="#" class="tw-text-blue-600 hover:tw-underline sales-export-csv">CSV</a>
+              <a href="#" class="tw-text-blue-600 hover:tw-underline sales-export-xls">XLS</a>
+              <a href="#" class="tw-text-blue-600 hover:tw-underline sales-export-pdf">PDF</a>
+          </div>
+          `;
+
+          $('#sales_target_table').closest('.dataTables_wrapper').append(salesExportHtml);
+
+
+          $(document).on('click', '.sales-export-csv', function(e) {
+              e.preventDefault();
+              sales_target_table.button('.buttons-csv').trigger();
+          });
+
+          $(document).on('click', '.sales-export-xls', function(e) {
+              e.preventDefault();
+              sales_target_table.button('.buttons-excel').trigger();
+          });
+
+          $(document).on('click', '.sales-export-pdf', function(e) {
+              e.preventDefault();
+              sales_target_table.button('.buttons-pdf').trigger();
+          });
 
             $('.sales-target-header').html(`
                 <div class="tw-flex tw-items-center tw-gap-2 size">
@@ -178,5 +222,6 @@ margin-top:44px !important;
 
     background-color: #dbeafe !important;
 }
+
 
     </style>

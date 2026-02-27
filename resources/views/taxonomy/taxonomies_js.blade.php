@@ -23,7 +23,16 @@
                     processing: true,
                     serverSide: true,
                     fixedHeader:false,
+                    pagingType: "numbers",
+
                     ajax: '/taxonomies?type=' + category_type,
+
+                    buttons: [
+                        { extend: 'csv', className: 'buttons-csv' },
+                        { extend: 'excel', className: 'buttons-excel' },
+                        { extend: 'pdf', className: 'buttons-pdf' }
+                    ],
+
                     columns: [
                         { data: 'name', name: 'name', orderable: false, searchable: true },
                         @if($cat_code_enabled)
@@ -32,6 +41,43 @@
                         { data: 'description', name: 'description', orderable: false, searchable: true },
                         { data: 'action', name: 'action', orderable: false, searchable: false},
                     ],
+                });
+
+                let deptExportHtml = `
+                <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px;">
+                    <div class="tw-flex tw-items-center tw-gap-2">
+                        <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                            <i class="fas fa-file-csv tw-text-[11px]"></i>
+                        </div>
+                        <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                            <i class="fas fa-file-excel tw-text-[11px]"></i>
+                        </div>
+                    </div>
+
+                    <span>Export:</span>
+
+                    <a href="#" class="tw-text-blue-600 hover:tw-underline dept-export-csv">CSV</a>
+                    <a href="#" class="tw-text-blue-600 hover:tw-underline dept-export-xls">XLS</a>
+                    <a href="#" class="tw-text-blue-600 hover:tw-underline dept-export-pdf">PDF</a>
+                </div>
+                `;
+
+                $('#category_table').closest('.dataTables_wrapper').append(deptExportHtml);
+
+
+                $(document).on('click', '.dept-export-csv', function(e) {
+                    e.preventDefault();
+                    $('#category_table').DataTable().button('.buttons-csv').trigger();
+                });
+
+                $(document).on('click', '.dept-export-xls', function(e) {
+                    e.preventDefault();
+                    $('#category_table').DataTable().button('.buttons-excel').trigger();
+                });
+
+                $(document).on('click', '.dept-export-pdf', function(e) {
+                    e.preventDefault();
+                    $('#category_table').DataTable().button('.buttons-pdf').trigger();
                 });
             }
         }

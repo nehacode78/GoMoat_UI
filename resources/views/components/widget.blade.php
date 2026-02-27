@@ -40,12 +40,12 @@
     @if (!empty($title) || !empty($tool))
         <div class="tw-flex tw-items-center tw-mt-4 tw-justify-between tw-px-6 tw-py-5 tw-border-gray-200" style='padding-bottom:20px;'>
 
-            <div class="tw-flex tw-items-center tw-gap-3">
-                {!! $icon ?? '<i class="fas fa-user-clock tw-text-gray-500 tw-text-sm"></i>' !!}
-                <h3 class="tw-text-[15px] tw-font-sm tw-text-gray-800 tw-m-0">
-                    {{ $title ?? '' }}
-                </h3>
-            </div>
+           <div class="tw-flex tw-items-center tw-gap-3"  >
+               {!! $icon ?? '' !!}
+               <h3 class="tw-text-[12px] tw-font-bold tw-m-0" style="color:#333333; font-size: 16px; font-weight:700; ">
+                   {{ $title ?? '' }}
+               </h3>
+           </div>
 
             <div>
                 {!! $tool ?? '' !!}

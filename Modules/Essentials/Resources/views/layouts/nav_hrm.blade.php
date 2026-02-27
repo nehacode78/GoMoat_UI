@@ -41,6 +41,17 @@
         </div>
     @endif
 
+     {{-- Show Update Settings ONLY on settings page --}}
+        @if(request()->segment(2) == 'settings')
+            <button type="submit"
+                form="essentials_settings_form"
+                class="hover:tw-bg-[#1f5bd8]
+                       tw-text-white tw-rounded-md
+                       tw-px-5 tw-py-2 tw-text-sm tw-font-medium" style="background-color:#2B7ADA;">
+                Update Settings
+            </button>
+        @endif
+
       {{-- Show Clock In ONLY on attendance page --}}
       @if(request()->segment(2) == 'attendance')
 
@@ -131,6 +142,9 @@
 
 
 <style>
+    .tw-text-xl{
+    font-size:24px;
+    }
 .tab-link {
     position: relative;
     padding: 14px 30px;
