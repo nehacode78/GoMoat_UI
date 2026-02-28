@@ -27,7 +27,6 @@
     </div>
 
     <!-- Right Side (Date) -->
-
   <div class="tw-flex tw-items-center tw-gap-6">
 
       {{-- Date --}}

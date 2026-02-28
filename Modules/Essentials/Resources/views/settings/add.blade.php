@@ -34,25 +34,23 @@
                             @include('essentials::settings.partials.leave_settings')
                         </div>
 
-                    <div class="row" style="margin-top:20px;">
+                  <div class="row tw-flex tw-items-stretch" style="margin-top:20px;">
 
                         {{-- Payroll --}}
-                        <div class="col-md-6 col-sm-6">
-                            <div class="tw-rounded-lg tw-p-2 tw-border tw-border-gray-200">
+                        <div class="col-md-6 col-sm-6 tw-flex">
+                            <div class="tw-rounded-lg tw-p-4 tw-border tw-border-gray-200 tw-w-full">
                                 <h4 class="tw-font-semibold tw-text-lg tw-mb-4">Payroll Settings</h4>
                                 @include('essentials::settings.partials.payroll_settings')
                             </div>
                         </div>
 
                         {{-- Sales Targets --}}
-                        <div class="col-md-6 col-sm-6">
-                            <div class="tw-rounded-lg tw-p-2 tw-border tw-border-gray-200">
-                                <h4 class="tw-font-semibold tw-text-sm tw-mb-4">Sales Target Settings</h4>
+                        <div class="col-md-6 col-sm-6 tw-flex">
+                            <div class="tw-rounded-lg tw-p-4 tw-border tw-border-gray-200 tw-w-full">
+                                <h4 class="tw-font-semibold tw-text-lg tw-mb-4">Sales Target Settings</h4>
                                 @include('essentials::settings.partials.sales_target_settings')
                             </div>
                         </div>
-
-
 
                     </div>
 
@@ -99,5 +97,7 @@
         });
     </script>
 @endsection
+
+
 
 

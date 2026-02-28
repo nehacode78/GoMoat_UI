@@ -3,9 +3,11 @@
 @section('content')
 	@include('crm::layouts.nav')
 	<!-- Content Header (Page header) -->
+	<!--
 	<section class="content-header no-print">
-	   <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('crm::lang.follow_ups')</h1>
-	</section>
+    	   <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('crm::lang.follow_ups')</h1>
+    	</section>
+	-->
 	<section class="content no-print">
 		@component('components.filters', ['title' => __('report.filters')])
 	        <div class="row">
@@ -92,6 +94,14 @@
 			                    <li>
 			                        <a href="#recur_followup_tab" data-toggle="tab" aria-expanded="true"> @lang('crm::lang.recur_follow_ups')</a>
 			                    </li>
+                                    <li>
+                                        <a href="#followup_category_tab" data-toggle="tab">
+                                            @lang('crm::lang.followup_category')
+                                        </a>
+                                    </li>
+
+
+
 			                </ul>
 			                <div class="tab-content">
                     			<div class="tab-pane active" id="all_followup_tab">
@@ -168,6 +178,25 @@
 									    </table>
 						            </div>
                     			</div>
+
+                           <div class="tab-pane" id="followup_category_tab">
+                               <div class="table-responsive">
+                                   <table class="table table-bordered table-striped"
+                                          id="followup_category_table"
+                                          style="width: 100%">
+                                       <thead>
+                                           <tr>
+                                                <th>@lang('crm::lang.followup_category')</th>
+
+                                              <th>@lang('crm::lang.description')</th>
+                                              <th>@lang('messages.action')</th>
+                                           </tr>
+                                       </thead>
+                                       <tbody></tbody>
+                                   </table>
+                               </div>
+                           </div>
+
                     		</div>
 			            </div>
 			        </div>
@@ -295,6 +324,39 @@
 		            { data: 'added_on', name: 'crm_schedules.created_at' },
 		        ]
 			});
+
+			var followup_category_table;
+
+            $('a[href="#followup_category_tab"]').on('shown.bs.tab', function () {
+
+                if (!$.fn.DataTable.isDataTable('#followup_category_table')) {
+
+                    followup_category_table = $("#followup_category_table").DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ajax: {
+                            url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
+                            data: function (d) {
+                                d.type = 'followup_category';
+                            }
+                        },
+                        columnDefs: [
+                            {
+                                targets: 0,
+                                orderable: false,
+                                searchable: false,
+                            }
+                        ],
+                        columns: [
+                            { data: 'action', name: 'action' },
+                            { data: 'name', name: 'name' },
+                            { data: 'description', name: 'description' }
+                        ]
+                    });
+
+                }
+
+            });
 
 			$(document).on('change', '#contact_id_filter, #assgined_to_filter, #status_filter, #schedule_type_filter, #follow_up_by_filter', function() {
 			    follow_up_datatable.ajax.reload();

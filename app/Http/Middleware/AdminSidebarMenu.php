@@ -956,7 +956,85 @@ class AdminSidebarMenu
             }
 
 
+
+        // CRM management dropdown
+            if (auth()->user()->can('user.view') || auth()->user()->can('user.create') || auth()->user()->can('roles.view')) {
+
+            $menu->dropdown(
+                __('crm.crm'),
+                function ($sub) {
+                if (auth()->user()->can('user.view')) {
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\CrmDashboardController::class, 'index']),
+                        __('crm.dashboard'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'dashboard']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\LeadController::class, 'index']),
+                        __('crm.leads'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'leads']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\ScheduleController::class, 'index']),
+                        __('crm.follow-ups'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'follow-ups']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\CampaignController::class, 'index']),
+                        __('crm.campaigns'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'campaigns']
+                    );
+
+
+//                    $sub->url(
+//                        action([\App\Http\Controllers\ContactController::class, 'index'], ['type' => 'customer']),
+//                        __('crm.contacts'),
+//                        ['icon' => '', 'active' => request()->segment(1) == 'contacts']
+//                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\ReportController::class, 'index']),
+                        __('crm.reports'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'reports']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\ProposalController::class, 'index']),
+                        __('crm.proposals'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'proposals']
+                    );
+
+                    $sub->url(
+                        action([\Modules\Crm\Http\Controllers\CrmSettingsController::class, 'index']),
+                        __('crm.settings'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'crm' && request()->segment(2) == 'settings']
+                    );
+                 }
+
+                },
+                [
+                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="tw-size-5 tw-shrink-0" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7h16" />
+                        <path d="M4 12h16" />
+                        <path d="M4 17h16" />
+                    </svg>'
+                ]
+            )->order(11);
+        }
+
+
+
+
+
         });
+
+
+
 
 
 
