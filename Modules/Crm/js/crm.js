@@ -65,10 +65,12 @@ $(document).ready(function () {
 		});
 	});
 
+
 	$('.contact_login_modal').on('shown.bs.modal', function (e) {
 		$('.input-icheck').iCheck({
 			checkboxClass: 'icheckbox_square-blue'
 		});
+
 
 		if ($('form#contact_login_add').length > 0) {
 			$("form#contact_login_add").validate({
@@ -385,6 +387,12 @@ $(document).ready(function () {
 			},
 		},
 		aaSorting: [[1, 'desc']],
+
+		buttons: [
+			{ extend: 'csv', className: 'buttons-csv d-none' },
+			{ extend: 'excel', className: 'buttons-excel d-none' },
+			{ extend: 'pdf', className: 'buttons-pdf d-none' }
+		],
 		columns: [
 			{ data: 'action', name: 'action', orderable: false, searchable: false },
 			{ data: 'transaction_date', name: 'transaction_date' },
@@ -1102,6 +1110,7 @@ function initializeLeadScheduleDatatable() {
 	}
 }
 
+
 function initializeCampaignDatatable() {
 	if ((typeof campaigns_datatable == 'undefined')) {
 		campaigns_datatable = $("#campaigns_table").DataTable({
@@ -1209,6 +1218,42 @@ function initializeLeadDatatable() {
 				},
 			],
 			aaSorting: [[6, 'desc']],
+			dom: 'Bfrtip',
+
+			initComplete: function () {
+
+				let exportHtml = `
+    <div class="tw-flex tw-items-center tw-gap-3 tw-mt-4 tw-text-[13px] tw-text-gray-600">
+
+        <div class="tw-flex tw-items-center tw-gap-2">
+            <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                <i class="fas fa-file-csv tw-text-[11px]"></i>
+            </div>
+            <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                <i class="fas fa-file-excel tw-text-[11px]"></i>
+            </div>
+        </div>
+
+        <span>Export:</span>
+
+        <a href="#" id="export_csv" class="tw-text-blue-600">CSV</a>
+        <a href="#" id="export_xls" class="tw-text-blue-600">XLS</a>
+        <a href="#" id="export_pdf" class="tw-text-blue-600">PDF</a>
+
+    </div>
+    `;
+
+				$('#leads_table').closest('.dataTables_wrapper').append(exportHtml);
+			},
+
+
+
+			buttons: [
+				{ extend: 'csv', className: 'buttons-csv d-none' },
+				{ extend: 'excel', className: 'buttons-excel d-none' },
+				{ extend: 'pdf', className: 'buttons-pdf d-none' }
+			],
+
 			columns: [
 				{ data: 'action', name: 'action' },
 				{ data: 'contact_id', name: 'contact_id' },
@@ -1235,10 +1280,28 @@ function initializeLeadDatatable() {
 				{ data: 'custom_field10', name: 'custom_field10' }
 			]
 		});
+		$(document).on('click','#export_csv',function(e){
+			e.preventDefault();
+			$('.buttons-csv').click();
+		});
+
+		$(document).on('click','#export_xls',function(e){
+			e.preventDefault();
+			$('.buttons-excel').click();
+		});
+
+		$(document).on('click','#export_pdf',function(e){
+			e.preventDefault();
+			$('.buttons-pdf').click();
+		});
+
+
+
 	} else {
 		leads_datatable.ajax.reload();
 	}
 }
+
 
 function initializeLeadKanbanBoard() {
 	//before creating kanban board, set div to empty.

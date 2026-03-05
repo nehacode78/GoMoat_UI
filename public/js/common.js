@@ -271,7 +271,16 @@ $(document).ready(function () {
         //stateSave: true,
         fixedHeader: true,
         // dom: '<"row margin-bottom-20 text-center"<"col-sm-3"l><"col-sm-6"B><"col-sm-3"f> r>tip',
-        dom: '<"row margin-bottom-20 text-center" <"col-sm-3"l><"col-sm-6"><"col-sm-3"f> r>tip',
+        // dom: '<"row margin-bottom-20 text-center" <"col-sm-3"l><"col-sm-6"><"col-sm-3"f> r>tip',
+
+        dom:
+            '<' +
+            '"row crm-datatable-toolbar"' +
+            '<"col-md-6 d-flex align-items-center gap-2 "  l>' +
+            '<"col-md-6 text-right"f>' +
+            '>rtip',
+
+
 
         buttons: buttons,
         aLengthMenu: [

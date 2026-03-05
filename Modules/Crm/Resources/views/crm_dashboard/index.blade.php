@@ -26,21 +26,51 @@
     padding: 20px 22px;
     border: 1px solid #EAEDF2;
 }
-.scope-card.green-tint { background: linear-gradient(135deg,#F0FDF4 0%,#fff 60%); }
-.scope-card.blue-tint  { background: linear-gradient(135deg,#EFF6FF 0%,#fff 60%); }
-.scope-card .card-icon { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px; }
-.scope-card .card-icon.cyan  { background:#CFFAFE;color:#0891B2; }
+.scope-card.green-tint { background:#FEF8EC; }
+.scope-card.blue-tint  { background: #ECF6EE; }
+
+/* .scope-card .card-icon { width:36px;height:36px;border-radius:8px; */
+/* display:flex;align-items:center;justify-content:center;margin-bottom:10px; } */
+
+.scope-card-header{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:8px;
+}
+
+.scope-card .card-icon{
+    width:24px;
+    height:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+.scope-card .card-icon svg{
+    width:24px !important;
+    height:24px !important;
+}
+
+.scope-card .card-icon.cyan{ color:#624B18; font-size:16px; }
+
+.scope-card .card-icon.cyans{ color:#1A4122; font-size:16px; }
+
 .scope-card .card-icon.green { background:#DCFCE7;color:#16A34A; }
-.scope-card .card-label { font-size:12px;font-weight:500;color:#6B7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px; }
-.scope-card .card-value { font-size:36px;font-weight:700;color:#111827;line-height:1;margin-bottom:6px; }
-.scope-card .card-sub   { font-size:12px;color:#9CA3AF; }
+.scope-card .card-label { font-size:16px;font-weight:500;color:#624B18;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px; }
+.scope-card .card-labels { font-size:16px;font-weight:500;color:#1A4122;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px; }
+
+.scope-card .card-value { font-size:36px;font-weight:700;color:#111827;
+line-height:1;margin-bottom:6px; padding-top:32px; padding-left: 12px; }
+.scope-card .card-sub   { font-size:12px;color:#9CA3AF; padding-left:12px;}
 .trend { display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:2px 6px;border-radius:20px;margin-left:6px; }
 .trend.up   { color:#16A34A;background:#DCFCE7; }
 .trend.down { color:#DC2626;background:#FEE2E2; }
 
 /* ── Follow ups status card ── */
-.followup-status { background:#fff;border-radius:14px;padding:20px 22px;border:1px solid #EAEDF2; }
-.followup-status .fs-title { font-size:13px;font-weight:600;color:#374151;margin-bottom:14px;display:flex;align-items:center;gap:6px; }
+.followup-status { background:#F9FBFE;border-radius:14px;padding:20px 22px;border:1px solid #5595E1; }
+.followup-status .fs-title { font-size:16px;font-weight:600;color:#374151;margin-bottom:14px;display:flex;align-items:center;gap:6px; }
 .status-row { display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #F3F4F6; }
 .status-row:last-child { border-bottom:none; }
 .status-dot { width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px; }
@@ -52,18 +82,18 @@
 .badge-red    { background:#FEE2E2;color:#DC2626; } .badge-green  { background:#D1FAE5;color:#065F46; }
 
 /* ── Section Header ── */
-.section-header { font-size:13px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.08em;margin:24px 0 14px 0; }
+.section-header { font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.08em;margin:24px 0 14px 0; }
 
 /* ── Company cards ── */
 .company-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px; }
-.company-card { background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #EAEDF2; }
-.company-card .cc-label { font-size:12px;font-weight:500;color:#6B7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:6px; }
+.company-card { background:#F9FBFE;border-radius:12px;padding:18px 20px;border:1px solid #EAEDF2; }
+.company-card .cc-label { font-size:16px;font-weight:500;color:#213650;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:6px; }
 .company-card .cc-value { font-size:28px;font-weight:700;color:#111827;line-height:1.1;margin-bottom:4px; }
 .company-card .cc-sub   { font-size:11px;color:#9CA3AF; }
 
 /* ── 2-col data grid ── */
 .data-grid-2 { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px; }
-.data-card { background:#fff;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden; }
+.data-card { background:#F9FBFE;border-radius:12px;border:1px solid #EAEDF2; overflow:hidden;}
 .data-card .dc-header { padding:14px 18px;border-bottom:1px solid #F3F4F6;font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;justify-content:space-between; }
 .data-card table { width:100%;border-collapse:collapse; }
 .data-card table th { padding:9px 18px;font-size:11px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.05em;text-align:left;background:#FAFAFA;border-bottom:1px solid #F3F4F6; }
@@ -85,14 +115,14 @@
 .three-col-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px; }
 
 /* ── Gauge card ── */
-.gauge-card { background:#fff;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden; }
+.gauge-card { background:#FBFBFB;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden; }
 .gauge-card .gc-header { padding:14px 18px;border-bottom:1px solid #F3F4F6;font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;gap:8px; }
 .gauge-card .gc-body { padding:16px 18px;display:flex;flex-direction:column;align-items:center; }
 .gauge-canvas-wrap { position:relative;width:200px;height:110px;overflow:hidden; }
 .gauge-remaining { font-size:12px;color:#9CA3AF;margin-top:8px; }
 
 /* ── Follow ups by customer / user list ── */
-.followup-list-card { background:#fff;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden; }
+.followup-list-card { background:#FBFBFB;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden; }
 .followup-list-card .flc-header { padding:14px 18px;border-bottom:1px solid #F3F4F6;font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;justify-content:space-between; }
 .followup-list-card .flc-row { display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid #F9FAFB; }
 .followup-list-card .flc-row:last-child { border-bottom:none; }
@@ -107,10 +137,10 @@
 .lead-targets-card .ltc-header { padding:14px 18px;border-bottom:1px solid #F3F4F6;font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;justify-content:space-between; }
 .ltc-legend { display:flex;align-items:center;gap:6px;font-size:11px;color:#6B7280; }
 .ltc-legend-dot { width:10px;height:10px;border-radius:2px;background:#22C55E; }
-.ltc-chart-wrap { padding:16px 18px; }
+.ltc-chart-wrap { padding:16px 18px; margin-top:10px; }
 
 /* Bar chart rows */
-.bar-row { display:flex;align-items:center;margin-bottom:10px; }
+.bar-row { display:flex;align-items:center;margin-bottom:21px; }
 .bar-label { width:120px;font-size:11px;color:#6B7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0; }
 .bar-track { flex:1;height:18px;background:#F3F4F6;border-radius:4px;position:relative;overflow:visible; }
 .bar-fill { height:100%;background:#67B578;border-radius:4px;position:relative;transition:width .4s; }
@@ -118,9 +148,9 @@
 .bar-target-label { position:absolute;top:-16px;font-size:9px;color:#6B7280;transform:translateX(-50%); white-space:nowrap; }
 
 /* ── Follow ups overview ── */
-.overview-card { background:#fff;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden;margin-bottom:16px; }
+.overview-card { background:#FBFBFB;border-radius:12px;border:1px solid #EAEDF2;overflow:hidden;margin-bottom:16px; }
 .overview-card .oc-header { padding:14px 20px;border-bottom:1px solid #F3F4F6;font-size:13px;font-weight:600;color:#374151;display:flex;align-items:center;justify-content:space-between; }
-.oc-link { font-size:12px;color:#3B82F6;text-decoration:none; }
+.oc-link { font-size:12px;color:#2B7ADA;text-decoration:underline; }
 .oc-link:hover { text-decoration:underline; }
 
 .fw-100 { font-weight:100; }
@@ -128,6 +158,25 @@
 /* ── Refresh icon ── */
 .refresh-btn { background:none;border:none;padding:0;cursor:pointer;color:#9CA3AF; }
 .refresh-btn:hover { color:#374151; }
+.fs-title svg{
+width:24px;
+height:24px;
+}
+
+.cc-label svg{
+width:24px;
+height:24px;
+}
+.card-value{
+font-size:64px !important;
+}
+.cc-value{
+font-size:48px !important;
+}
+.crm-dashboard{
+background:white !important;
+}
+
 </style>
 @endsection
 
@@ -142,10 +191,19 @@
 
         @if (auth()->user()->can('crm.access_all_schedule') || auth()->user()->can('crm.access_own_schedule'))
         <div class="scope-card green-tint">
+            <div class="scope-card-header">
             <div class="card-icon cyan">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.5 21h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/><path d="M15 19l2 2l4 -4"/></svg>
+
             </div>
+                <div class="card-label">
+                    TODAY'S FOLLOW UPS
+                </div>
+            </div>
+
+           <!--
             <div class="card-label">{{ __('crm::lang.todays_followups') }}</div>
+           -->
             <div class="card-value">{{ $todays_followups }}<span class="trend down">▼ 25%</span></div>
             <div class="card-sub">Last month: 2</div>
         </div>
@@ -153,10 +211,17 @@
 
         @if (auth()->user()->can('crm.access_all_leads') || auth()->user()->can('crm.access_own_leads'))
         <div class="scope-card blue-tint">
-            <div class="card-icon green">
+            <div class="scope-card-header">
+                 <div class="card-icon cyans">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4"/><path d="M15 19l2 2l4 -4"/></svg>
+
             </div>
+            <div class="card-labels">My Leads
+                </div>
+            </div>
+            <!--
             <div class="card-label">{{ __('crm::lang.my_leads') }}</div>
+            -->
             <div class="card-value">{{ $my_leads }}<span class="trend up">▲ 25%</span></div>
             <div class="card-sub">Last month: 2</div>
         </div>
@@ -338,6 +403,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- ══ Follow ups overview (full width) ══ -->
     <div class="overview-card">
