@@ -53,24 +53,39 @@
                  </li>
              </ul>
     
-	@component('components.widget', ['class' => 'box-primary', 'title' => __('crm::lang.all_leads')])
+	@component('components.widget', ['class' => 'box-primary'])
+    @slot('title')
+    <span id="crm_table_title">@lang('crm::lang.all_leads')</span>
+    @endslot
       @slot('tool')
       <div class="tw-flex tw-items-center tw-gap-3 pull-right m-5">
 
+          {{-- Add Lead --}}
+          <button type="button"
+              id="add_lead_btn"
+              class="tw-dw-btn tw-dw-btn-primarys tw-text-white tw-dw-btn-sm btn-add-lead"
+              data-href="{{action([\Modules\Crm\Http\Controllers\LeadController::class, 'create'])}}">
+              <i class="fa fa-plus"></i> Add Lead
+          </button>
 
-          {{-- Add Lead Button --}}
+          {{-- Add Source --}}
+          <button type="button"
+              id="add_source_btn"
+              class="tw-dw-btn tw-dw-btn-primarys tw-text-white tw-dw-btn-sm"
+              style="display:none;">
+              <i class="fa fa-plus"></i> Add Source
+          </button>
 
-         <button type="button"
-                      id="add_lead_btn"
-                      class="tw-dw-btn tw-dw-btn-primarys tw-text-white tw-dw-btn-sm btn-add-lead"
-                       data-href="{{action([\Modules\Crm\Http\Controllers\LeadController::class, 'create'])}}">
-                       <i class="fa fa-plus"></i> @lang('messages.add')
-                 </button>
-
-
-
+          {{-- Add Life Stage --}}
+          <button type="button"
+              id="add_life_stage_btn"
+              class="tw-dw-btn tw-dw-btn-primarys tw-text-white tw-dw-btn-sm"
+              style="display:none;">
+              <i class="fa fa-plus"></i> Add Life Stage
+          </button>
 
       </div>
+
       @endslot
 
 
@@ -226,6 +241,41 @@
 @section('javascript')
 	<script src="{{ asset('modules/crm/js/crm.js?v=' . $asset_v) }}"></script>
     <script type="text/javascript">
+
+        function appendExportSection(tableId){
+
+                    let wrapper = $(tableId).closest('.dataTables_wrapper');
+
+                    if(wrapper.length === 0) return;
+
+                    if(wrapper.find('.crm-export-section').length) return;
+
+                    let exportHtml = `
+                    <div class="crm-export-section tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px;">
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                                <i class="fas fa-file-csv"></i>
+                            </div>
+                            <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                        </div>
+
+                        <span>Export:</span>
+
+                        <a href="#" class="export-csv">CSV</a>
+                        <a href="#" class="export-xls">XLS</a>
+                        <a href="#" class="export-pdf">PDF</a>
+                    </div>
+                    `;
+
+                    wrapper.append(exportHtml);
+                }
+
+            setTimeout(function(){
+                appendExportSection('#leads_table');
+            },1000);
+
         $(document).ready(function() {
 
             var lead_view = urlSearchParam('lead_view');
@@ -248,58 +298,88 @@
                 $('.dataTables_length').prepend(viewButtons);
             }, 300);
 
-
-
-        });
-
-        $('a[href="#sources_tab"]').on('shown.bs.tab', function () {
-
-            if (!$.fn.DataTable.isDataTable('#lead_sources_table')) {
-
-                $('#lead_sources_table').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: {
-                        url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
-                        data: function (d) {
-                            d.type = 'lead_source';
-                        }
-                    },
-
-
-                    columns: [
-                        { data: 'name', name: 'name' },
-                        { data: 'description', name: 'description' },
-                        { data: 'action', name: 'action', orderable:false, searchable:false }
-                    ]
-                });
-            }
         });
 
 
+     $(document).on('click','.export-csv',function(e){
+         e.preventDefault();
+         $('.buttons-csv').click();
+     });
+
+     $(document).on('click','.export-xls',function(e){
+         e.preventDefault();
+         $('.buttons-excel').click();
+     });
+
+     $(document).on('click','.export-pdf',function(e){
+         e.preventDefault();
+         $('.buttons-pdf').click();
+     });
+
+      $('a[href="#sources_tab"]').on('shown.bs.tab', function () {
+
+          if (!$.fn.DataTable.isDataTable('#lead_sources_table')) {
+
+              let table = $('#lead_sources_table').DataTable({
+                  processing: true,
+                  serverSide: true,
+                  ajax: {
+                      url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
+                      data: function (d) {
+                          d.type = 'lead_source';
+                      }
+                  },
+                  columns: [
+                      { data: 'name', name: 'name' },
+                      { data: 'description', name: 'description' },
+                      { data: 'action', name: 'action', orderable:false, searchable:false }
+                  ]
+              });
+
+              table.on('init', function(){
+                  appendExportSection('#lead_sources_table');
+              });
+
+          } else {
+              appendExportSection('#lead_sources_table');
+          }
+
+      });
 
 
-        $('a[href="#life_stage_tab"]').on('shown.bs.tab', function () {
 
-            if (!$.fn.DataTable.isDataTable('#life_stage_table')) {
 
-                $('#life_stage_table').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: {
-                        url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
-                        data: function (d) {
-                            d.type = 'lead_life_stage';
-                        }
-                    },
-                    columns: [
-                        { data: 'name', name: 'name' },
-                        { data: 'description', name: 'description' },
-                        { data: 'action', name: 'action', orderable:false, searchable:false }
-                    ]
-                });
-            }
-        });
+       $('a[href="#life_stage_tab"]').on('shown.bs.tab', function () {
+
+           if (!$.fn.DataTable.isDataTable('#life_stage_table')) {
+
+               let table = $('#life_stage_table').DataTable({
+                   processing: true,
+                   serverSide: true,
+                   ajax: {
+                       url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
+                       data: function (d) {
+                           d.type = 'lead_life_stage';
+                       }
+                   },
+                   columns: [
+                       { data: 'name', name: 'name' },
+                       { data: 'description', name: 'description' },
+                       { data: 'action', name: 'action', orderable:false, searchable:false }
+                   ]
+               });
+
+               table.on('init', function(){
+                   appendExportSection('#life_stage_table');
+               });
+
+           } else {
+               appendExportSection('#life_stage_table');
+           }
+
+       });
+
+
         function toggleLeadViewButtons() {
             var activeTab = $('.crm-tabs li.active a').attr('href');
 
@@ -309,6 +389,47 @@
                 $('#lead_view_toggle').hide();
             }
         }
+
+
+        function updateHeaderByTab(tab) {
+
+            if(tab === '#leads_tab'){
+                $('#crm_table_title').text('All Leads');
+
+                $('#add_lead_btn').show();
+                $('#add_source_btn').hide();
+                $('#add_life_stage_btn').hide();
+            }
+
+            if(tab === '#sources_tab'){
+                $('#crm_table_title').text('Sources');
+
+                $('#add_lead_btn').hide();
+                $('#add_source_btn').show();
+                $('#add_life_stage_btn').hide();
+            }
+
+            if(tab === '#life_stage_tab'){
+                $('#crm_table_title').text('Life Stage');
+
+                $('#add_lead_btn').hide();
+                $('#add_source_btn').hide();
+                $('#add_life_stage_btn').show();
+            }
+        }
+
+        $(document).ready(function(){
+
+            // Default load
+            updateHeaderByTab('#leads_tab');
+
+            // Tab change
+            $('.crm-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var tab = $(e.target).attr('href');
+                updateHeaderByTab(tab);
+            });
+
+        });
 
         $(document).ready(function () {
 
@@ -321,7 +442,6 @@
             });
 
         });
-
 
 
     </script>

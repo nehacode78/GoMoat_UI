@@ -96,7 +96,7 @@
     /* ================= GLOBAL HEADER (HOME-LIKE) ================= */
 
     .global-white-header .tw-bg-gradient-to-r {
-        background-color: #ffffff !important;
+/*         background-color: #ffffff !important; */
         background-image: none !important;
     }
 

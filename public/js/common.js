@@ -281,7 +281,6 @@ $(document).ready(function () {
             '>rtip',
 
 
-
         buttons: buttons,
         aLengthMenu: [
             [25, 50, 100, 200, 500, 1000, -1],

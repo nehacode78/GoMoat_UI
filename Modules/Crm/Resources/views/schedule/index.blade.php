@@ -24,6 +24,7 @@
 		                    {!! Form::select('assgined_to_filter', $assigned_to, $default_user, ['class' => 'form-control select2', 'form-control select2', 'style' => 'width: 100%;', 'id' => 'assgined_to_filter', 'placeholder' => __('messages.all')]); !!}
 		                </div>    
 		            </div>
+
 		        @endif
 	            <div class="col-md-4">
 	                <div class="form-group">
@@ -59,50 +60,84 @@
 	            </div>
 	        </div>
 	    @endcomponent
+
+	     <ul class="crm-tabs">
+
+            <li class="active">
+                <a href="#all_followup_tab" data-toggle="tab">ALL FOLLOW UPS</a>
+            </li>
+
+            <li>
+                <a href="#recur_followup_tab" data-toggle="tab">RECURRING FOLLOW UP</a>
+            </li>
+
+            <li>
+                <a href="#followup_category_tab" data-toggle="tab">FOLLOW UP CATEGORIES
+                    </a>
+            </li>
+
+            <!--
+              @lang('crm::lang.followup_category')
+            -->
+
+
+
+         </ul>
+
 		<div class="row">
 			<div class="col-md-12">
-				@component('components.widget', ['class' => 'box box-solid', 'title' => __('crm::lang.all_schedules')])
-					@slot('tool')
+                    @component('components.widget', ['class' => 'box box-solid'])
+                    @slot('title')
+                    <span id="followup_table_title">All Follow Ups</span>
+                    @endslot
+                    @slot('tool')
 			            <div class="box-tools">
-						<button type="button" class="tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-add-schedule">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M12 5l0 14" />
-								<path d="M5 12l14 0" />
-							</svg> @lang('messages.add')
-						</button>
+
+                            <!--
+                            <button type="button" class="tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-add-schedule">
+                            							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                            								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            								<path d="M12 5l0 14" />
+                            								<path d="M5 12l14 0" />
+                            							</svg> @lang('messages.add')
+                            						</button>
+                            -->
+
+
+                    <button type="button"
+                            id="followup_action_btn"
+                            class="tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-add-schedule">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                        								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        								<path d="M12 5l0 14" />
+                        								<path d="M5 12l14 0" />
+                        							</svg>
+                        <span id="followup_action_text">Create Follow Up</span>
+
+                    </button>
+						<!--
 						<button type="button" data-toggle="modal" data-target="#advance_followup_modal" class=" tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M12 5l0 14" />
-								<path d="M5 12l14 0" />
-							</svg>  @lang('crm::lang.add_advance_follow_up')
-						</button>
+                        							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                        								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        								<path d="M12 5l0 14" />
+                        								<path d="M5 12l14 0" />
+                        							</svg>  @lang('crm::lang.add_advance_follow_up')
+                        						</button>
+						-->
 			            </div>
 			            <input type="hidden" name="schedule_create_url" id="schedule_create_url" value="{{action([\Modules\Crm\Http\Controllers\ScheduleController::class, 'create'])}}">
 		        	@endslot
 			        <div class="col-sm-12">
 			        	<div class="nav-tabs-custom">
-			                <ul class="nav nav-tabs">
-			                    <li class="active">
-			                        <a href="#all_followup_tab" data-toggle="tab" aria-expanded="true"> @lang('crm::lang.follow_ups')</a>
-			                    </li>
-			                    <li>
-			                        <a href="#recur_followup_tab" data-toggle="tab" aria-expanded="true"> @lang('crm::lang.recur_follow_ups')</a>
-			                    </li>
-                                    <li>
-                                        <a href="#followup_category_tab" data-toggle="tab">
-                                            @lang('crm::lang.followup_category')
-                                        </a>
-                                    </li>
 
 
-
-			                </ul>
 			                <div class="tab-content">
                     			<div class="tab-pane active" id="all_followup_tab">
                     				<div class="table-responsive">
@@ -236,6 +271,15 @@
 		        scrollY: "80vh",
 				scrollX: true,
 				scrollCollapse: true,
+
+
+				 buttons: [
+                        { extend: 'csv', className:'buttons-csv' },
+                        { extend: 'excel', className:'buttons-excel' },
+                        { extend: 'pdf', className:'buttons-pdf' }
+                    ],
+
+
 		        ajax: {
 		            url: "/crm/follow-ups",
 		            data:function(d) {
@@ -288,12 +332,53 @@
 		        }
 			});
 
+			let exportHtml = `
+            <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px">
+                <div class="tw-flex tw-items-center tw-gap-2">
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-csv tw-text-[11px]"></i>
+                    </div>
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-excel tw-text-[11px]"></i>
+                    </div>
+                </div>
+
+                <span>Export:</span>
+
+                <a href="#" id="export_csv" class="tw-text-blue-600 hover:tw-underline">CSV</a>
+                <a href="#" id="export_xls" class="tw-text-blue-600 hover:tw-underline">XLS</a>
+                <a href="#" id="export_pdf" class="tw-text-blue-600 hover:tw-underline">PDF</a>
+            </div>
+            `;
+
+            $('#follow_up_table').closest('.dataTables_wrapper').append(exportHtml);
+
+
+            $(document).on('click', '#export_csv', function(e){
+                e.preventDefault();
+                follow_up_datatable.button('.buttons-csv').trigger();
+            });
+
+            $(document).on('click', '#export_xls', function(e){
+                e.preventDefault();
+                follow_up_datatable.button('.buttons-excel').trigger();
+            });
+
+            $(document).on('click', '#export_pdf', function(e){
+                e.preventDefault();
+                follow_up_datatable.button('.buttons-pdf').trigger();
+            });
+
 			recursive_follow_up_table = $("#recursive_follow_up_table").DataTable({
 				processing: true,
 		        serverSide: true,
-		        scrollY: "80vh",
 				scrollX: true,
-				scrollCollapse: true,
+
+				buttons: [
+                 { extend:'csv', className:'recur-buttons-csv'},
+                 { extend:'excel', className:'recur-buttons-excel'},
+                 { extend:'pdf', className:'recur-buttons-pdf'}
+                ],
 		        ajax: {
 		            url: "/crm/follow-ups",
 		            data:function(d) {
@@ -325,6 +410,43 @@
 		        ]
 			});
 
+
+			let recurExportHtml = `
+            <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px">
+                <div class="tw-flex tw-items-center tw-gap-2">
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-csv tw-text-[11px]"></i>
+                    </div>
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-excel tw-text-[11px]"></i>
+                    </div>
+                </div>
+
+                <span>Export:</span>
+
+                <a href="#" id="recur_export_csv" class="tw-text-blue-600 hover:tw-underline">CSV</a>
+                <a href="#" id="recur_export_xls" class="tw-text-blue-600 hover:tw-underline">XLS</a>
+                <a href="#" id="recur_export_pdf" class="tw-text-blue-600 hover:tw-underline">PDF</a>
+            </div>
+            `;
+
+            $('#recursive_follow_up_table').closest('.dataTables_wrapper').append(recurExportHtml);
+
+            $(document).on('click','#recur_export_csv',function(e){
+                e.preventDefault();
+                recursive_follow_up_table.button('.recur-buttons-csv').trigger();
+            });
+
+            $(document).on('click','#recur_export_xls',function(e){
+                e.preventDefault();
+                recursive_follow_up_table.button('.recur-buttons-excel').trigger();
+            });
+
+            $(document).on('click','#recur_export_pdf',function(e){
+                e.preventDefault();
+                recursive_follow_up_table.button('.recur-buttons-pdf').trigger();
+            });
+
 			var followup_category_table;
 
             $('a[href="#followup_category_tab"]').on('shown.bs.tab', function () {
@@ -334,6 +456,13 @@
                     followup_category_table = $("#followup_category_table").DataTable({
                         processing: true,
                         serverSide: true,
+
+                        buttons:[
+                         { extend:'csv', className:'cat-buttons-csv'},
+                         { extend:'excel', className:'cat-buttons-excel'},
+                         { extend:'pdf', className:'cat-buttons-pdf'}
+                        ],
+
                         ajax: {
                             url: "{{ action([\App\Http\Controllers\TaxonomyController::class, 'index']) }}",
                             data: function (d) {
@@ -358,6 +487,63 @@
 
             });
 
+            let categoryExportHtml = `
+            <div class="tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px">
+                <div class="tw-flex tw-items-center tw-gap-2">
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-csv tw-text-[11px]"></i>
+                    </div>
+                    <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center">
+                        <i class="fas fa-file-excel tw-text-[11px]"></i>
+                    </div>
+                </div>
+
+                <span>Export:</span>
+
+                <a href="#" id="cat_export_csv" class="tw-text-blue-600 hover:tw-underline">CSV</a>
+                <a href="#" id="cat_export_xls" class="tw-text-blue-600 hover:tw-underline">XLS</a>
+                <a href="#" id="cat_export_pdf" class="tw-text-blue-600 hover:tw-underline">PDF</a>
+            </div>
+            `;
+
+            $('#followup_category_table').closest('.dataTables_wrapper').append(categoryExportHtml);
+
+            $(document).on('click','#cat_export_csv',function(e){
+                e.preventDefault();
+                followup_category_table.button('.cat-buttons-csv').trigger();
+            });
+
+            $(document).on('click','#cat_export_xls',function(e){
+                e.preventDefault();
+                followup_category_table.button('.cat-buttons-excel').trigger();
+            });
+
+            $(document).on('click','#cat_export_pdf',function(e){
+                e.preventDefault();
+                followup_category_table.button('.cat-buttons-pdf').trigger();
+            });
+
+            $('.crm-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+                var tab = $(e.target).attr('href');
+
+                if(tab === '#all_followup_tab'){
+                    $('#followup_table_title').text('All Follow Ups');
+                    $('#followup_action_text').text('Create Follow Up');
+                }
+
+                if(tab === '#recur_followup_tab'){
+                    $('#followup_table_title').text('Recurring Follow Ups');
+                    $('#followup_action_text').text('Create Recurring Follow Up');
+                }
+
+                if(tab === '#followup_category_tab'){
+                    $('#followup_table_title').text('Follow Up Categories');
+                    $('#followup_action_text').text('Create Follow Up Category');
+                }
+
+            });
+
 			$(document).on('change', '#contact_id_filter, #assgined_to_filter, #status_filter, #schedule_type_filter, #follow_up_by_filter', function() {
 			    follow_up_datatable.ajax.reload();
 			});
@@ -373,3 +559,125 @@
 		});
 	</script>
 @endsection
+
+
+<style>
+    .tw-bg-gradient-to-r{
+    background:#2B7ADA !important;
+    }
+
+.crm-tabs{
+    display:flex;
+    gap:30px;
+    border-bottom:1px solid #E5E7EB;
+    margin-bottom:20px;
+    padding-left:0;
+    list-style:none;
+}
+
+.crm-tabs li a{
+    text-decoration:none;
+    font-size:12px;
+    letter-spacing:.08em;
+    font-weight:600;
+    color:#9CA3AF;
+    padding-bottom:10px;
+    display:inline-block;
+}
+
+.crm-tabs li.active a{
+    color:#16A34A;
+    border-bottom:2px solid #16A34A;
+}
+
+    </style>
+
+<style>
+
+    /* Remove default datatable styling */
+    .dataTables_filter label {
+        position: relative;
+        margin: 0;
+        width: 220px;
+    }
+
+    .dataTables_filter input {
+        width: 100% !important;
+        height: 34px !important;
+        border: none !important;
+        border-bottom: 1px solid #d1d5db !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        padding: 0 24px 4px 0 !important;
+        font-size: 13px !important;
+        color: #374151 !important;
+        box-shadow: none !important;
+    }
+
+    /* Remove focus glow */
+    .dataTables_filter input:focus {
+        outline: none !important;
+        border-bottom: 1px solid #9ca3af !important;
+    }
+
+    /* Placeholder style */
+    .dataTables_filter input::placeholder {
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+    /* Search icon */
+    .dataTables_filter label::after {
+        content: "\f002";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        right: 0;
+        bottom: 8px;
+        font-size: 12px;
+        color: #9ca3af;
+    }
+
+
+.nav-tabs-custom>.tab-content{
+background:#F7F7F7 !important;
+}
+
+
+
+.sorting_disabled{
+color:#969696 !important;
+font-size:11px !important;
+font-family: Roboto !important;
+font-weight:700 !important;
+text-transform: uppercase;
+font:bold;
+}
+
+.sorting{
+color:#969696 !important;
+font-size:11px !important;
+font-family: Roboto !important;
+font-weight:700 !important;
+text-transform: uppercase;
+font:bold;
+
+}
+.sorting_desc{
+color:#969696 !important;
+font-size:11px !important;
+font-family: Roboto !important;
+font-weight:700 !important;
+text-transform: uppercase;
+font:bold;
+
+}
+.sorting_asc{
+color:#969696 !important;
+font-size:11px !important;
+font-family: Roboto !important;
+font-weight:700 !important;
+text-transform: uppercase;
+font:bold;
+}
+    </style>

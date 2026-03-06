@@ -674,6 +674,47 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+/* ----- table column attributes style -----*/
+
+.sorting_disabled{
+   color:#969696 !important;
+   font-size:11px !important;
+   font-family: Roboto !important;
+   font-weight:700 !important;
+   text-transform: uppercase;
+}
+
+.sorting{
+   color:#969696 !important;
+   font-size:11px !important;
+   font-family: Roboto !important;
+   font-weight:700 !important;
+   text-transform: uppercase;
+}
+.sorting_desc{
+   color:#969696 !important;
+   font-size:11px !important;
+   font-family: Roboto !important;
+   font-weight:700 !important;
+   text-transform: uppercase;
+
+}
+.sorting_asc{
+   color:#969696 !important;
+   font-size:11px !important;
+   font-family: Roboto !important;
+   font-weight:700 !important;
+   text-transform: uppercase;
+
+}
+
+/*--- common button background color ----*/
+
+.tw-bg-gradient-to-r{
+   background:#2B7ADA !important;
+}
+
+
 
 
 
