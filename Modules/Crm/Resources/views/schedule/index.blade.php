@@ -106,10 +106,8 @@
                             -->
 
 
-                    <button type="button"
-                            id="followup_action_btn"
-                            class="tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-add-schedule">
-
+                    <button id="followup_action_btn"
+                    class="tw-m-2 tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         								stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         								class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
@@ -544,9 +542,38 @@
 
             });
 
+            $(document).on('click', '#followup_action_btn', function(){
+
+                var activeTab = $('.crm-tabs li.active a').attr('href');
+
+                if(activeTab == '#all_followup_tab' || activeTab == '#recur_followup_tab'){
+
+                    var url = $('#schedule_create_url').val();
+
+                    $('.schedule').load(url, function(){
+                        $(this).modal('show');
+                    });
+
+                }
+
+                if(activeTab == '#followup_category_tab'){
+
+                    var url = "/taxonomies/create?type=followup_category";
+
+                    $.get(url, function(result){
+                        $('.schedule').html(result).modal('show');
+                    });
+
+                }
+
+            });
+
 			$(document).on('change', '#contact_id_filter, #assgined_to_filter, #status_filter, #schedule_type_filter, #follow_up_by_filter', function() {
 			    follow_up_datatable.ajax.reload();
 			});
+
+
+
 			
 			// Set default date from get parameter
 	        @if(!empty($default_start_date) && !empty($default_end_date))

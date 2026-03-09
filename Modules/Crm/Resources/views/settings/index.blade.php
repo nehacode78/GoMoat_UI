@@ -3,11 +3,16 @@
 @section('content')
 @include('crm::layouts.nav')
 <!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1 class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold">
-        @lang('messages.settings')
-    </h1>
-</section>
+
+<!--
+    <section class="content-header">
+        <h1 class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold">
+            @lang('messages.settings')
+        </h1>
+    </section>
+
+    -->
+
 
 <!-- Main content -->
 <section class="content">
@@ -15,27 +20,59 @@
         <div class="col-md-12">
             {!! Form::open(['url' => action([\Modules\Crm\Http\Controllers\CrmSettingsController::class, 'updateSettings']), 'method' => 'post']) !!}
             @component('components.widget', ['class' => 'box-solid'])
-                <div class="col-md-4">
+
+            <div class="settings-header">
+                <i class="fa fa-sliders"></i>
+                <span>Settings</span>
+            </div>
+                <div class="col-md-6">
                     <div class="checkbox">
                         <label>
                         {!! Form::checkbox('enable_order_request', 1, !empty($crm_settings['enable_order_request']), ['class' => 'input-icheck']); !!} @lang('crm::lang.enable_order_request')
                         </label> @show_tooltip(__('crm::lang.enable_order_request_help'))
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         {!! Form::label('order_request_prefix', __('crm::lang.order_request_prefix') . ':') !!}
                         {!! Form::text('order_request_prefix', $crm_settings['order_request_prefix'] ?? null, ['class' => 'form-control','placeholder' => __( 'crm::lang.order_request_prefix' )]); !!}
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white pull-right">@lang( 'messages.update' )</button>
-                </div>
+
+            <!--
+             <div class="col-md-12">
+                                <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white pull-right">@lang( 'messages.update' )</button>
+                            </div>
+
+            -->
+
             @endcomponent
             {!! Form::close() !!}
         </div>
     </div>
 </section>
 @stop
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 @section('javascript')
 @endsection
+
+<style>
+
+    .settings-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    font-weight:600;
+    color:#374151;
+    padding-bottom:12px;
+    border-bottom:1px solid #E5E7EB;
+    margin-bottom:20px;
+    }
+
+    .settings-header i{
+    font-size:14px;
+    color:#6B7280;
+    }
+    </style>

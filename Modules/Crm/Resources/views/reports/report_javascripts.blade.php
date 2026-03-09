@@ -1,5 +1,46 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script type="text/javascript">
     $(document).ready(function(){
+
+    var opts = {
+      angle: 0.15,
+      lineWidth: 0.25,
+      radiusScale: 1,
+      highDpiSupport: true,
+
+      pointer: {
+        length: 0.6,
+        strokeWidth: 0.02,
+        color: '#8B97A8'
+      },
+
+      generateGradient: true,
+
+      staticZones: [
+        { strokeStyle: "rgba(248,113,113,0.8)", min: 0, max: 60 },
+        { strokeStyle: "rgba(253,224,71,0.8)", min: 60, max: 140 },
+        { strokeStyle: "rgba(134,239,172,0.8)", min: 140, max: 200 }
+      ],
+
+      staticLabels: {
+        font: "11px sans-serif",
+        labels: [0,48,200],
+        color: "#6B7280",
+        fractionDigits: 0
+      }
+    };
+
+    var target = document.getElementById('followupGauge');
+    var gauge = new Gauge(target).setOptions(opts);
+
+    gauge.maxValue = 200;
+    gauge.setMinValue(0);
+    gauge.animationSpeed = 32;
+    gauge.set(48);
 
         if($('#follow_ups_by_user_table').length > 0){
 
@@ -61,7 +102,7 @@
             });
         }
 
-        var follow_ups_by_contact_table = 
+        var follow_ups_by_contact_table =
         $("#follow_ups_by_contact_table").DataTable({
             processing: true,
             serverSide: true,
@@ -136,6 +177,160 @@
             }
         });
 
+
+
+        // Lead Targets Chart
+        new Chart(document.getElementById('leadTargetChart'), {
+
+            type:'bar',
+
+            data:{
+                labels:[
+                    'Email Campaign',
+                    'Cold Call',
+                    'Website',
+                    'Referral',
+                    'Event'
+                ],
+
+                datasets:[
+                    {
+                        data:[80,60,40,50,70],
+                        backgroundColor:'#22C55E'
+                    }
+                ]
+            },
+
+           options:{
+               indexAxis:'y',
+               responsive:true,
+               scales:{
+                   x:{
+                       grid:{color:'#E5E7EB'}
+                   },
+                   y:{
+                       grid:{display:false}
+                   }
+               },
+               plugins:{
+                   legend:{display:false}
+               }
+           }
+
+        });
+
+
+        new Chart(document.getElementById('followupChart'),{
+
+            type:'bar',
+
+            data:{
+                labels:[
+                    'Mr. Bhavesh Mehta',
+                    'Mrs. Sonali Desai',
+                    'Mr. Pradip Tambe',
+                    'Mr. Pritesh Ghaghada',
+                    'Mr. Sagar',
+                    'Mr. Rahul Verma',
+                    'Mr. Harsh Shah'
+                ],
+
+                datasets:[
+
+                    {
+                        label:'scheduled',
+                        data:[2,1,1,1,3,2,0],
+                        backgroundColor:'#FBBF24',
+                        borderRadius:4
+                    },
+
+                    {
+                        label:'open',
+                        data:[18,5,22,15,10,8,6],
+                        backgroundColor:'#60A5FA',
+                        borderRadius:4
+                    },
+
+                    {
+                        label:'cancelled',
+                        data:[3,0,0,2,5,1,0],
+                        backgroundColor:'#F87171',
+                        borderRadius:4
+                    },
+
+                    {
+                        label:'completed',
+                        data:[15,12,20,10,7,15,25],
+                        backgroundColor:'#4ADE80',
+                        borderRadius:4
+                    }
+
+                ]
+            },
+
+            options:{
+                responsive:true,
+
+                indexAxis:'y',   // ⭐ makes chart horizontal
+
+                plugins:{
+                    legend:{
+                        position:'top',
+                        align:'end',
+                        labels:{
+                            boxWidth:10,
+                            font:{size:11}
+                        }
+                    }
+                },
+
+                scales:{
+                    x:{
+                        stacked:true,
+                        grid:{
+                            color:'#E5E7EB'
+                        }
+                    },
+
+                    y:{
+                        stacked:true,
+                        grid:{
+                            display:false
+                        }
+                    }
+                }
+            }
+
+        });
+
+
+        new Chart(document.getElementById('followupTargetChart'), {
+
+            type:'doughnut',
+
+            data:{
+                labels:['Completed','Remaining'],
+               datasets:[{
+                   data:[70,30],
+                   backgroundColor:[
+                       '#4ADE80',
+                       '#F3F4F6'
+                   ],
+                   borderWidth:0
+               }]
+            },
+
+            options:{
+                rotation:-90,
+                circumference:180,
+                cutout:'70%',
+                plugins:{
+                    legend:{display:false}
+                }
+            }
+
+        });
+
         // On each draw, loop over the `detailRows` array and show any child rows
         lead_to_customer_conversion.on('draw', function() {
             $.each(ltc_detail_rows, function(i, id) {
@@ -158,4 +353,6 @@
             return div;
         }
     });
+
+
 </script>

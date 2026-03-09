@@ -38,6 +38,7 @@ public function getOpenTagWrapper()
             '</a>' . PHP_EOL;
     }
 
+
     /**
      * {@inheritdoc}.
      */
