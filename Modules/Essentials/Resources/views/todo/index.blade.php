@@ -43,7 +43,7 @@
 			@can('essentials.add_todos')
 			<div class="box-tools">
 				<button type="button" class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right btn-modal"
-					data-href="{{action([\Modules\Essentials\Http\Controllers\ToDoController::class, 'create'])}}" 
+					data-href="{{action([\Modules\Essentials\Http\Controllers\ToDoController::class, 'create'])}}"
 					data-container="#task_modal">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
 						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -51,11 +51,13 @@
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path d="M12 5l0 14" />
 						<path d="M5 12l14 0" />
-					</svg> @lang( 'messages.add' )
+					</svg> Add Task
 				</button>
 			</div>
-			@endcan
+
+        	@endcan
 		@endslot
+
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped" id="task_table">
 				<thead>
@@ -81,6 +83,39 @@
 
 @section('javascript')
 <script type="text/javascript">
+
+
+    function appendExportSection(tableId){
+
+        let wrapper = $(tableId).closest('.dataTables_wrapper');
+
+        if(wrapper.length === 0) return;
+
+        if(wrapper.find('.crm-export-section').length) return;
+
+        let exportHtml = `
+        <div class="crm-export-section tw-flex tw-items-center tw-gap-3 tw-mt-5 tw-text-[13px] tw-text-gray-600" style="padding-bottom:10px;">
+
+            <div class="tw-flex tw-items-center tw-gap-2">
+                <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                    <i class="fas fa-file-csv"></i>
+                </div>
+                <div class="tw-w-7 tw-h-7 tw-border tw-rounded tw-flex tw-items-center tw-justify-center tw-text-gray-500">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+            </div>
+
+            <span>Export:</span>
+
+            <a href="#" class="export-csv">CSV</a>
+            <a href="#" class="export-xls">XLS</a>
+            <a href="#" class="export-pdf">PDF</a>
+
+        </div>
+        `;
+
+        wrapper.append(exportHtml);
+    }
 	$(document).ready(function(){
 		task_table = $('#task_table').DataTable({
 	        processing: true,
@@ -127,6 +162,25 @@
 	            { data: 'action', name: 'action' },
 	        ],
 	    });
+
+	    task_table.on('init', function(){
+            appendExportSection('#task_table');
+        });
+
+        $(document).on('click','.export-csv',function(e){
+            e.preventDefault();
+            $('.buttons-csv').click();
+        });
+
+        $(document).on('click','.export-xls',function(e){
+            e.preventDefault();
+            $('.buttons-excel').click();
+        });
+
+        $(document).on('click','.export-pdf',function(e){
+            e.preventDefault();
+            $('.buttons-pdf').click();
+        });
 
 	    $('#date_range_filter').daterangepicker(
         dateRangeSettings,
@@ -220,3 +274,85 @@ $(document).on('click', '.view-shared-docs', function () {
 });
 </script>
 @endsection
+
+
+<style>
+    /* Remove default datatable styling */
+    .dataTables_filter label {
+        position: relative;
+        margin: 0;
+        width: 220px;
+    }
+
+    .dataTables_filter input {
+        width: 100% !important;
+        height: 34px !important;
+        border: none !important;
+        border-bottom: 1px solid #d1d5db !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        padding: 0 24px 4px 0 !important;
+        font-size: 13px !important;
+        color: #374151 !important;
+        box-shadow: none !important;
+    }
+
+    /* Remove focus glow */
+    .dataTables_filter input:focus {
+        outline: none !important;
+        border-bottom: 1px solid #9ca3af !important;
+    }
+
+    /* Placeholder style */
+    .dataTables_filter input::placeholder {
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+    /* Search icon */
+    .dataTables_filter label::after {
+        content: "\f002";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        right: 0;
+        bottom: 8px;
+        font-size: 12px;
+        color: #9ca3af;
+    }
+
+
+
+  .sorting_disabled{
+    color:#969696 !important;
+    font-size:11px !important;
+    font-family: Roboto !important;
+    font-weight:700 !important;
+    text-transform: uppercase;
+
+    }
+
+    .sorting{
+    color:#969696 !important;
+    font-size:11px !important;
+    font-family: Roboto !important;
+    font-weight:700 !important;
+    text-transform: uppercase;
+
+    }
+    .sorting_desc{
+    color:#969696 !important;
+    font-size:11px !important;
+    font-family: Roboto !important;
+    font-weight:700 !important;
+    text-transform: uppercase;
+    }
+
+    .sorting_asc{
+    color:#969696 !important;
+    font-size:11px !important;
+    font-family: Roboto !important;
+    font-weight:700 !important;
+    text-transform: uppercase;
+    }
+    </style>

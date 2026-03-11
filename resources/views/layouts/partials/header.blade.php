@@ -28,14 +28,35 @@
                     -->
 
                  {{-- WELCOME TEXT --}}
-                  <div class="tw-flex-1 tw-ml-4 lg:tw-ml-6">
+                  <div class="tw-flex tw-items-center tw-gap-3 tw-flex-1">
 
-                                               <h1
-                                                   class="tw-mt-3 tw-text-2xl md\:tw-text-4xl welcome-text tw-tracking-tight tw-text-primary-800  tw-font-semibold
-                                                           tw-mb-10 md:tw-mb-0">
-                                                   {{ __('home.welcome_message', ['name' => Session::get('user.first_name')]) }}
-                                               </h1>
-                                           </div>
+                      <!-- Sidebar Toggle (mobile only) -->
+                      <button id="mobileSidebarToggle"
+                          class="lg:tw-hidden tw-flex tw-items-center tw-justify-center
+                                 tw-w-9 tw-h-9 tw-rounded-full
+                                 tw-bg-gray-100 hover:tw-bg-gray-200 tw-text-gray-700">
+
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                               class="tw-w-5 tw-h-5"
+                               viewBox="0 0 24 24"
+                               fill="none"
+                               stroke="currentColor"
+                               stroke-width="2">
+                              <path d="M15 18l-6-6 6-6"/>
+                          </svg>
+
+                      </button>
+
+                      {{-- WELCOME TEXT --}}
+                      <div class="tw-flex-1 tw-ml-1 lg:tw-ml-6">
+                          <h1 class="tw-text-lg md:tw-text-2xl welcome-text
+                                     tw-tracking-tight tw-text-primary-800
+                                     tw-font-semibold tw-truncate">
+                              {{ __('home.welcome_message', ['name' => Session::get('user.first_name')]) }}
+                          </h1>
+                      </div>
+
+                  </div>
 
                     {{-- Showing active package for SaaS Superadmin --}}
                     @if(Module::has('Superadmin'))
@@ -48,7 +69,7 @@
                     @endif
 
 
-                    <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-end tw-gap-6 header-clean-tabs">
+                    <div class="tw-flex tw-items-center tw-gap-4 header-clean-tabs">
 
 
                        <!--
@@ -196,14 +217,15 @@
                                                 @endcan
                         -->
 
-                        <button type="button"
+                        <button type="button" class="tw-hidden lg:tw-inline-flex
                             class="tw-hidden lg:tw-inline-flex tw-transition-all tw-duration-200  tw-py-1.5 tw-px-3 tw-rounded-lg tw-items-center tw-justify-center tw-text-sm tw-font-medium tw-text-black hover:tw-text-white tw-font-mono">
                             {{ \Carbon\Carbon::now()->format('d M, Y') }}
                         </button>
 
 
                      <!-- Select Location -->
-                                                    <button class="tw-inline-flex tw-items-center tw-gap-1 hover:tw-text-gray-900">
+                     <div class="tw-flex tw-items-center tw-gap-3">
+                                                   <button class="tw-hidden lg:tw-inline-flex tw-items-center tw-gap-1 hover:tw-text-gray-900">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="tw-size-4"
                                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -214,7 +236,7 @@
                                                     </button>
 
                                                     <!-- Date Range -->
-                                                    <button class="tw-inline-flex tw-items-center tw-gap-1 hover:tw-text-gray-900">
+                                                    <button class="tw-hidden lg:tw-inline-flex tw-items-center tw-gap-1 hover:tw-text-gray-900">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="tw-size-4"
                                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -225,6 +247,8 @@
                                                         </svg>
                                                         <span>12 Jan – 18 Jan, 2026</span>
                                                     </button>
+
+
 
 
                                                 <button class="tw-p-2 hover:tw-text-gray-900">
@@ -240,14 +264,14 @@
 
 
 
-                                                                                            @if (Module::has('Essentials'))
-                                                                                                                        @includeIf('essentials::layouts.partials.header_part')
-                                                                                                                    @endif
+                                                @if (Module::has('Essentials'))
+                                                    @includeIf('essentials::layouts.partials.header_part')
+                                                @endif
 
-                        @include('layouts.partials.header-notifications')
+                                             @include('layouts.partials.header-notifications')
 
 
-
+                                             </div>
 
 
 
@@ -319,6 +343,31 @@
 
     </div>
 </div>
+
+<script>
+     document.getElementById('mobileSidebarToggle')
+        ?.addEventListener('click', function () {
+            document.body.classList.toggle('sidebar-collapse');
+        });
+
+</script>
+
+
+<style>
+
+    @media (max-width:1024px){
+
+    .main-sidebar{
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+    }
+
+    body:not(.sidebar-collapse) .main-sidebar{
+        transform: translateX(0);
+    }
+
+    }
+    </style>
 
 
 

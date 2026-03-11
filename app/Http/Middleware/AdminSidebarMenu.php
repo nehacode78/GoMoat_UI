@@ -791,14 +791,14 @@ class AdminSidebarMenu
             }
 
             //Notification template menu
-            if (auth()->user()->can('send_notifications')) {
-                $menu->url(action([\App\Http\Controllers\NotificationTemplateController::class, 'index']), __('lang_v1.notification_templates'), ['icon' => '<svg aria-hidden="true" class="tw-size-5 tw-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
-                    <path d="M3 7l9 6l9 -6"></path>
-                  </svg>', 'active' => request()->segment(1) == 'notification-templates'])->order(80);
-            }
+//             if (auth()->user()->can('send_notifications')) {
+//                 $menu->url(action([\App\Http\Controllers\NotificationTemplateController::class, 'index']), __('lang_v1.notification_templates'), ['icon' => '<svg aria-hidden="true" class="tw-size-5 tw-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+//                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+//                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+//                     <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
+//                     <path d="M3 7l9 6l9 -6"></path>
+//                   </svg>', 'active' => request()->segment(1) == 'notification-templates'])->order(80);
+//             }
 
             //Settings Dropdown
             if (auth()->user()->can('business_settings.access') ||
@@ -941,7 +941,6 @@ class AdminSidebarMenu
                                );
 
 
-
                         }
                     },
                     ['icon' => '<svg aria-hidden="true" class="tw-size-5 tw-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1027,17 +1026,89 @@ class AdminSidebarMenu
             )->order(11);
         }
 
+    // Essentials management dropdown
+    if(auth()->user()->can('user.view') || auth()->user()->can('user.create') || auth()->user()->can('roles.view')) {
+
+        $menu->dropdown(
+            __('essentials.essentials'),
+            function ($sub) {
+
+            if (auth()->user()->can('user.view')) {
+
+
+                $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\ToDoController::class, 'index']),
+                    __('essentials.todo'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'todo']
+                );
+
+                $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\DocumentController::class, 'index']),
+                    __('essentials.documents'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'document']
+                );
+
+                 $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\DocumentController::class, 'index'], ['type' => 'memos']),
+                    __('essentials.memos'),
+                    ['icon' => '', 'active' => request()->input('type') == 'memos']
+                );
+
+                $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\ReminderController::class, 'index']),
+                    __('essentials.remainders'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'reminder']
+                );
+
+                $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\EssentialsMessageController::class, 'index']),
+                    __('essentials.messages'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'messages']
+                );
+
+                $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\KnowledgeBaseController::class, 'index']),
+                    __('essentials.knowledge'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'knowledge-base']
+                );
+
+                if (auth()->user()->can('send_notifications')) {
+                    $sub->url(
+                        action([\App\Http\Controllers\NotificationTemplateController::class, 'index']),
+                        __('lang_v1.notification_templates'),
+                        [
+                            'icon' => '',
+                            'active' => request()->segment(1) == 'notification-templates'
+                        ]
+                    );
+                }
+
+               $sub->url(
+                    action([\Modules\Essentials\Http\Controllers\KnowledgeBaseController::class, 'index']),
+                    __('essentials.catalogue'),
+                    ['icon' => '', 'active' => request()->segment(1) == 'essentials' && request()->segment(2) == 'catalogue']
+                );
+              }
+
+
+
+            },
+            [
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="tw-size-5 tw-shrink-0" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 6h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 18h16"/>
+                </svg>'
+            ]
+        )->order(12);
+    }
+
 
 
 
 
         });
-
-
-
-
-
-
 
 
 

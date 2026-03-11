@@ -920,12 +920,22 @@ h1, h2, h3, h4, h5, h6 {
    outline:none;
 }
 
+
 .report-table-card{
    background:#fff;
    border:1px solid #E5E7EB;
    border-radius:10px;
    padding:15px;
    height:230px;
+}
+
+/*button hover color and text font-size */
+.tw-dw-btn:hover{
+   background-color:#2B7ADA !important;
+}
+
+.tw-text-base{
+   font-size:16px !important;
 }
 
 

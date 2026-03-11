@@ -98,6 +98,7 @@
     .global-white-header .tw-bg-gradient-to-r {
 /*         background-color: #ffffff !important; */
         background-image: none !important;
+        background-color:#2B7ADA;
     }
 
     .global-white-header .tw-border-primary-500\/30 {
@@ -1174,6 +1175,14 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
     color: #000000 !important;
 }
 
+.tw-dw-btn:hover{
+background-color:#2B7ADA !important;
+}
+
+.tw-text-base{
+font-size:16px !important;
+}
+
 /* Remove Tailwind ring glow */
 .header-white-bg [class*="tw-ring"] {
     box-shadow: none !important;
@@ -1339,10 +1348,12 @@ body.sidebar-mini .sidebar-brand img {
 
     /* Make text style SAME as other tabs */
     .side-bar a[href*="notification"] span{
-        font-weight: 500 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.04em !important;
-        font-size: 12px !important;
+/*         font-weight: 500 !important; */
+        text-transform: none !important;
+/*         letter-spacing: 0.04em !important; */
+/*         font-size: 12px !important; */
+      margin-left: 24px !important;
+
     }
 
     /* Remove pill / badge look if any */
