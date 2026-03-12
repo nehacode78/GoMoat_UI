@@ -67,3 +67,9 @@
     });
 </script>
 @endsection
+
+<style>
+    .tw-dw-btn-primary{
+    background-color:#2B7ADA !important;
+    }
+    </style>

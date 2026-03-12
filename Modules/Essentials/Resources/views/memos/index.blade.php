@@ -94,6 +94,7 @@
 
 
 <script type="text/javascript">
+
      function appendExportSection(tableId){
 
             let wrapper = $(tableId).closest('.dataTables_wrapper');
@@ -175,7 +176,7 @@
 		      buttons: true,
 		      dangerMode: true,
 		    }).then((confirmed) => {
-		        if (confirmed) {
+		        if (confirmed){
 		        $.ajax({
 					method: "DELETE",
 					url: url,
@@ -186,7 +187,7 @@
 						{
 							toastr.success(result.msg);
 	                        documents.ajax.reload();
-						} else {
+						} else{
 							toastr.error(result.msg);
 						}
 					}

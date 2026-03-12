@@ -84,7 +84,6 @@
 @section('javascript')
 <script type="text/javascript">
 
-
     function appendExportSection(tableId){
 
         let wrapper = $(tableId).closest('.dataTables_wrapper');

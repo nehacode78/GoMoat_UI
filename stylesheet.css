@@ -142,6 +142,7 @@
     font-size:18px;
     color:#C49631;
 }
+
 .risk-titles {
     font-weight: 600;
     font-size:18px;
@@ -192,7 +193,6 @@
 
 
 /* == new profit ui == */
-
 .profit-box-new {
     background: #F4F8FD80;
     border: 2px solid #dbeafe;
@@ -242,7 +242,6 @@
 
 
 /* == operations== */
-
 .operations-title-wrapper {
     margin-top: 30px;
     margin-bottom: 10px;
@@ -938,6 +937,12 @@ h1, h2, h3, h4, h5, h6 {
    font-size:16px !important;
 }
 
+
+/* Essentials- message module*/
+
+.btn-success{
+   background-color:#2B7ADA !important;
+}
 
 
 

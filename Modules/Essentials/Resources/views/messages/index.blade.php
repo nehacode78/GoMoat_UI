@@ -25,13 +25,15 @@
 		{!! Form::open(['url' => action([\Modules\Essentials\Http\Controllers\EssentialsMessageController::class, 'store']), 'method' => 'post', 'id' => 'add_essentials_msg_form']) !!}
 			<div class="input-group">
 		  		{!! Form::textarea('message', null, ['class' => 'form-control', 'required', 'id' => 'chat-msg', 'placeholder' => __('essentials::lang.type_message'), 'rows' => 1]); !!}
-		  		<div class="input-group-addon" 
-		  		style="width: 137px;padding: 0;border: none;">
-		  			{!! Form::select('location_id',$business_locations,  null, ['class' => 'form-control', 'placeholder' => __('lang_v1.select_location'), 'style' => 'width: 100%;' ]); !!}
-		  		</div>
+
+		  		<div class="input-group-addon"
+                		  		style="width: 132px;padding: 0;border: none;">
+                		  			{!! Form::select('location_id',$business_locations,  null, ['class' => 'form-control', 'placeholder' => __('lang_v1.select_location'), 'style' => 'width: 100%; margin-left:5px; border-radius:8px;' ]); !!}
+                		  		</div>
+
 		  		<div class="input-group-btn">
 		  			<button type="submit" class="btn btn-success pull-right ladda-button" data-style="expand-right">
-		  				<span class="ladda-label"><i class="fa fa-plus"></i></span>
+		  				<span class="ladda-label">Save</span>
 		  			</button>
 		  		</div>
 			</div>
@@ -125,3 +127,9 @@
 	}
 </script>
 @endsection
+
+<style>
+    .btn-success{
+    background-color:#2B7ADA !important;
+    }
+    </style>
