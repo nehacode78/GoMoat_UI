@@ -195,8 +195,6 @@ font-size: 12px !important
         {{-- <div class="col-xs-12 pos-tab-container"> --}}
         @component('components.widget', ['class' =>  'pos-tab-container'])
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-
-
                 <div class="left-menu-card">
                     <div class="pos-tab-menu">
                         <div class="list-group">
@@ -220,6 +218,7 @@ font-size: 12px !important
                             <a href="#" class="list-group-item text-center" data-target="tab_sale">
                                 @lang('business.sale')
                             </a>
+
 
                             <a href="#" class="list-group-item text-center" data-target="tab_pos">
                                 @lang('sale.pos_sale')

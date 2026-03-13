@@ -949,6 +949,136 @@ h1, h2, h3, h4, h5, h6 {
    background-color:#2B7ADA !important;
 }
 
+/*--- SIDEBAR ---*/
+
+.sidebar-collapse .main-sidebar{
+   -webkit-transform:none !important;
+   transform:none !important;
+}
+
+
+
+/*--- KNOWLEDGE-BASE module --- */
+
+
+/* Page background */
+.content{
+   background:#F7F7F7;
+}
+
+/* Main wrapper */
+.kb-wrapper{
+   background:#fff;
+   border-radius:8px;
+   border:1px solid #E5E7EB;
+   padding:20px;
+}
+
+/* Header */
+.kb-header{
+   display:flex;
+   justify-content:space-between;
+   align-items:center;
+   margin-bottom:20px;
+}
+
+.kb-title{
+   font-size:16px;
+   font-weight:600;
+   display:flex;
+   gap:8px;
+   align-items:center;
+}
+
+/* Card */
+.kb-card{
+   background:#fff;
+   border:1px solid #E5E7EB;
+   border-radius:10px;
+   padding:15px;
+   margin-bottom:20px;
+}
+
+/* Card header */
+.kb-card-header{
+   display:flex;
+   justify-content:space-between;
+   align-items:center;
+   margin-bottom:10px;
+}
+
+.kb-card-header h4{
+   font-size:14px;
+   font-weight:600;
+   margin:0;
+}
+
+/* Card body */
+.kb-card-body{
+   font-size:13px;
+   color:#6B7280;
+}
+
+/* Section box */
+.panel.box{
+   border-radius:8px;
+   border:1px solid #E5E7EB;
+   margin-top:10px;
+}
+
+/* Subsections */
+.todo-list li{
+   background:#F9FAFB;
+   border-radius:6px;
+   padding:8px;
+   margin-bottom:6px;
+}
+
+/* icons spacing */
+.p-5-5{
+   margin-left:8px;
+}
+
+.kb-icon{
+   display:inline-flex;
+   align-items:center;
+   justify-content:center;
+   width:26px;
+   height:26px;
+   border-radius:6px;
+   font-size:12px;
+   margin-left:6px;
+   text-decoration:none;
+}
+
+/* view */
+.kb-icon.view{
+   background:#E8F5EC;
+   color:#2E7D32;
+}
+
+/* edit */
+.kb-icon.edit{
+   background:#FFF4E5;
+   color:#F59E0B;
+}
+
+/* delete */
+.kb-icon.delete{
+   background:#FDECEC;
+   color:#EF4444;
+}
+
+/* add */
+.kb-icon.add{
+   background:#EEF2FF;
+   color:#3B82F6;
+}
+
+.kb-icon:hover{
+   opacity:0.85;
+}
+
 
 
 

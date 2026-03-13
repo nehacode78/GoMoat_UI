@@ -681,7 +681,6 @@ body.sidebar-collapse #main-content {
     min-width: 256px;
     height: 100vh;
     position: fixed;
-
     overflow: visible !important;
     top: 0;
     left: 0;
@@ -1212,7 +1211,6 @@ font-size:16px !important;
 .header-white-bg {
     min-height: 85px;
 }
-
 
 /* ================= SIDEBAR BRAND — COLLAPSED CLEAN ================= */
 

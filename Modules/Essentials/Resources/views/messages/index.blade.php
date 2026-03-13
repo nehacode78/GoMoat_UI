@@ -6,9 +6,9 @@
 @include('essentials::layouts.nav_essentials')
 <section class="content">
 	<!-- Chat box -->
+
 	<div class="box box-solid">
 	  <div class="box-header">
-
 	  <i class="fa fa-comments-o"></i>
 	  <h3 class="box-title">@lang('essentials::lang.messages')</h3>
 	</div>
@@ -30,7 +30,7 @@
 		  		<div class="input-group-addon"
                 		  		style="width: 132px;padding: 0;border: none;">
                 		  			{!! Form::select('location_id',$business_locations,  null, ['class' => 'form-control', 'placeholder' => __('lang_v1.select_location'), 'style' => 'width: 100%; margin-left:5px; border-radius:8px;' ]); !!}
-                		  		</div>
+                </div>
 
 		  		<div class="input-group-btn">
 		  			<button type="submit" class="btn btn-success pull-right ladda-button" data-style="expand-right">
@@ -133,4 +133,5 @@
     .btn-success{
     background-color:#2B7ADA !important;
     }
-    </style>
+
+</style>
