@@ -7,11 +7,12 @@
 <section class="content">
 	<!-- Chat box -->
 	<div class="box box-solid">
-	<div class="box-header">
-	  <i class="fa fa-comments-o"></i>
+	  <div class="box-header">
 
+	  <i class="fa fa-comments-o"></i>
 	  <h3 class="box-title">@lang('essentials::lang.messages')</h3>
 	</div>
+
 	<div class="box-body" id="chat-box" style="height: 70vh; overflow-y: scroll;">
 		@can('essentials.view_message')
 		  @foreach($messages as $message)

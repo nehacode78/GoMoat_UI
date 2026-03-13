@@ -5,34 +5,41 @@
 @section('content')
 @include('essentials::layouts.nav_essentials')
 <section class="content">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box box-solid">
-					<div class="box-body">
-						<div class="row">
-					    	<div class="col-md-12">
-								<div class="box-tools pull-right">
-										<button data-href="#" class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full tw-text-white pull-righ add_reminder">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-												stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-												class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-												<path d="M12 5l0 14" />
-												<path d="M5 12l14 0" />
-											</svg> @lang('essentials::lang.add_reminder')
-										</button>
-								</div>
-							</div>
-						</div>
+    <div class="container-fluid" style="background-color:#F7F7F7; padding-top:10px;">
 
-						<div id="calendar">
-							
-						</div>
-					</div>
-			</div>
-		</div>
-	</div>
-	@include('essentials::reminder.create')
+        <!-- Page Header -->
+       <div class="row mb-4 align-items-center" style="margin-bottom:20px;" >
+
+         <div class="col-md-6 reminder-header">
+
+             <div class="reminder-title">
+                 <span class="reminder-icon">
+                     <i class="fa fa-calendar"></i>
+                 </span>
+
+                 <span class="reminder-text">
+                     Reminders
+                 </span>
+             </div>
+         </div>
+
+           <div class="col-md-6 text-right">
+               <button class="add_reminder btn btn-primary">
+                   <i class="fa fa-plus"></i> Add Reminder
+               </button>
+           </div>
+
+       </div>
+
+        <!-- Calendar Card -->
+       <div class="calendar-wrapper">
+           <div id="calendar"></div>
+       </div>
+
+    </div>
+
+    @include('essentials::reminder.create')
+
 </section>
 <!-- show reminder modal -->
 <div class="modal fade view_reminder" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>
@@ -108,32 +115,30 @@
 		//full calender
 		clickCount = 0;
 		$("#calendar").fullCalendar({
-			header:{
-				left: 'prev,next today',
+            header:{
+                left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
-			},
-			eventLimit: true,
-			events: '/essentials/reminder',
-			// timeFormat: 'h(:mm)t', // like '7p'
-			eventRender:function(event, element){
-				var eventname_html = event.name;
-				element.find('.fc-title').html(eventname_html);
-				element.attr('data-href', event.url);
-				element.attr('data-container', '.view_reminder');
-				element.addClass('btn-modal');
-			},
-			dayClick: function(date, jsEvent, view){
-				clickCount++;
-				if(clickCount == 2){
-					$('.reminder').modal("show");
-				}
-				var clickTimer = setInterval(function(){
-                        clickCount = 0;
-                        clearInterval(clickTimer);
-                }, 500);
-			}
-		});
+            },
+
+            buttonText:{
+                today:'Today',
+                month:'Month',
+                week:'Week',
+                day:'Day'
+            },
+
+            height:650,
+
+            events:'/essentials/reminder',
+
+            eventRender:function(event, element){
+                element.find('.fc-title').html(event.name);
+                element.attr('data-href', event.url);
+                element.attr('data-container', '.view_reminder');
+                element.addClass('btn-modal');
+            }
+        });
 
 		//reload_calendar
 		function reload_calendar()
@@ -202,3 +207,119 @@
 	});
 </script>
 @endsection
+
+
+
+<style>
+
+    .calendar-wrapper{
+        background:#ffffff;
+        border:1px solid #E5E7EB;
+        border-radius:8px;
+        padding:20px;
+    }
+
+    /* remove default fullcalendar border */
+    .fc{
+        background:#ffffff;
+    }
+
+.fc-daygrid-day{
+    border:1px solid #E5E7EB !important;
+}
+
+.fc-scrollgrid{
+    border:1px solid #E5E7EB !important;
+}
+    .calendar-card{
+        border-radius:10px;
+        border:none;
+        box-shadow:0 3px 15px rgba(0,0,0,0.08);
+        padding:10px;
+    }
+
+    /* Add Reminder Button */
+   .add_reminder{
+       background:#3b82f6;
+       border:none;
+       color:white;
+       padding:8px 18px;
+       border-radius:6px;
+       font-weight:600;
+   }
+
+   .add_reminder i{
+       margin-right:6px;
+   }
+
+    /* Calendar header */
+    .fc-toolbar{
+        margin-bottom:20px;
+    }
+.btn-primary{
+background-color:#2B7ADA !important;
+border-radius:10px !important;
+}
+
+    .fc-button{
+        background:#f3f4f6 !important;
+        border:none !important;
+        color:#374151 !important;
+        padding:6px 12px !important;
+        border-radius:6px !important;
+    }
+
+
+    .fc-button-primary:not(:disabled).fc-button-active{
+        background:#2563eb !important;
+        color:white !important;
+    }
+
+    /* Calendar grid */
+    .fc-daygrid-day{
+        background:#ffffff;
+    }
+
+    .fc-event{
+        background:#22c55e !important;
+        border:none !important;
+        border-radius:5px;
+        font-size:12px;
+        padding:2px 6px;
+    }
+
+    /* Month title */
+    .fc-toolbar-title{
+        font-size:18px;
+        font-weight:600;
+    }
+
+
+.reminder-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.reminder-icon{
+    width:32px;
+    height:32px;
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.reminder-icon i{
+    font-size:14px;
+    color:#333333;
+}
+
+.reminder-text{
+    font-size:16px;
+    font-weight:600;
+    color:#333333;
+    line-height:1;
+}
+    </style>

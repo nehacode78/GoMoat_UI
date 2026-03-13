@@ -1160,6 +1160,11 @@ body.sidebar-collapse .groww-toggle .toggle-arrow {
     box-shadow: none !important;
 }
 
+ .sidebar-collapse .main-sidebar{
+   -webkit-transform:none !important;
+   transform:none !important;
+   }
+
 /* Icons visible */
 .header-white-bg svg {
     color: #000000 !important;
