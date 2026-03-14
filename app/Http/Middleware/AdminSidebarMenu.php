@@ -519,10 +519,17 @@ class AdminSidebarMenu
                     __('lang_v1.payment_accounts'),
                     function ($sub) {
                         $sub->url(
+                                 action([\App\Http\Controllers\ExpenseController::class, 'index']),
+                                 __('account.expenses'),
+                                  ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'expenses']
+                             );
+
+                        $sub->url(
                             action([\App\Http\Controllers\AccountController::class, 'index']),
                             __('account.list_accounts'),
                             ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'account']
                         );
+
                         $sub->url(
                             action([\App\Http\Controllers\AccountReportsController::class, 'balanceSheet']),
                             __('account.balance_sheet'),
@@ -538,11 +545,57 @@ class AdminSidebarMenu
                             __('lang_v1.cash_flow'),
                             ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'cash-flow']
                         );
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountController::class, 'index']),
+                             __('account.chart_accounts'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+
+                        );
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountController::class, 'index']),
+                             __('account.journal_entry'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+                        );
+
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountController::class, 'index']),
+                             __('account.transfer'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+
+                        );
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountController::class, 'index']),
+                             __('account.transactions'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+
+                        );
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountController::class, 'index']),
+                             __('account.budget'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+
+                        );
+
                         $sub->url(
                             action([\App\Http\Controllers\AccountReportsController::class, 'paymentAccountReport']),
                             __('account.payment_account_report'),
                             ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'payment-account-report']
                         );
+
+                         $sub->url(
+                            action([\App\Http\Controllers\AccountReportsController::class, 'paymentAccountReport']),
+                            __('account.reports'),
+                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'reports']
+                        );
+
+
+                          $sub->url(
+                        action([\App\Http\Controllers\AccountController::class, 'index']),
+                         __('account.settings'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'chart_accounts']
+
+                    );
+
                     },
                     ['icon' => '<svg aria-hidden="true" class="tw-size-5 tw-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

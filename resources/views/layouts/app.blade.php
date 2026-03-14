@@ -391,10 +391,71 @@
           @yield('vue')
       </div>
 
+
+
+
       {{-- SCROLLABLE CONTENT --}}
       <div class="tw-flex-1 whitish" id="scrollable-container">
-          @yield('content')
+
+      {{-- ACCOUNTING BREADCRUMB --}}
+      @if(request()->segment(1) == 'account')
+
+      @php
+          $segment = request()->segment(2);
+
+
+          if($segment == 'account'){
+              $currentPage = 'Payment Accounts';
+          } elseif($segment == 'balance-sheet'){
+              $currentPage = 'Balance Sheet';
+          } elseif($segment == 'trial-balance'){
+              $currentPage = 'Trial Balance';
+          } elseif($segment == 'cash-flow'){
+              $currentPage = 'Cash Flow';
+          } elseif($segment == 'chart-of-accounts'){
+              $currentPage = 'Chart of Accounts';
+          } elseif($segment == 'journal-entry'){
+              $currentPage = 'Journal Entry';
+          } elseif($segment == 'transfer'){
+              $currentPage = 'Transfer';
+          } elseif($segment == 'transactions'){
+              $currentPage = 'Transactions';
+          } elseif($segment == 'budget'){
+              $currentPage = 'Budget';
+          } elseif($segment == 'payment-account-report'){
+              $currentPage = 'Reports';
+          } elseif($segment == 'settings'){
+              $currentPage = 'Settings';
+          } else {
+              $currentPage = ucwords(str_replace('-', ' ', $segment));
+          }
+      @endphp
+
+      <div class="tw-flex tw-items-center tw-justify-between tw-mx-[16px] tw-mt-6"
+           style="margin-left:40px; margin-bottom:24px; padding-top:9px; margin-right:18px;">
+
+          <div class="tw-text-xl tw-font-semibold">
+              <span class="tw-text-gray-400">Accounting</span>
+              <span class="tw-mx-2 tw-text-gray-300">|</span>
+              <span class="tw-text-gray-900">{{ $currentPage }}</span>
+          </div>
+
+          <div class="tw-text-sm tw-text-gray-400">
+              {{ \Carbon\Carbon::now()->format('d M, Y') }}
+          </div>
+
       </div>
+
+      @endif
+
+      @yield('content')
+
+      </div>
+
+
+
+
+
 
       {{--  FIXED FOOTER (ONLY HERE) --}}
       @include($pos_layout
