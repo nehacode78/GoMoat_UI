@@ -1,13 +1,18 @@
 @extends('layouts.app')
 @section('title', __('lang_v1.cash_flow'))
-// new changes
+
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>@lang('lang_v1.cash_flow')
-    </h1>
-</section>
+
+<!--
+    <section class="content-header">
+        <h1>@lang('lang_v1.cash_flow')
+        </h1>
+    </section>
+
+    -->
+
 
 <!-- Main content -->
 <section class="content no-print">

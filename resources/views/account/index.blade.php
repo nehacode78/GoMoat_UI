@@ -44,18 +44,18 @@
                                         <i class="fa fa-book"></i> <strong>@lang('account.accounts')</strong>
                                     </a>
                                 </li>
-                                {{--
-                    <li>
-                        <a href="#capital_accounts" data-toggle="tab">
-                            <i class="fa fa-book"></i> <strong>
-                            @lang('account.capital_accounts') </strong>
-                        </a>
-                    </li>
-                    --}}
+
                                 <li>
                                     <a href="#account_types" data-toggle="tab">
-                                        <i class="fa fa-list"></i> <strong>
-                                            @lang('lang_v1.account_types') </strong>
+                                        <i class="fa fa-list"></i>
+                                        <strong>@lang('lang_v1.account_types')</strong>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#payment_account_report_tab" data-toggle="tab">
+                                        <i class="fa fa-file-text"></i>
+                                        <strong>@lang('account.payment_account_report')</strong>
                                     </a>
                                 </li>
                             </ul>
@@ -90,7 +90,7 @@
                                         <div class="col-sm-12">
                                             <br>
                                             <div class="table-responsive">
-                                                <table class="table table-bordered table-striped" id="other_account_table">
+                                                <table class="table table-bordered table-striped" id="other_account_table" style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>@lang('lang_v1.name')</th>
@@ -199,6 +199,68 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+                            <div class="tab-pane" id="payment_account_report_tab">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @component('components.filters', ['title' => __('report.filters')])
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                {!! Form::label('account_id', __('account.account') . ':') !!}
+                                                {!! Form::select('account_id', $accounts, null, [
+                                                'class' => 'form-control select2',
+                                                'id' => 'account_id',
+                                                'style' => 'width:100%'
+                                                ]) !!}
+                                              </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                {!! Form::label('date_filter', __('report.date_range') . ':') !!}
+                                                {!! Form::text('date_range', null, [
+                                                    'placeholder' => __('lang_v1.select_a_date_range'),
+                                                    'class' => 'form-control',
+                                                    'id' => 'date_filter',
+                                                    'readonly'
+                                                ]) !!}
+                                            </div>
+                                        </div>
+
+                                        @endcomponent
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @component('components.widget')
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="payment_account_report" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>@lang('messages.date')</th>
+                                                        <th>@lang('account.payment_ref_no')</th>
+                                                        <th>@lang('account.invoice_ref_no')</th>
+                                                        <th>@lang('sale.amount')</th>
+                                                        <th>@lang('lang_v1.payment_type')</th>
+                                                        <th>@lang('account.account')</th>
+                                                        <th>@lang('lang_v1.description')</th>
+                                                        <th>@lang('messages.action')</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+
+                                        @endcomponent
+                                    </div>
+                                </div>
+
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -471,5 +533,54 @@
                 }
             });
         });
+
+        // Payment Account Report Table
+        payment_account_report = $('#payment_account_report').DataTable({
+            processing: true,
+            serverSide: true,
+            fixedHeader:false,
+            ajax: {
+                url: "{{ action([\App\Http\Controllers\AccountReportsController::class, 'paymentAccountReport']) }}",
+                data: function(d) {
+
+                    d.account_id = $('#account_id').val();
+
+                    var start_date = '';
+                    var end_date = '';
+
+                    if ($('#date_filter').val()) {
+                        start_date = $('#date_filter').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                        end_date = $('#date_filter').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    }
+
+                    d.start_date = start_date;
+                    d.end_date = end_date;
+                }
+            },
+            columnDefs: [{
+                targets: 7,
+                orderable: false,
+                searchable: false
+            }],
+            columns: [
+                {data: 'paid_on', name: 'paid_on'},
+                {data: 'payment_ref_no', name: 'payment_ref_no'},
+                {data: 'transaction_number', name: 'transaction_number'},
+                {data: 'amount', name: 'amount'},
+                {data: 'type', name: 'T.type'},
+                {data: 'account', name: 'account'},
+                {data: 'details', name: 'details', searchable:false},
+                {data: 'action', name: 'action'}
+            ],
+            fnDrawCallback: function(oSettings){
+                __currency_convert_recursively($('#payment_account_report'));
+            }
+        });
+
+        $('select#account_id, #date_filter').change(function(){
+            payment_account_report.ajax.reload();
+        });
+
+
     </script>
 @endsection

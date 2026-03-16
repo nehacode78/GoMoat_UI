@@ -189,8 +189,12 @@ class AccountController extends Controller
                                      ->with(['sub_types'])
                                      ->get();
 
+         /* ADD THIS */
+         $accounts = Account::where('business_id', $business_id)
+                     ->pluck('name','id');
+
         return view('account.index')
-                ->with(compact('not_linked_payments', 'account_types'));
+                ->with(compact('not_linked_payments', 'account_types', 'accounts'));
     }
 
     /**

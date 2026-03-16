@@ -55,7 +55,6 @@
                               {{ __('home.welcome_message', ['name' => Session::get('user.first_name')]) }}
                           </h1>
                       </div>
-
                   </div>
 
                     {{-- Showing active package for SaaS Superadmin --}}
