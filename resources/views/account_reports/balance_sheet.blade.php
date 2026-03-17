@@ -40,6 +40,12 @@
         <div class="box-header print_section">
             <h3 class="box-title">{{session()->get('business.name')}} - @lang( 'account.balance_sheet') - <span id="hidden_date">{{@format_date('now')}}</span></h3>
         </div>
+
+           <div class="box-footer">
+                <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white no-print pull-right"onclick="window.print()">
+              <i class="fa fa-print"></i> @lang('messages.print')</button>
+           </div>
+
         <div class="box-body">
             <table class="table table-border-center no-border table-pl-12">
                 <thead>
@@ -47,6 +53,7 @@
                         <th>@lang( 'account.liability')</th>
                         <th>@lang( 'account.assets')</th>
                     </tr>
+
                 </thead>
                 <tbody>
                     <tr>
@@ -111,7 +118,7 @@
                             <table class="table bg-gray mb-0 no-border">
                                 <tr>
                                     <th>
-                                        @lang('account.total_liability'): 
+                                        @lang('account.total_liability'):
                                     </th>
                                     <td>
                                         <span id="total_liabilty"><i class="fas fa-sync fa-spin fa-fw"></i></span>
@@ -123,7 +130,7 @@
                             <table class="table bg-gray mb-0 no-border">
                                 <tr>
                                     <th>
-                                        @lang('account.total_assets'): 
+                                        @lang('account.total_assets'):
                                     </th>
                                     <td>
                                         <span id="total_assets"><i class="fas fa-sync fa-spin fa-fw"></i></span>
@@ -135,10 +142,7 @@
                 </tfoot>
             </table>
         </div>
-        <div class="box-footer">
-            <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white no-print pull-right"onclick="window.print()">
-          <i class="fa fa-print"></i> @lang('messages.print')</button>
-        </div>
+
     </div>
 
 </section>
@@ -176,7 +180,7 @@
         var end_date = $('input#end_date').val();
         var location_id = $('#bal_sheet_location_id').val()
         $.ajax({
-            url: "{{action([\App\Http\Controllers\AccountReportsController::class, 'balanceSheet'])}}?end_date=" + end_date + '&location_id=' + location_id, 
+            url: "{{action([\App\Http\Controllers\AccountReportsController::class, 'balanceSheet'])}}?end_date=" + end_date + '&location_id=' + location_id,
             dataType: "json",
             success: function(result){
                 $('span#supplier_due').text(__currency_trans_from_en(result.supplier_due, true));
@@ -216,7 +220,7 @@
 
                 $('span#total_liabilty').text(__currency_trans_from_en(total_liabilty, true));
                 $('span#total_assets').text(__currency_trans_from_en(total_assets, true));
-                
+
             }
         });
     }

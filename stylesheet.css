@@ -491,7 +491,6 @@ h1, h2, h3, h4, h5, h6 {
  }
 
  /*==  HRM|{{MODULES NAME}}  ==*/
-
 .tw-text-xl{
    font-size:24px;
 }
@@ -528,7 +527,6 @@ h1, h2, h3, h4, h5, h6 {
 /* display:flex;align-items:center;justify-content:center;margin-bottom:10px; } */
 
 .scope-card-header{
-
    display:flex;
    align-items:center;
    gap:12px;

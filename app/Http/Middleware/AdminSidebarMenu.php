@@ -576,11 +576,6 @@ class AdminSidebarMenu
 
                         );
 
-                        $sub->url(
-                            action([\App\Http\Controllers\AccountReportsController::class, 'paymentAccountReport']),
-                            __('account.payment_account_report'),
-                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'payment-account-report']
-                        );
 
                          $sub->url(
                             action([\App\Http\Controllers\AccountReportsController::class, 'paymentAccountReport']),
