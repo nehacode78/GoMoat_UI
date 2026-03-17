@@ -12,6 +12,17 @@
     </section>
     -->
 
+
+{{-- ================= TABS ================= --}}
+<ul class="crm-tabs">
+    <li class="active">
+        <a href="#balance_tab" data-toggle="tab">BALANCE SHEET</a>
+    </li>
+    <li>
+        <a href="#trial_tab" data-toggle="tab">TRIAL BALANCE</a>
+    </li>
+</ul>
+
 <!-- Main content -->
 <section class="content">
     <div class="row no-print">
@@ -44,8 +55,7 @@
            <div class="box-footer">
                 <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white no-print pull-right"onclick="window.print()">
               <i class="fa fa-print"></i> @lang('messages.print')</button>
-           </div>
-
+            </div>
         <div class="box-body">
             <table class="table table-border-center no-border table-pl-12">
                 <thead>
@@ -53,7 +63,6 @@
                         <th>@lang( 'account.liability')</th>
                         <th>@lang( 'account.assets')</th>
                     </tr>
-
                 </thead>
                 <tbody>
                     <tr>
@@ -227,3 +236,27 @@
 </script>
 
 @endsection
+
+<style>
+    .crm-tabs{
+        display:flex;
+        gap:30px;
+        border-bottom:1px solid #E5E7EB;
+        margin-bottom:20px;
+        padding-left:0;
+        list-style:none;
+    }
+
+    .crm-tabs li a{
+        text-decoration:none;
+        font-size:12px;
+        font-weight:600;
+        color:#9CA3AF;
+        padding-bottom:10px;
+    }
+
+    .crm-tabs li.active a{
+        color:#2563EB;
+        border-bottom:2px solid #2563EB;
+    }
+    </style>
