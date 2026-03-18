@@ -124,7 +124,6 @@
 <!-- /.content -->
 @stop
 @section('javascript')
-
 <script type="text/javascript">
     $(document).ready( function(){
         //Date picker

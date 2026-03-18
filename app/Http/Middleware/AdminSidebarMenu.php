@@ -535,11 +535,11 @@ class AdminSidebarMenu
                             __('account.balance_sheet'),
                             ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'balance-sheet']
                         );
-                        $sub->url(
-                            action([\App\Http\Controllers\AccountReportsController::class, 'trialBalance']),
-                            __('account.trial_balance'),
-                            ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'trial-balance']
-                        );
+//                         $sub->url(
+//                             action([\App\Http\Controllers\AccountReportsController::class, 'trialBalance']),
+//                             __('account.trial_balance'),
+//                             ['icon' => '', 'active' => request()->segment(1) == 'account' && request()->segment(2) == 'trial-balance']
+//                         );
                         $sub->url(
                             action([\App\Http\Controllers\AccountController::class, 'cashFlow']),
                             __('lang_v1.cash_flow'),
