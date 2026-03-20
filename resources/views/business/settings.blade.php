@@ -197,6 +197,7 @@ font-size: 12px !important
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                 <div class="left-menu-card">
                     <div class="pos-tab-menu">
+
                         <div class="list-group">
 
                             <a href="#" class="list-group-item text-center active" data-target="tab_business">
@@ -239,6 +240,8 @@ font-size: 12px !important
                             <a href="#" class="list-group-item text-center" data-target="tab_dashboard">
                                 @lang('business.dashboard')
                             </a>
+                        <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base" data-target="tab_modules">
+                            @lang('lang_v1.modules')</a>
 
                             <a href="#" class="list-group-item text-center" data-target="tab_system">
                                 @lang('business.system')
@@ -250,9 +253,7 @@ font-size: 12px !important
 
             </div>
 
-
               <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-
 
                 <div class="settings-card" id="tab_business">
                     @component('components.widget',['class'=>'box-primary','title'=>__('business.business')])
@@ -348,6 +349,8 @@ font-size: 12px !important
                     @component('components.widget',['class'=>'box-primary','title'=>__('lang_v1.modules')])
                         @include('business.partials.settings_modules')
                     @endcomponent
+
+
                 </div>
 
                 <div class="settings-card" id="tab_labels">

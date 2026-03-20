@@ -491,7 +491,6 @@ h1, h2, h3, h4, h5, h6 {
  }
 
  /*==  HRM|{{MODULES NAME}}  ==*/
-
 .tw-text-xl{
    font-size:24px;
 }
@@ -528,7 +527,6 @@ h1, h2, h3, h4, h5, h6 {
 /* display:flex;align-items:center;justify-content:center;margin-bottom:10px; } */
 
 .scope-card-header{
-
    display:flex;
    align-items:center;
    gap:12px;
@@ -919,7 +917,6 @@ h1, h2, h3, h4, h5, h6 {
    outline:none;
 }
 
-
 .report-table-card{
    background:#fff;
    border:1px solid #E5E7EB;
@@ -1078,6 +1075,327 @@ h1, h2, h3, h4, h5, h6 {
 .kb-icon:hover{
    opacity:0.85;
 }
+
+                                   /*-- PAYMENT ACCOUNTS--*/
+
+.account-table-card {
+   width: 100%;
+   padding: 10px; /* reduce from 15px */
+}
+
+/* Make top controls full width */
+.dataTables_wrapper .row:first-child {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+}
+
+/* Left side (entries dropdown) */
+.dataTables_length {
+   flex: 1;
+}
+
+/* Right side (search + filter) */
+.dataTables_filter {
+   flex: 1;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   gap: 12px;
+}
+#payment_account_report_filter {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+}
+
+.filter-btn {
+   display: inline-flex;
+   align-items: center;
+   gap: 6px;
+   padding: 6px 14px;
+   font-size: 12px;
+   font-weight: 500;
+   color: #374151;
+   background: #F9FAFB;
+   border: 1px solid #D1D5DB;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   margin-left: 6px;
+}
+
+/* Hover */
+.filter-btn:hover {
+   background: #F3F4F6;
+   border-color: #9CA3AF;
+}
+
+/* Icon */
+.filter-btn i {
+   font-size: 11px;
+   color: #6B7280;
+}
+
+/* Export Section */
+.account-export-section{
+   display:flex;
+   align-items:center;
+   gap:10px;
+   margin-top:12px;
+   font-size:12px;
+   color:#6B7280;
+}
+
+/* Icons */
+.export-icons{
+   display:flex;
+   gap:6px;
+}
+.export-icon{
+   width:26px;
+   height:26px;
+   border:1px solid #E5E7EB;
+   border-radius:6px;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   font-size:12px;
+   color:#6B7280;
+   background:#fff;
+}
+
+/* Label */
+.export-label{
+   font-weight:500;
+}
+
+/* Buttons */
+.export-btn{
+   color:#2B7ADA;
+   text-decoration:none;
+   font-weight:500;
+}
+
+.export-btn:hover{
+   text-decoration:underline;
+}
+.crm-tabs{
+   display:flex;
+   gap:30px;
+   border-bottom:1px solid #E5E7EB;
+   margin-bottom:20px;
+   padding-left:0;
+   list-style:none;
+}
+
+.crm-tabs li a{
+   text-decoration:none;
+   font-size:14px;
+   letter-spacing:.08em;
+   font-weight:700;
+   color:#9CA3AF;
+   padding-bottom:10px;
+   display:inline-block;
+   text-transform: uppercase;
+}
+
+.crm-tabs li.active a{
+   color:#276134;
+   border-bottom:2px solid #276134;
+}
+
+/* Card Container */
+.account-table-card{
+   background:#F7F7F7;
+   border-radius:10px;
+}
+
+/* Table Base */
+.account-modern-table{
+   width:100%;
+   border-collapse:separate;
+   border-spacing:0;
+}
+
+/* Header */
+.account-modern-table thead th{
+   font-size:11px;
+   text-transform:uppercase;
+   color:#9CA3AF;
+   font-weight:600;
+   border-bottom:1px solid #E5E7EB;
+   padding:10px;
+}
+
+/* Body */
+.account-modern-table tbody td{
+   font-size:13px;
+   color:#374151;
+   padding:12px 10px;
+   border-bottom:1px solid #F3F4F6;
+}
+
+/* Hover */
+.account-modern-table tbody tr:hover{
+   background:#F9FAFB;
+}
+
+/* Total Row */
+.account-total-row{
+   background:#D9ECDD;
+   font-weight:600;
+}
+
+.account-total-row td{
+   padding:12px;
+   border:none;
+}
+/* Amount column */
+.account-modern-table td:nth-child(6){
+   text-align:right;
+   font-weight:600;
+}
+
+/* Action buttons */
+.account-modern-table .btn{
+   padding:4px 8px;
+   font-size:11px;
+   border-radius:6px;
+}
+/* Filter + Search alignment */
+.dataTables_wrapper .dataTables_filter input{
+   border:none;
+   border-bottom:1px solid #E5E7EB;
+   background:transparent;
+}
+/* Pagination */
+.dataTables_wrapper .dataTables_paginate{
+   margin-top:10px;
+}
+
+/* Remove default datatable styling */
+.dataTables_filter label {
+   position: relative;
+   margin: 0;
+   width: 220px;
+}
+
+.dataTables_filter input {
+   width: 100% !important;
+   height: 34px !important;
+   border: none !important;
+   border-bottom: 1px solid #d1d5db !important;
+   border-radius: 0 !important;
+   background: transparent !important;
+   padding: 0 24px 4px 0 !important;
+   font-size: 13px !important;
+   color: #374151 !important;
+   box-shadow: none !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+   margin-left: -3.5em !important;
+   display: inline-block;
+   width: auto;
+}
+
+/* Remove focus glow */
+.dataTables_filter input:focus {
+   outline: none !important;
+   border-bottom: 1px solid #9ca3af !important;
+}
+
+/* Placeholder style */
+.dataTables_filter input::placeholder {
+   color: #9ca3af;
+   font-size: 13px;
+}
+
+/* Search icon */
+.dataTables_filter label::after {
+   content: "\f002";
+   font-family: "Font Awesome 5 Free";
+   font-weight: 900;
+   position: absolute;
+   right: 0;
+   bottom: 8px;
+   font-size: 12px;
+   color: #9ca3af;
+}
+
+/* Header Bar */
+.account-header-bar{
+   display:flex;
+   justify-content:space-between;
+   align-items:center;
+   margin-bottom:12px;
+}
+
+/* Left side */
+.account-header-left{
+   display:flex;
+   align-items:center;
+   gap:8px;
+}
+
+/* Icon */
+.account-icon{
+   width:28px;
+   height:28px;
+   border:1px solid #E5E7EB;
+   border-radius:6px;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   color:#6B7280;
+   font-size:13px;
+   background:#fff;
+}
+
+/* Text */
+.account-title-text{
+   font-size:14px;
+   font-weight:600;
+   color:#374151;
+}
+
+/* Button */
+.add-account-btn{
+   background:#2B7ADA;
+   color:#fff;
+   border:none;
+   padding:6px 12px;
+   border-radius:6px;
+   font-size:13px;
+   display:flex;
+   align-items:center;
+   gap:6px;
+}
+
+.add-account-btn:hover{
+   background:#1D4ED8;
+}
+
+/* Full width wrapper */
+.dataTables_wrapper {
+   width: 100% !important;
+}
+
+/* Table container full width */
+.dataTables_wrapper .dataTables_scroll,
+.dataTables_wrapper .dataTables_scrollBody,
+.dataTables_wrapper .dataTables_scrollHead {
+   width: 100% !important;
+}
+
+/* Table itself */
+#payment_account_report {
+   width: 100% !important;
+}
+
+
 
 
 

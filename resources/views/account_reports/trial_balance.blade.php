@@ -4,10 +4,19 @@
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang( 'account.trial_balance')
-    </h1>
-</section>
+
+<!--
+    <section class="content-header">
+        <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang( 'account.trial_balance')
+        </h1>
+    </section>
+
+   -->
+
+
+
+
+
 
 <!-- Main content -->
 <section class="content">
@@ -22,6 +31,7 @@
             </div>
             <div class="col-sm-3 col-xs-6">
                     <label for="end_date">@lang('messages.filter_by_date'):</label>
+
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -37,9 +47,14 @@
         <div class="box-header print_section">
             <h3 class="box-title">{{session()->get('business.name')}} - @lang( 'account.trial_balance') - <span id="hidden_date">{{@format_date('now')}}</span></h3>
         </div>
+        <div class="box-footer">
+            <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white no-print pull-right"onclick="window.print()">
+          <i class="fa fa-print"></i> @lang('messages.print')</button>
+        </div>
+
         <div class="box-body">
             <table class="table table-border-center-col no-border table-pl-12" id="trial_balance_table">
-                <thead>
+                    <thead>
                     <tr class="bg-gray">
                         <th>@lang('account.trial_balance')</th>
                         <th>@lang('account.debit')</th>
@@ -102,17 +117,13 @@
                 </tfoot>
             </table>
         </div>
-        <div class="box-footer">
-            <button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white no-print pull-right"onclick="window.print()">
-          <i class="fa fa-print"></i> @lang('messages.print')</button>
-        </div>
+
     </div>
 
 </section>
 <!-- /.content -->
 @stop
 @section('javascript')
-
 <script type="text/javascript">
     $(document).ready( function(){
         //Date picker

@@ -78,7 +78,11 @@
     body.sidebar-collapse .side-bar{width:64px!important}
     #main-content{margin-left:256px!important}
     body.sidebar-collapse #main-content{margin-left:64px!important}
+
+
+
     </style>
+
 
 <style>
     /* Toggle button - VISIBLE AND POSITIONED FROM START */
@@ -311,9 +315,13 @@
                 body.className += " sidebar-collapse";
             }
         </script>
+
         @if (!$pos_layout && $request->segment(1) != 'customer-display')
             @include('layouts.partials.sidebar')
         @endif
+
+        {{-- Mobile overlay --}}
+        <div id="mobile-overlay" class="mobile-sidebar-overlay"></div>
 
         @if (in_array($_SERVER['REMOTE_ADDR'], $whitelist))
             <input type="hidden" id="__is_localhost" value="true">
@@ -391,10 +399,71 @@
           @yield('vue')
       </div>
 
+
+
+
       {{-- SCROLLABLE CONTENT --}}
       <div class="tw-flex-1 whitish" id="scrollable-container">
-          @yield('content')
+
+      {{-- ACCOUNTING BREADCRUMB --}}
+      @if(request()->segment(1) == 'account')
+
+      @php
+          $segment = request()->segment(2);
+
+
+          if($segment == 'account'){
+              $currentPage = 'Payment Accounts';
+          } elseif($segment == 'balance-sheet'){
+              $currentPage = 'Balance Sheet';
+          } elseif($segment == 'trial-balance'){
+              $currentPage = 'Trial Balance';
+          } elseif($segment == 'cash-flow'){
+              $currentPage = 'Cash Flow';
+          } elseif($segment == 'chart-of-accounts'){
+              $currentPage = 'Chart of Accounts';
+          } elseif($segment == 'journal-entry'){
+              $currentPage = 'Journal Entry';
+          } elseif($segment == 'transfer'){
+              $currentPage = 'Transfer';
+          } elseif($segment == 'transactions'){
+              $currentPage = 'Transactions';
+          } elseif($segment == 'budget'){
+              $currentPage = 'Budget';
+          } elseif($segment == 'payment-account-report'){
+              $currentPage = 'Reports';
+          } elseif($segment == 'settings'){
+              $currentPage = 'Settings';
+          } else {
+              $currentPage = ucwords(str_replace('-', ' ', $segment));
+          }
+      @endphp
+
+      <div class="tw-flex tw-items-center tw-justify-between tw-mx-[16px] tw-mt-6"
+           style="margin-left:40px; margin-bottom:24px; padding-top:9px; margin-right:18px;">
+
+          <div class="tw-text-xl tw-font-semibold">
+              <span class="tw-text-gray-400">Accounting</span>
+              <span class="tw-mx-2 tw-text-gray-300">|</span>
+              <span class="tw-text-gray-900">{{ $currentPage }}</span>
+          </div>
+
+          <div class="tw-text-sm tw-text-gray-400">
+              {{ \Carbon\Carbon::now()->format('d M, Y') }}
+          </div>
+
       </div>
+
+      @endif
+
+      @yield('content')
+
+      </div>
+
+
+
+
+
 
       {{--  FIXED FOOTER (ONLY HERE) --}}
       @include($pos_layout
@@ -453,7 +522,6 @@
 
     </script>
 
-
         <div class="modal fade view_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
 
         @if (!empty($__additional_views) && is_array($__additional_views))
@@ -483,9 +551,96 @@
             });
         }
     });
+
+
+    // Fix: Allow Bootstrap collapse in mobile sidebar
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 767) {
+            const toggleLink = e.target.closest('.side-bar [data-toggle="collapse"]');
+            if (toggleLink && document.body.classList.contains('mobile-sidebar-open')) {
+                e.stopPropagation();
+                const target = toggleLink.getAttribute('href') || toggleLink.getAttribute('data-target');
+                if (target) {
+                    const panel = document.querySelector(target);
+                    if (panel) {
+                        if (panel.classList.contains('in')) {
+                            panel.classList.remove('in');
+                            panel.style.height = '0';
+                        } else {
+                            // Close all others first
+                            document.querySelectorAll('.side-bar .chiled.in').forEach(function(el) {
+                                el.classList.remove('in');
+                                el.style.height = '0';
+                            });
+                            panel.classList.add('in');
+                            panel.style.height = 'auto';
+                        }
+                    }
+                }
+            }
+        }
+    }, true);
+
+
+   // Edge toggle for tablet (426-1023px)
+//    document.querySelector('.sidebar-edge-toggle')
+//        ?.addEventListener('click', function () {
+//            if (window.innerWidth <= 1023 && window.innerWidth >= 426) {
+//                document.body.classList.toggle('mobile-sidebar-open');
+//            }
+//        });
+
+
+// Edge toggle for tablet (426-1023px)
+document.querySelector('.sidebar-edge-toggle')
+    ?.addEventListener('click', function () {
+        if (window.innerWidth <= 1023 && window.innerWidth >= 426) {
+            const isOpen = document.body.classList.contains('mobile-sidebar-open');
+
+            if (isOpen) {
+                // CLOSING: remove open class
+                document.body.classList.remove('mobile-sidebar-open');
+            } else {
+                // OPENING: add open class, also remove sidebar-collapse
+                document.body.classList.add('mobile-sidebar-open');
+                document.body.classList.remove('sidebar-collapse');
+                document.documentElement.classList.remove('sidebar-collapse');
+            }
+        }
+    });
+
+// Close tablet sidebar when clicking main content
+document.getElementById('main-content')
+    ?.addEventListener('click', function (e) {
+        if (window.innerWidth >= 426 && window.innerWidth <= 1023) {
+            if (document.body.classList.contains('mobile-sidebar-open')) {
+                if (!e.target.closest('.side-bar') && !e.target.closest('.sidebar-edge-toggle')) {
+                    document.body.classList.remove('mobile-sidebar-open');
+                }
+            }
+        }
+    });
+
+   // Close on overlay click (works for both mobile and tablet)
+   document.getElementById('mobile-overlay')
+       ?.addEventListener('click', function () {
+           document.body.classList.remove('mobile-sidebar-open');
+       });
+
+// Close tablet sidebar when clicking main content area
+document.getElementById('main-content')
+    ?.addEventListener('click', function (e) {
+        if (window.innerWidth >= 426 && window.innerWidth <= 1023) {
+            if (document.body.classList.contains('mobile-sidebar-open')) {
+                if (!e.target.closest('.side-bar') && !e.target.closest('.sidebar-edge-toggle')) {
+                    document.body.classList.remove('mobile-sidebar-open');
+                }
+            }
+        }
+    });
+
+
     </script>
-
-
 
 
 </body>
@@ -494,7 +649,6 @@
         #scrollable-container {
             overflow: visible !important;
             height: auto !important;
-
         }
 
         /* Hide side menu */
@@ -615,6 +769,36 @@ body.sidebar-collapse .sidebar-scroll a svg {
     body.sidebar-collapse .chiled {
         display: none !important;
     }
+
+body.mobile-sidebar-open .side-bar .chiled,
+body.mobile-sidebar-open.sidebar-collapse .side-bar .chiled {
+    display: block !important;
+}
+
+body.mobile-sidebar-open .side-bar .chiled:not(.in),
+body.mobile-sidebar-open.sidebar-collapse .side-bar .chiled:not(.in) {
+    display: none !important;
+}
+
+body.mobile-sidebar-open .side-bar .fa-angle-down,
+body.mobile-sidebar-open .side-bar .fa-chevron-down,
+body.mobile-sidebar-open.sidebar-collapse .side-bar .fa-angle-down,
+body.mobile-sidebar-open.sidebar-collapse .side-bar .fa-chevron-down {
+    display: inline-block !important;
+}
+
+/* Fix: sidebar-collapse hides spans — restore them when mobile open */
+body.mobile-sidebar-open.sidebar-collapse .side-bar .sidebar-scroll span {
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: auto !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .side-bar .sidebar-scroll a {
+    justify-content: flex-start !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
 
     /* Adjust padding when collapsed */
     body.sidebar-collapse .sidebar-scroll {
@@ -1568,10 +1752,24 @@ font-size: 13px !important;
 }
 
 /* Small tablet */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .dashboard-metrics-bar {
         grid-template-columns: repeat(2, 1fr);
     }
+
+/* Override sidebar-collapse submenu hiding when mobile sidebar is open */
+body.mobile-sidebar-open .side-bar .chiled {
+    display: block !important;
+}
+
+body.mobile-sidebar-open .side-bar .chiled:not(.in) {
+    display: none !important;
+}
+
+body.mobile-sidebar-open .side-bar .fa-angle-down,
+body.mobile-sidebar-open .side-bar .fa-chevron-down {
+    display: inline-block !important;
+}
 }
 
 /* Mobile */
@@ -1581,13 +1779,6 @@ font-size: 13px !important;
     }
 }
 
-/* ================= GLOBAL FONT OVERRIDE ================= */
-
-/* html, */
-/* body, */
-/* * { */
-/*     font-family: 'Roboto', sans-serif !important; */
-/* } */
 
 /* Also force on common components */
 input,
@@ -1606,6 +1797,319 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     </style>
+
+
+<style>
+/* ===== MOBILE SIDEBAR OVERLAY SYSTEM ===== */
+
+@media (max-width: 768px) {
+
+
+/* Allow submenus to work when sidebar is open on mobile */
+body.mobile-sidebar-open .side-bar .chiled {
+    display: block !important;
+}
+
+body.mobile-sidebar-open .side-bar .fa-angle-down,
+body.mobile-sidebar-open .side-bar .fa-chevron-down {
+    display: inline-block !important;
+}
+
+/* Only show submenu if it has the 'in' class (Bootstrap open state) */
+body.mobile-sidebar-open .side-bar .chiled:not(.in) {
+    display: none !important;
+}
+
+/* Restore left-aligned links in submenus */
+body.mobile-sidebar-open .side-bar .chiled a {
+    justify-content: flex-start !important;
+    padding-left: 2rem !important;
+}
+
+    /* Completely hide sidebar off-screen */
+    .side-bar,
+    body.sidebar-collapse .side-bar,
+    html.sidebar-collapse .side-bar {
+        transform: translateX(-100%) !important;
+        width: 260px !important;
+        min-width: 260px !important;
+        transition: transform 0.3s ease !important;
+        z-index: 1050 !important;
+    }
+
+    /* When hamburger opens: slide in */
+    body.mobile-sidebar-open .side-bar {
+        transform: translateX(0) !important;
+        width: 260px !important;
+    }
+
+    /* Full width content — no strip */
+    #main-content,
+    body.sidebar-collapse #main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .app-footer-fixed,
+    body.sidebar-collapse .app-footer-fixed {
+        left: 0 !important;
+        width: 100% !important;
+    }
+
+
+    /* Show hamburger */
+    #mobileSidebarToggle {
+        display: inline-flex !important;
+    }
+
+    /* Hide desktop edge toggle */
+    .sidebar-edge-toggle {
+        display: none !important;
+    }
+
+    /* Overlay */
+    .mobile-sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 1040;
+    }
+
+    body.mobile-sidebar-open .mobile-sidebar-overlay {
+        display: block;
+    }
+
+    /* Restore full sidebar content when open */
+    body.mobile-sidebar-open .sidebar-brand {
+        margin-top: 0 !important;
+        justify-content: flex-start !important;
+        padding: 0 14px !important;
+    }
+
+    body.mobile-sidebar-open .side-bar .sidebar-scroll span,
+    body.mobile-sidebar-open .sidebar-logo-text {
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: auto !important;
+        white-space: nowrap !important;
+    }
+
+    body.mobile-sidebar-open .side-bar .sidebar-scroll a {
+        justify-content: flex-start !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+/* ===== Desktop: always visible ===== */
+@media (min-width: 1024px) {
+    .mobile-sidebar-overlay { display: none !important; }
+    #mobileSidebarToggle { display: none !important; }
+
+    .side-bar {
+        transform: translateX(0) !important;
+    }
+
+    body.sidebar-collapse .side-bar {
+        transform: translateX(0) !important;
+        width: 64px !important;
+    }
+}
+
+/* ===== 426px+: hide hamburger ===== */
+@media (min-width: 768px) {
+    #mobileSidebarToggle { display: none !important; }
+}
+
+/* ===== 426px to 1023px: Show sidebar STRIP + toggle button ===== */
+/* ===== 769px to 1023px: Show sidebar STRIP + toggle button ===== */
+@media (min-width: 768px) and (max-width: 1023px) { {
+
+    /* Sidebar as icon strip by default */
+    .side-bar,
+    body.sidebar-collapse .side-bar,
+    html.sidebar-collapse .side-bar {
+        transform: translateX(0) !important;
+        width: 64px !important;
+        min-width: 64px !important;
+        z-index: 1050 !important;
+    }
+
+    /* When opened: full width */
+    body.mobile-sidebar-open .side-bar {
+        transform: translateX(0) !important;
+        width: 260px !important;
+    }
+
+    /* Main content offset for strip */
+    #main-content,
+    body.sidebar-collapse #main-content {
+        margin-left: 64px !important;
+        width: calc(100% - 64px) !important;
+    }
+
+/*     body.mobile-sidebar-open #main-content { */
+/*         margin-left: 64px !important; */
+/*     } */
+
+/* When sidebar fully open: push content right */
+body.mobile-sidebar-open #main-content {
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    transition: margin-left 0.3s ease !important;
+}
+
+body.mobile-sidebar-open .app-footer-fixed {
+    left: 260px !important;
+    width: calc(100% - 260px) !important;
+}
+
+/* Remove dark overlay on tablet — content shifts instead */
+body.mobile-sidebar-open .mobile-sidebar-overlay {
+    display: none !important;
+}
+
+    /* Footer offset */
+    .app-footer-fixed,
+    body.sidebar-collapse .app-footer-fixed {
+        left: 54px !important;
+        width: calc(100% - 54px) !important;
+    }
+
+    /* Strip: hide text, center icons */
+    .side-bar .sidebar-scroll span,
+    .side-bar .sidebar-logo-text,
+    .side-bar .side-bar-heading {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        width: 0 !important;
+    }
+
+    .side-bar .sidebar-scroll a {
+        justify-content: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .side-bar .chiled,
+    .side-bar .fa-angle-down,
+    .side-bar .fa-chevron-down {
+        display: none !important;
+    }
+
+    .sidebar-brand {
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    /* Show edge toggle on tablet strip */
+    .sidebar-edge-toggle {
+        display: flex !important;
+        position: fixed !important;
+        top: 67px !important;
+        left: 64px !important;
+        transform: translateX(-50%) !important;
+        z-index: 1060 !important;
+    }
+
+    /* When fully open: move toggle to edge of full sidebar */
+    body.mobile-sidebar-open .sidebar-edge-toggle {
+        left: 260px !important;
+        transform: translateX(-50%) !important;
+    }
+
+    /* Arrow direction when open */
+    body.mobile-sidebar-open .sidebar-edge-toggle svg {
+        transform: rotate(180deg) !important;
+    }
+
+    body:not(.mobile-sidebar-open) .sidebar-edge-toggle svg {
+        transform: rotate(0deg) !important;
+    }
+
+    /* When sidebar fully open: restore text */
+    body.mobile-sidebar-open .side-bar .sidebar-scroll span,
+    body.mobile-sidebar-open .side-bar .sidebar-logo-text {
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: auto !important;
+        white-space: nowrap !important;
+    }
+
+    body.mobile-sidebar-open .side-bar .sidebar-scroll a {
+        justify-content: flex-start !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    body.mobile-sidebar-open .side-bar .chiled.in {
+        display: block !important;
+    }
+
+    body.mobile-sidebar-open .sidebar-brand {
+        justify-content: flex-start !important;
+        padding: 0 14px !important;
+    }
+
+    /* Hide hamburger on tablet — use edge toggle instead */
+    #mobileSidebarToggle {
+        display: none !important;
+    }
+
+    /* Overlay when fully open */
+    .mobile-sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1040;
+    }
+
+    body.mobile-sidebar-open .mobile-sidebar-overlay {
+        display: block;
+    }
+
+
+/* Force full sidebar appearance when open — override sidebar-collapse */
+body.mobile-sidebar-open.sidebar-collapse .side-bar {
+    width: 260px !important;
+    transform: translateX(0) !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .sidebar-scroll span,
+body.mobile-sidebar-open.sidebar-collapse .sidebar-logo-text,
+body.mobile-sidebar-open.sidebar-collapse .side-bar-heading {
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: auto !important;
+    white-space: nowrap !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .sidebar-scroll a {
+    justify-content: flex-start !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .fa-angle-down,
+body.mobile-sidebar-open.sidebar-collapse .fa-chevron-down {
+    display: inline-block !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .sidebar-brand {
+    justify-content: flex-start !important;
+    padding: 0 14px !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .sidebar-brand img {
+    display: block !important;
+}
+
+body.mobile-sidebar-open.sidebar-collapse .sidebar-logo-text {
+    display: inline-flex !important;
+}
+}
+</style>
 
 </html>
 
