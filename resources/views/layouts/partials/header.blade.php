@@ -342,13 +342,20 @@
 
     </div>
 </div>
-
 <script>
-     document.getElementById('mobileSidebarToggle')
+   document.getElementById('mobileSidebarToggle')
+       ?.addEventListener('click', function () {
+           const isOpen = document.body.classList.contains('mobile-sidebar-open');
+           if (!isOpen) {
+               document.body.classList.remove('sidebar-collapse');
+               document.documentElement.classList.remove('sidebar-collapse');
+           }
+           document.body.classList.toggle('mobile-sidebar-open');
+       });
+    document.getElementById('mobile-overlay')
         ?.addEventListener('click', function () {
-            document.body.classList.toggle('sidebar-collapse');
+            document.body.classList.remove('mobile-sidebar-open');
         });
-
 </script>
 
 

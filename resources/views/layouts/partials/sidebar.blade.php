@@ -38,6 +38,7 @@
      </a>
 
 
+
     <!--  Scrollable Menu -->
     <div class="tw-flex-1 tw-overflow-y-auto tw-overflow-x-hidden sidebar-scroll">
         {!! Menu::render('admin-sidebar-menu', 'adminltecustom') !!}
@@ -94,6 +95,14 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
+
+
+.main-sidebar,
+.side-bar {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 .sidebar-scroll {
