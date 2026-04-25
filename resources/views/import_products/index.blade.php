@@ -30,12 +30,12 @@
     <div class="row">
             <div class="col-sm-12">
                 @component('components.widget', ['class' => 'box-primary'])
-                    {!! Form::open(['url' => action([\App\Http\Controllers\ImportOpeningStockController::class, 'store']), 'method' => 'post', 'enctype' => 'multipart/form-data' ]) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\ImportProduct::class, 'store']), 'method' => 'post', 'enctype' => 'multipart/form-data' ]) !!}
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     {!! Form::label('name', __( 'product.file_to_import' ) . ':') !!}
-                                    @show_tooltip(__('lang_v1.tooltip_import_opening_stock'))
+                                    @show_tooltip(__('lang_v1.tooltip_import_product'))
                                     {!! Form::file('products_csv', ['accept'=> '.xls', 'required' => 'required']); !!}
                                 </div>
                             </div>
